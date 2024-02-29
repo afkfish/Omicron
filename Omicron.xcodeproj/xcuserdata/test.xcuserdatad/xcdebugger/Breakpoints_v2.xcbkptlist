@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "929E21F6-B804-452B-9F4B-984E86DEC214"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7B3E5435-F42D-4F2C-8FC2-432655BC3ABE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Omicron/Views/ListsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "scrapeData(url:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7B3E5435-F42D-4F2C-8FC2-432655BC3ABE - 261861172573f0e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Omicron.ListsView.scrapeData(url: Swift.String) -&gt; ()"
+                  moduleName = "Omicron"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/test/XcodeProjects/Omicron/Omicron/Views/ListsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  uuid = "7B3E5435-F42D-4F2C-8FC2-432655BC3ABE - 261861172573f0e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Omicron.ListsView.scrapeData(url: Swift.String) -&gt; ()"
+                  moduleName = "Omicron"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/test/XcodeProjects/Omicron/Omicron/Views/ListsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "412">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -12,6 +12,11 @@
 		5254084B2B874BA000521C6C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5254084A2B874BA000521C6C /* Item.swift */; };
 		5254084D2B874BA200521C6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5254084C2B874BA200521C6C /* Assets.xcassets */; };
 		525408502B874BA200521C6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5254084F2B874BA200521C6C /* Preview Assets.xcassets */; };
+		525408572B8A075E00521C6C /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408562B8A075E00521C6C /* Show.swift */; };
+		525408592B8A22FA00521C6C /* ListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408582B8A22FA00521C6C /* ListsView.swift */; };
+		5254085D2B8A369B00521C6C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5254085C2B8A369B00521C6C /* WebView.swift */; };
+		525408612B8B748000521C6C /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408602B8B748000521C6C /* ShowDetailsView.swift */; };
+		528778FB2B909F8C00729FB3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 528778FA2B909F8C00729FB3 /* SwiftSoup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +26,10 @@
 		5254084A2B874BA000521C6C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5254084C2B874BA200521C6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5254084F2B874BA200521C6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		525408562B8A075E00521C6C /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
+		525408582B8A22FA00521C6C /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
+		5254085C2B8A369B00521C6C /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		525408602B8B748000521C6C /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				528778FB2B909F8C00729FB3 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,9 +63,9 @@
 		525408452B874BA000521C6C /* Omicron */ = {
 			isa = PBXGroup;
 			children = (
+				5254085F2B8B73D700521C6C /* Model */,
+				5254085E2B8B73BD00521C6C /* Views */,
 				525408462B874BA000521C6C /* OmicronApp.swift */,
-				525408482B874BA000521C6C /* ContentView.swift */,
-				5254084A2B874BA000521C6C /* Item.swift */,
 				5254084C2B874BA200521C6C /* Assets.xcassets */,
 				5254084E2B874BA200521C6C /* Preview Content */,
 			);
@@ -68,6 +78,26 @@
 				5254084F2B874BA200521C6C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5254085E2B8B73BD00521C6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				525408482B874BA000521C6C /* ContentView.swift */,
+				5254085C2B8A369B00521C6C /* WebView.swift */,
+				525408582B8A22FA00521C6C /* ListsView.swift */,
+				525408602B8B748000521C6C /* ShowDetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5254085F2B8B73D700521C6C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5254084A2B874BA000521C6C /* Item.swift */,
+				525408562B8A075E00521C6C /* Show.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +116,9 @@
 			dependencies = (
 			);
 			name = Omicron;
+			packageProductDependencies = (
+				528778FA2B909F8C00729FB3 /* SwiftSoup */,
+			);
 			productName = Omicron;
 			productReference = 525408432B874BA000521C6C /* Omicron.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +147,9 @@
 				Base,
 			);
 			mainGroup = 5254083A2B874B9F00521C6C;
+			packageReferences = (
+				528778F92B909F8C00729FB3 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = 525408442B874BA000521C6C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,8 +176,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525408612B8B748000521C6C /* ShowDetailsView.swift in Sources */,
 				525408492B874BA000521C6C /* ContentView.swift in Sources */,
+				525408592B8A22FA00521C6C /* ListsView.swift in Sources */,
 				5254084B2B874BA000521C6C /* Item.swift in Sources */,
+				5254085D2B8A369B00521C6C /* WebView.swift in Sources */,
+				525408572B8A075E00521C6C /* Show.swift in Sources */,
 				525408472B874BA000521C6C /* OmicronApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,12 +313,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Omicron/Preview Content\"";
-				DEVELOPMENT_TEAM = 3PKRW86A3H;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3PKRW86A3H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Omicron;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -289,11 +333,17 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.Omicron;
+				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.benedekkis.Omicron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Benedek Kis - Student - 2024 - Profile #2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -302,12 +352,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Omicron/Preview Content\"";
-				DEVELOPMENT_TEAM = 3PKRW86A3H;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3PKRW86A3H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Omicron;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -318,11 +372,17 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.Omicron;
+				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.benedekkis.Omicron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Benedek Kis - Student - 2024 - Profile #2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -348,6 +408,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		528778F92B909F8C00729FB3 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		528778FA2B909F8C00729FB3 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 528778F92B909F8C00729FB3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5254083B2B874B9F00521C6C /* Project object */;
 }
