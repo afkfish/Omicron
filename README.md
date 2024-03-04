@@ -1,0 +1,2 @@
+# Omicron
+BME Önálló laboratórium
