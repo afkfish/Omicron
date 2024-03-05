@@ -17,6 +17,7 @@
 		5254085D2B8A369B00521C6C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5254085C2B8A369B00521C6C /* WebView.swift */; };
 		525408612B8B748000521C6C /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408602B8B748000521C6C /* ShowDetailsView.swift */; };
 		528778FB2B909F8C00729FB3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 528778FA2B909F8C00729FB3 /* SwiftSoup */; };
+		528778FD2B95F2D400729FB3 /* PopOverWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528778FC2B95F2D400729FB3 /* PopOverWebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		525408582B8A22FA00521C6C /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		5254085C2B8A369B00521C6C /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		525408602B8B748000521C6C /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
+		528778FC2B95F2D400729FB3 /* PopOverWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				5254085C2B8A369B00521C6C /* WebView.swift */,
 				525408582B8A22FA00521C6C /* ListsView.swift */,
 				525408602B8B748000521C6C /* ShowDetailsView.swift */,
+				528778FC2B95F2D400729FB3 /* PopOverWebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				525408612B8B748000521C6C /* ShowDetailsView.swift in Sources */,
 				525408492B874BA000521C6C /* ContentView.swift in Sources */,
 				525408592B8A22FA00521C6C /* ListsView.swift in Sources */,
+				528778FD2B95F2D400729FB3 /* PopOverWebView.swift in Sources */,
 				5254084B2B874BA000521C6C /* Item.swift in Sources */,
 				5254085D2B8A369B00521C6C /* WebView.swift in Sources */,
 				525408572B8A075E00521C6C /* Show.swift in Sources */,

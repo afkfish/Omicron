@@ -12,14 +12,51 @@ struct ShowDetailsView: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: show.image)!) {image in
-                image.resizable()
-            } placeholder: {
-                Text(show.image)
+            HStack {
+                Spacer()
+                AsyncImage(url: URL(string: show.image)!) {image in
+                    image.resizable()
+                } placeholder: {
+                    Text("Loading...")
+                }
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                Spacer()
+                VStack(alignment: .listRowSeparatorTrailing) {
+                    Spacer()
+                    Text(show.name)
+                        .bold()
+                        .padding(.bottom)
+                    Label(String(show.score), systemImage: "star.fill")
+                    Text("Seasons: \(String(show.seasons))")
+                }
+                .padding(.vertical)
+                Spacer()
             }
-            HStack(alignment: .center) {
-                Text(show.name)
+            .frame(height: 200)
+            HStack {
+                Text(show.airDate)
+                Spacer()
+                Text(show.rating)
+                Spacer()
+                Text(show.episodeLength)
             }
+            .padding(.top)
+            .padding(.horizontal)
+            HStack {
+                Text("Episode count: ")
+                    .bold()
+                Spacer()
+                Text(String(show.episodes))
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+
+            Text(show.desc)
+                .padding(.horizontal)
+            
+            
+            Spacer()
         }
     }
 }
