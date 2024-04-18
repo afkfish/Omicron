@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct ShowDetailsView: View {
+struct DetailsView: View {
     @Binding var show: Show
     
     var body: some View {
         VStack {
             HStack {
-                Spacer()
                 AsyncImage(url: URL(string: show.image)!) {image in
                     image.resizable()
                 } placeholder: {
@@ -22,17 +21,17 @@ struct ShowDetailsView: View {
                 .scaledToFit()
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 Spacer()
-                VStack(alignment: .listRowSeparatorTrailing) {
+                VStack(alignment: .trailing) {
                     Spacer()
-                    Text(show.name)
-                        .bold()
-                        .padding(.bottom)
+//                    Text(show.name)
+//                        .bold()
+//                        .padding(.bottom)
                     Label(String(show.score), systemImage: "star.fill")
-                    Text("Seasons: \(String(show.seasons))")
+                    Text("Seasons: \(show.seasonCount)")
                 }
                 .padding(.vertical)
-                Spacer()
             }
+            .padding(.horizontal)
             .frame(height: 200)
             HStack {
                 Text(show.airDate)
@@ -58,9 +57,10 @@ struct ShowDetailsView: View {
             
             Spacer()
         }
+        .navigationTitle(show.name)
     }
 }
 
 #Preview {
-    ShowDetailsView(show: Binding.constant(Show.exaple))
+    DetailsView(show: Binding.constant(Show.exaple))
 }
