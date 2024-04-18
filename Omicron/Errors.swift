@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum DataError: Error {
+    case scrapeError
+    case apiError
+    case fetchError(URLResponse)
+}

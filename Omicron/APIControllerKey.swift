@@ -9,9 +9,12 @@ import Foundation
 import SwiftUI
 
 private struct APIControllerKey: EnvironmentKey {
-    static let defaultValue = TVDbAPIController()
+    static let defaultValue: APIController = TVDbAPIController()
 }
 
 extension EnvironmentValues {
-    var defaultAPIController:  = self.defaultAPIController
+    var defaultAPIController: APIController {
+        get { self[APIControllerKey.self] }
+        set { self[APIControllerKey.self] = newValue }
+    }
 }

@@ -14,12 +14,33 @@ struct ContentView: View {
         TabView {
             ListsView()
                 .tabItem { Label("Lists", systemImage: "list.star") }.tag(1)
-            Text("Tab Content 2").tabItem { Label("Profile", systemImage: "person") }.tag(2)
+                .toolbarBackground(Color.offWhite, for: .tabBar)
+
+            BrowseView()
+                .tabItem { Label("Browse", systemImage: "globe") }.tag(2)
+                .toolbarBackground(Color.offWhite, for: .tabBar)
+
+            VStack(alignment: .center) {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Text("Tab Content 2")
+                    Spacer()
+                }
+                Spacer()
+            }
+            .background(Color.offWhite)
+            .tabItem { Label("Profile", systemImage: "person") }.tag(3)
         }
+
+    }
+    
+    func addDebug() {
+        modelContext.insert(Show.exaple)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Show.self, inMemory: true)
+        .modelContainer(for: [Show.self, ShowInfo.self], inMemory: true)
 }

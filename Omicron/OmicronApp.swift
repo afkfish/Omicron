@@ -11,9 +11,7 @@ import SwiftData
 @main
 struct OmicronApp: App {
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Show.self,
-        ])
+        let schema = Schema([Show.self, ShowInfo.self])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {

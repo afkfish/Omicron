@@ -8,45 +8,36 @@
 import SwiftUI
 import SwiftData
 import SwiftSoup
+import Combine
 
 struct ListsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var shows: [Show]
     
-    @State private var showSafari = false
-    @State private var scrape_error: Bool = false
     @State private var searchText = ""
-    
-    static let baseURL = "https://www.imdb.com/search/title/?title_type=tv_series"
-    
+        
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(searchResults) {show in
-                    NavigationLink {
-                        ShowDetailsView(show: Binding.constant(show))
-                    } label: {
-                        Text(show.name)
+        NavigationStack {
+            ZStack {
+                Color.offWhite
+                    .ignoresSafeArea(.all)
+                List {
+                    ForEach(searchResults) {show in
+                        NavigationLink {
+                            DetailsView(show: Binding.constant(show))
+                        } label: {
+                            Text(show.name)
+                        }
                     }
+                    .onDelete(perform: deleteItems)
+                    .listRowBackground(Color.offWhite)
                 }
-                .onDelete(perform: deleteItems)
+                .scrollContentBackground(.hidden)
+                .listStyle(.plain)
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Title of the show")
+                .navigationTitle("My list")
+                .toolbarBackground(Color.offWhite, for: .navigationBar)
             }
-            .searchable(text: $searchText, prompt: "Title of the show")
-            .toolbar {
-                ToolbarItem {
-                    Button(action: {
-                        showSafari = true
-                    }, label: {
-                        Label("Add Item", systemImage: "plus")
-                    })
-                    .popover(isPresented: $showSafari) {
-                        PopOverWebView(showSafari: $showSafari, scrapeError: $scrape_error)
-                    }
-                }
-            }
-        }
-        .alert("Error in parsing the show!", isPresented: $scrape_error) {
-            Button("OK", role: .cancel) {}
         }
     }
     
@@ -66,8 +57,10 @@ struct ListsView: View {
         }
     }
     
-    func addDebug() {
-        modelContext.insert(Show.exaple)
+    private func addShow(show: Show) {
+        withAnimation {
+            modelContext.insert(show)
+        }
     }
 }
 
