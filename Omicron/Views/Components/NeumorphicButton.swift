@@ -10,11 +10,19 @@ import SwiftUI
 
 struct NeumorphicButton<S: Shape>: ButtonStyle {
     var shape: S
+    var width: CGFloat = 0
     
     func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding(15)
-            .background(Background(isPressed: configuration.isPressed, shape: shape))
+        if !width.isZero {
+            configuration.label
+                .frame(width: width)
+                .padding(15)
+                .background(Background(isPressed: configuration.isPressed, shape: shape))
+        } else {
+            configuration.label
+                .padding(15)
+                .background(Background(isPressed: configuration.isPressed, shape: shape))
+        }
     }
 }
 

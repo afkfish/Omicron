@@ -50,6 +50,7 @@ extension ShowInfo {
             status: data.status,
             year: Int(NSString(string: data.year ?? "0").intValue)
         )
+        primaryLang.replace(/m/, with: "")
     }
 }
 

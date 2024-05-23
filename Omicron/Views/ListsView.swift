@@ -7,12 +7,12 @@
 
 import SwiftUI
 import SwiftData
-import SwiftSoup
 import Combine
 
 struct ListsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var shows: [Show]
+    @ObservedObject private var vm = ListsViewModel()
     
     @State private var searchText = ""
         
@@ -27,39 +27,40 @@ struct ListsView: View {
                             DetailsView(show: Binding.constant(show))
                         } label: {
                             Text(show.name)
+                            Spacer()
+                            Text(show.score == 0 ? "-" : String(show.score))
                         }
                     }
-                    .onDelete(perform: deleteItems)
+                    .onDelete(perform: vm.deleteItems)
                     .listRowBackground(Color.offWhite)
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Title of the show")
-                .navigationTitle("My list")
+                .navigationTitle("Saved")
                 .toolbarBackground(Color.offWhite, for: .navigationBar)
             }
+            .onAppear {
+                vm.start(modelContext: modelContext)
+            }
+        }
+    }
+    
+    var userShows: [Show] {
+        if AuthStore().data.authenticated {
+            return shows.filter {show in
+                FireStore.shared.user!.lists["favourites"]!.contains(String(show.id))
+            }
+        } else {
+            return shows
         }
     }
     
     var searchResults: [Show] {
         if searchText.isEmpty {
-            return shows
+            return userShows
         } else {
-            return shows.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        }
-    }
-    
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(shows[index])
-            }
-        }
-    }
-    
-    private func addShow(show: Show) {
-        withAnimation {
-            modelContext.insert(show)
+            return userShows.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         }
     }
 }

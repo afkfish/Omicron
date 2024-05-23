@@ -9,18 +9,28 @@ import SwiftUI
 import SwiftData
 
 struct BrowseView: View {
+    @Environment(\.modelContext) private var modelcontext
     @Environment(\.defaultAPIController) private var apiController
-    @Environment(\.modelContext) private var modelContext
     @Query(sort: \ShowInfo.name, order: .forward) private var baseDetails: [ShowInfo]
+    @ObservedObject private var vm = BrowseViewModel()
     
-    @State private var searchItems: Array<ShowInfo> = Array()
-    @State private var searchText: String = ""
-    
-    @State private var popular: [String]?
+    var filteredSearchItems: [ShowInfo] {
+        if (vm.searchText.isEmpty) {
+            baseDetails
+        } else {
+            baseDetails.filter { $0.name.lowercased().contains(vm.searchText.lowercased()) }
+        }
+    }
     
     var body: some View {
         NavigationStack {
             ZStack {
+                if (filteredSearchItems.isEmpty) {
+                    VStack {
+                        Text("Search to see more!")
+                        Spacer()
+                    }
+                }
                 List {
                     ForEach(filteredSearchItems) {item in
                         NavigationLink {
@@ -40,55 +50,21 @@ struct BrowseView: View {
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
-                .searchable(text: $searchText, prompt: "Search show")
-                .onSubmit(of: .search) {
-                    apiController.search(for: searchText) {searchResult in
-                        addSearchItems(searchResult: searchResult)
-                    }
-                }
-                .onAppear {
-                    if (searchItems.isEmpty) {
-                        apiController.search(for: "A") {searchResult in
-                            addSearchItems(searchResult: searchResult)
+                .searchable(text: $vm.searchText, prompt: "Search for a show")
+                .onChange(of: vm.searchText) {
+                    if (filteredSearchItems.count < 10) {
+                        Task {
+                            await vm.search(apiController)
                         }
                     }
                 }
                 .navigationTitle("Browse")
                 .toolbarBackground(Color.offWhite, for: .navigationBar)
             }
-            .background(Color.offWhite)
-        }
-        
-    }
-    
-    private var filteredSearchItems: [ShowInfo] {
-        if (searchText.isEmpty) {
-            searchItems
-        } else {
-            searchItems.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        }
-    }
-    
-    private func addShow(show: Show) {
-        withAnimation {
-            modelContext.insert(show)
-        }
-    }
-    
-    private func addSearchItems(searchResult: SearchDTO) {
-        withAnimation {
-            searchResult.data?.forEach {item in
-                if (!searchItems.contains(where: {$0.name == item.name})) {
-                    searchItems.append(ShowInfo(from: item))
-                }
+            .onAppear {
+                vm.start(modelContext: modelcontext)
             }
-            searchItems.sort(by: {$0.name < $1.name})
-        }
-    }
-    
-    private func deleteShowInfos() {
-        withAnimation {
-            searchItems.removeAll()
+            .background(Color.offWhite)
         }
     }
 }

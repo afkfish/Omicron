@@ -11,10 +11,9 @@ import SwiftData
 struct SearchDetailsView: View {
     @Environment(\.defaultAPIController) private var apiController
     @Environment(\.modelContext) private var modelContext
-    @Query private var shows: [Show]
+    @ObservedObject private var vm = SearchDetailViewModel()
 
     @Binding var show: ShowInfo
-    
     @State private var addedSuccesfuly = false
 
     var body: some View {
@@ -56,94 +55,26 @@ struct SearchDetailsView: View {
                 Spacer()
                 Button("Add show to list") {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    addShow(id: Int(show.id)!)
+                    Task {
+                        await vm.addShow(id: Int(show.id)!, apiController)
+                    }
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
                 .padding()
+            }
+            .onChange(of: vm.show) {
+                if vm.show != nil {
+                    saveShow()
+                    addedSuccesfuly = true
+                }
             }
             .navigationTitle(show.name)
             .alert("Show added to list", isPresented: $addedSuccesfuly) {}
         }
     }
     
-    private func addShow(id: Int) {
-        // Check if the show with the given ID is already present
-        guard !shows.contains(where: { $0.id == id }) else {
-            return // Show already exists, no need to fetch again
-        }
-        
-        // Define a function to fetch series data recursively
-        func fetchSeriesRecursively(show: Show, pageNum: Int = 0) {
-            apiController.getSeries(id: id, page: pageNum) { data, leftover in
-                let fetchedShow = Show(from: data)
-                var baseShow = show
-                if pageNum == 0 {
-                    baseShow = fetchedShow
-                }
-                print(leftover)
-                
-                // Aggregate episodes from the fetched show to the existing show object
-                fetchedShow.seasons.forEach { (key, value) in
-                    print(key)
-                    if let existingSeason = baseShow.seasons[key] {
-                        var combinedEpisodes = existingSeason.episodes
-                        combinedEpisodes.append(contentsOf: value.episodes)
-                        baseShow.seasons[key] = Season(id: existingSeason.id, episodes: combinedEpisodes)
-                    } else {
-                        baseShow.seasons[key] = value
-                    }
-                }
-                
-                // If there are leftover items, fetch the next page recursively
-                if leftover > 0 {
-                    fetchSeriesRecursively(show: baseShow, pageNum: pageNum + 1)
-                } else {
-                    // No leftover items, all data fetched, insert the aggregated show into the model context
-                    withAnimation {
-                        modelContext.insert(baseShow)
-                        addedSuccesfuly = true
-                    }
-                }
-            }
-        }
-
-        // Start fetching series data recursively with an empty show object
-        var emptyShow = Show(id: id) // Assuming you have an initializer for Show with just ID
-        fetchSeriesRecursively(show: emptyShow)
-        
-        
-        
-        
-        
-//        if (!shows.contains {$0.id == id}) {
-//            var pageNum = 0
-//            apiController.getSeries(id: id, page: pageNum) {data, leftover in
-//                let sh = Show(from: data)
-//                print(leftover)
-//                if (leftover > 0) {
-//                    pageNum += 1
-//                    apiController.getSeries(id: id, page: pageNum) {data2, leftover in
-//                        addedSuccesfuly = true
-//                        let sho = Show(from: data2)
-//                        sho.seasons.forEach {
-//                            if sh.seasons[$0.key] != nil {
-//                                sh.seasons[$0.key]!.episodes.append(contentsOf: $0.value.episodes)
-//                            } else {
-//                                sh.seasons[$0.key] = $0.value
-//                            }
-//                        }
-//                        withAnimation {
-//                            modelContext.insert(sh)
-//                        }
-//                    }
-//                } else {
-//                    addedSuccesfuly = true
-//                    withAnimation {
-//                        modelContext.insert(sh)
-//                    }
-//                }
-//            }
-//        }
+    func saveShow() {
+        modelContext.insert(vm.show!)
     }
 }
 

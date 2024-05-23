@@ -15,6 +15,22 @@
 		525408592B8A22FA00521C6C /* ListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408582B8A22FA00521C6C /* ListsView.swift */; };
 		525408612B8B748000521C6C /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408602B8B748000521C6C /* DetailsView.swift */; };
 		5264489C2BCE6A0500D9CBE7 /* OffWhite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5264489B2BCE6A0500D9CBE7 /* OffWhite.swift */; };
+		526C0E802BF3D7B800D6A2F6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C0E7F2BF3D7B800D6A2F6 /* LoginViewModel.swift */; };
+		526C0E822BF66EF300D6A2F6 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C0E812BF66EF300D6A2F6 /* LandingView.swift */; };
+		526C0E842BF67B2400D6A2F6 /* ShowImageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C0E832BF67B2400D6A2F6 /* ShowImageCard.swift */; };
+		526C0E862BF6883700D6A2F6 /* ListsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C0E852BF6883700D6A2F6 /* ListsViewModel.swift */; };
+		5278117A2BD9117600B9F3D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 527811792BD9117600B9F3D1 /* GoogleService-Info.plist */; };
+		5278117D2BD9147200B9F3D1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5278117C2BD9147200B9F3D1 /* FirebaseAnalytics */; };
+		5278117F2BD9147200B9F3D1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5278117E2BD9147200B9F3D1 /* FirebaseAuth */; };
+		527811812BD9147200B9F3D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 527811802BD9147200B9F3D1 /* FirebaseFirestore */; };
+		527811842BD9188400B9F3D1 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811832BD9188400B9F3D1 /* Firebase.swift */; };
+		527811862BD91F9800B9F3D1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811852BD91F9800B9F3D1 /* ProfileView.swift */; };
+		527811882BD9265700B9F3D1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811872BD9265700B9F3D1 /* User.swift */; };
+		5278118C2BD94E9600B9F3D1 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278118B2BD94E9600B9F3D1 /* Errors.swift */; };
+		5278118E2BDA350200B9F3D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278118D2BDA350200B9F3D1 /* LoginView.swift */; };
+		527811902BDA4E0F00B9F3D1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278118F2BDA4E0F00B9F3D1 /* LoginResponse.swift */; };
+		527811932BDA4F7000B9F3D1 /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811922BDA4F7000B9F3D1 /* SearchDetailViewModel.swift */; };
+		527811952BDFBB0F00B9F3D1 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811942BDFBB0F00B9F3D1 /* BrowseViewModel.swift */; };
 		52901DDE2BA489E5003D44F8 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52901DDD2BA489E5003D44F8 /* Season.swift */; };
 		52901DE02BA48A4C003D44F8 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52901DDF2BA48A4C003D44F8 /* Episode.swift */; };
 		52901DE62BA4B121003D44F8 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52901DE52BA4B121003D44F8 /* BrowseView.swift */; };
@@ -25,6 +41,8 @@
 		52C9E76F2BB5BD59007017E3 /* SearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9E76E2BB5BD59007017E3 /* SearchDTO.swift */; };
 		52C9E7732BB831BE007017E3 /* SearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9E7722BB831BE007017E3 /* SearchRowView.swift */; };
 		52C9E7772BB86300007017E3 /* SearchDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9E7762BB86300007017E3 /* SearchDetailsView.swift */; };
+		52E687AA2BFF2EDB00C50ADE /* SeasonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E687A92BFF2EDB00C50ADE /* SeasonsView.swift */; };
+		52E687AC2BFF3DE600C50ADE /* SingleSeasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E687AB2BFF3DE600C50ADE /* SingleSeasonView.swift */; };
 		52EAB5612BCDAA5E00604623 /* APIControllerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */; };
 		52EAB5632BCDAB1200604623 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EAB5622BCDAB1200604623 /* APIController.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +57,19 @@
 		525408582B8A22FA00521C6C /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		525408602B8B748000521C6C /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		5264489B2BCE6A0500D9CBE7 /* OffWhite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffWhite.swift; sourceTree = "<group>"; };
+		526C0E7F2BF3D7B800D6A2F6 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		526C0E812BF66EF300D6A2F6 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		526C0E832BF67B2400D6A2F6 /* ShowImageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageCard.swift; sourceTree = "<group>"; };
+		526C0E852BF6883700D6A2F6 /* ListsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModel.swift; sourceTree = "<group>"; };
+		527811792BD9117600B9F3D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		527811832BD9188400B9F3D1 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		527811852BD91F9800B9F3D1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		527811872BD9265700B9F3D1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5278118B2BD94E9600B9F3D1 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		5278118D2BDA350200B9F3D1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5278118F2BDA4E0F00B9F3D1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		527811922BDA4F7000B9F3D1 /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
+		527811942BDFBB0F00B9F3D1 /* BrowseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		52901DDD2BA489E5003D44F8 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
 		52901DDF2BA48A4C003D44F8 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		52901DE52BA4B121003D44F8 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
@@ -49,6 +80,8 @@
 		52C9E76E2BB5BD59007017E3 /* SearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDTO.swift; sourceTree = "<group>"; };
 		52C9E7722BB831BE007017E3 /* SearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRowView.swift; sourceTree = "<group>"; };
 		52C9E7762BB86300007017E3 /* SearchDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsView.swift; sourceTree = "<group>"; };
+		52E687A92BFF2EDB00C50ADE /* SeasonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsView.swift; sourceTree = "<group>"; };
+		52E687AB2BFF3DE600C50ADE /* SingleSeasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSeasonView.swift; sourceTree = "<group>"; };
 		52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIControllerKey.swift; sourceTree = "<group>"; };
 		52EAB5622BCDAB1200604623 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +91,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5278117D2BD9147200B9F3D1 /* FirebaseAnalytics in Frameworks */,
+				5278117F2BD9147200B9F3D1 /* FirebaseAuth in Frameworks */,
+				527811812BD9147200B9F3D1 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,14 +119,17 @@
 		525408452B874BA000521C6C /* Omicron */ = {
 			isa = PBXGroup;
 			children = (
-				52901DE12BA49958003D44F8 /* DTOs */,
-				528778FE2B9A5F2800729FB3 /* Controller */,
-				5254085F2B8B73D700521C6C /* Model */,
-				5254085E2B8B73BD00521C6C /* Views */,
 				525408462B874BA000521C6C /* OmicronApp.swift */,
-				5254084C2B874BA200521C6C /* Assets.xcassets */,
+				527811912BDA4F6000B9F3D1 /* ViewModels */,
+				5254085E2B8B73BD00521C6C /* Views */,
+				5254085F2B8B73D700521C6C /* Model */,
+				527811822BD9187200B9F3D1 /* Database */,
+				528778FE2B9A5F2800729FB3 /* Controller */,
 				5254084E2B874BA200521C6C /* Preview Content */,
+				5278118B2BD94E9600B9F3D1 /* Errors.swift */,
 				52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */,
+				527811792BD9117600B9F3D1 /* GoogleService-Info.plist */,
+				5254084C2B874BA200521C6C /* Assets.xcassets */,
 			);
 			path = Omicron;
 			sourceTree = "<group>";
@@ -113,6 +152,11 @@
 				52901DE52BA4B121003D44F8 /* BrowseView.swift */,
 				52C9E7722BB831BE007017E3 /* SearchRowView.swift */,
 				52C9E7762BB86300007017E3 /* SearchDetailsView.swift */,
+				527811852BD91F9800B9F3D1 /* ProfileView.swift */,
+				5278118D2BDA350200B9F3D1 /* LoginView.swift */,
+				526C0E812BF66EF300D6A2F6 /* LandingView.swift */,
+				52E687A92BFF2EDB00C50ADE /* SeasonsView.swift */,
+				52E687AB2BFF3DE600C50ADE /* SingleSeasonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -120,12 +164,35 @@
 		5254085F2B8B73D700521C6C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				52C9E76E2BB5BD59007017E3 /* SearchDTO.swift */,
+				52C9E7682BB5AFD9007017E3 /* ShowDTO.swift */,
 				525408562B8A075E00521C6C /* Show.swift */,
 				52901DDD2BA489E5003D44F8 /* Season.swift */,
 				52901DDF2BA48A4C003D44F8 /* Episode.swift */,
 				52901DE92BA4C2B9003D44F8 /* ShowInfo.swift */,
+				527811872BD9265700B9F3D1 /* User.swift */,
+				5278118F2BDA4E0F00B9F3D1 /* LoginResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		527811822BD9187200B9F3D1 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				527811832BD9188400B9F3D1 /* Firebase.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		527811912BDA4F6000B9F3D1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				527811922BDA4F7000B9F3D1 /* SearchDetailViewModel.swift */,
+				527811942BDFBB0F00B9F3D1 /* BrowseViewModel.swift */,
+				526C0E7F2BF3D7B800D6A2F6 /* LoginViewModel.swift */,
+				526C0E852BF6883700D6A2F6 /* ListsViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		528778FE2B9A5F2800729FB3 /* Controller */ = {
@@ -137,20 +204,12 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		52901DE12BA49958003D44F8 /* DTOs */ = {
-			isa = PBXGroup;
-			children = (
-				52C9E7682BB5AFD9007017E3 /* ShowDTO.swift */,
-				52C9E76E2BB5BD59007017E3 /* SearchDTO.swift */,
-			);
-			path = DTOs;
-			sourceTree = "<group>";
-		};
 		52BABFD52BD167910087C412 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				5264489B2BCE6A0500D9CBE7 /* OffWhite.swift */,
 				52BABFD62BD167AD0087C412 /* NeumorphicButton.swift */,
+				526C0E832BF67B2400D6A2F6 /* ShowImageCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -172,6 +231,9 @@
 			);
 			name = Omicron;
 			packageProductDependencies = (
+				5278117C2BD9147200B9F3D1 /* FirebaseAnalytics */,
+				5278117E2BD9147200B9F3D1 /* FirebaseAuth */,
+				527811802BD9147200B9F3D1 /* FirebaseFirestore */,
 			);
 			productName = Omicron;
 			productReference = 525408432B874BA000521C6C /* Omicron.app */;
@@ -202,6 +264,7 @@
 			);
 			mainGroup = 5254083A2B874B9F00521C6C;
 			packageReferences = (
+				5278117B2BD9147200B9F3D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 525408442B874BA000521C6C /* Products */;
 			projectDirPath = "";
@@ -218,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				525408502B874BA200521C6C /* Preview Assets.xcassets in Resources */,
+				5278117A2BD9117600B9F3D1 /* GoogleService-Info.plist in Resources */,
 				5254084D2B874BA200521C6C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,20 +295,34 @@
 			files = (
 				525408612B8B748000521C6C /* DetailsView.swift in Sources */,
 				525408492B874BA000521C6C /* ContentView.swift in Sources */,
+				526C0E862BF6883700D6A2F6 /* ListsViewModel.swift in Sources */,
 				525408592B8A22FA00521C6C /* ListsView.swift in Sources */,
+				52E687AA2BFF2EDB00C50ADE /* SeasonsView.swift in Sources */,
+				527811842BD9188400B9F3D1 /* Firebase.swift in Sources */,
+				527811952BDFBB0F00B9F3D1 /* BrowseViewModel.swift in Sources */,
+				5278118E2BDA350200B9F3D1 /* LoginView.swift in Sources */,
 				52C9E7772BB86300007017E3 /* SearchDetailsView.swift in Sources */,
 				52901DEA2BA4C2B9003D44F8 /* ShowInfo.swift in Sources */,
+				526C0E802BF3D7B800D6A2F6 /* LoginViewModel.swift in Sources */,
 				52901DE62BA4B121003D44F8 /* BrowseView.swift in Sources */,
 				5264489C2BCE6A0500D9CBE7 /* OffWhite.swift in Sources */,
+				526C0E842BF67B2400D6A2F6 /* ShowImageCard.swift in Sources */,
 				52901DDE2BA489E5003D44F8 /* Season.swift in Sources */,
 				52EAB5612BCDAA5E00604623 /* APIControllerKey.swift in Sources */,
 				52C9E7692BB5AFD9007017E3 /* ShowDTO.swift in Sources */,
 				52EAB5632BCDAB1200604623 /* APIController.swift in Sources */,
+				527811882BD9265700B9F3D1 /* User.swift in Sources */,
+				526C0E822BF66EF300D6A2F6 /* LandingView.swift in Sources */,
+				527811902BDA4E0F00B9F3D1 /* LoginResponse.swift in Sources */,
+				527811862BD91F9800B9F3D1 /* ProfileView.swift in Sources */,
 				52C9E76F2BB5BD59007017E3 /* SearchDTO.swift in Sources */,
+				52E687AC2BFF3DE600C50ADE /* SingleSeasonView.swift in Sources */,
 				52901DE02BA48A4C003D44F8 /* Episode.swift in Sources */,
 				525408572B8A075E00521C6C /* Show.swift in Sources */,
 				525408472B874BA000521C6C /* OmicronApp.swift in Sources */,
+				5278118C2BD94E9600B9F3D1 /* Errors.swift in Sources */,
 				52C9E7732BB831BE007017E3 /* SearchRowView.swift in Sources */,
+				527811932BDA4F7000B9F3D1 /* SearchDetailViewModel.swift in Sources */,
 				52C9E76C2BB5B63D007017E3 /* TVDbAPIController.swift in Sources */,
 				52BABFD72BD167AD0087C412 /* NeumorphicButton.swift in Sources */,
 			);
@@ -474,6 +552,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5278117B2BD9147200B9F3D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5278117C2BD9147200B9F3D1 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5278117B2BD9147200B9F3D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		5278117E2BD9147200B9F3D1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5278117B2BD9147200B9F3D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		527811802BD9147200B9F3D1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5278117B2BD9147200B9F3D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5254083B2B874B9F00521C6C /* Project object */;
 }

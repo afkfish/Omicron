@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Combine
+
 
 protocol APIController {
-    func login(with key: String, set: @escaping (String?) -> Void)
-    func search(for q: String, result: @escaping (SearchDTO) -> Void)
-    func getSeries(id: Int, page: Int, result: @escaping (ShowDTO, Int) -> Void)
-    func doRequest<T: Codable>(request: URLRequest, _: T, debugMessage: String?, callback: @escaping (T) -> Void)
+    func login(with key: String) async -> AnyPublisher<LoginResponse, Never>
+    func search(for q: String) async -> AnyPublisher<SearchDTO, Never>
+    func getSeries(id: Int, page: Int) async -> AnyPublisher<ShowDTO, Never>
+    func doRequest<T: Codable>(request: URLRequest, _: T.Type) -> AnyPublisher<T, Never>
 }

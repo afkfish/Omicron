@@ -25,6 +25,7 @@ final class Show: Identifiable {
     
 //    final var rating: String
     var seasons: [Int:Season] = [:]
+    var progress: [Int:Int] = [:]
     var seasonCount: Int { seasons.count }
     var episodes: Int
     
@@ -51,7 +52,8 @@ final class Show: Identifiable {
 
 extension Show {
     static var exaple: Show {
-        let show = Show(id: 0, name: "Adventure Time", image: "https://m.media-amazon.com/images/M/MV5BMGFkNGY4NGMtZjY0NC00YTI0LThiZjMtMjBmZGMzOGU3YTdmXkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_.jpg", firstAired: "2010", lastAired: "2018", nextAired: "", score: 10, status: "ended", originalLanguage: "engm", runningTimeInMinutes: 11, desc: "asd", year: "2010", seasons: [:], episodes: 500, link: URL(string: "https://www.imdb.com/title/tt1305826/"))
+        let seasons = [1:Season(id: 1, episodes: [Episode(id: 1, name: "alma", aired: "2020", runtime: 21, episodeNumber: 1, seasonNumber: 1)])]
+        let show = Show(id: 0, name: "Adventure Time", image: "https://m.media-amazon.com/images/M/MV5BMGFkNGY4NGMtZjY0NC00YTI0LThiZjMtMjBmZGMzOGU3YTdmXkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_.jpg", firstAired: "2010", lastAired: "2018", nextAired: "", score: 10, status: "ended", originalLanguage: "engm", runningTimeInMinutes: 11, desc: "asd", year: "2010", seasons: seasons, episodes: 500, link: URL(string: "https://www.imdb.com/title/tt1305826/"))
         return show
     }
 }
@@ -62,6 +64,10 @@ extension Show {
     }
     
     convenience init(from data: ShowDTO) {
+        guard data.data != nil else {
+            self.init(id: 0)
+            return
+        }
         let dt = data.data!
         self.init(id: dt.series.id)
         
@@ -74,7 +80,7 @@ extension Show {
         self.status = dt.series.status.name
         self.originalLanguage = dt.series.originalLanguage
         self.year = dt.series.firstAired
-        self.score = dt.series.score
+        self.score = 0
         self.desc = dt.series.overview
         self.link = URL(string: "")
         self.image = dt.series.image
