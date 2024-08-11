@@ -12,7 +12,7 @@ struct SeasonsView: View {
     
     var body: some View {
         ScrollView {
-            ForEach(Array(show.seasons), id: \.key) {(key: Int, season: Season) in
+            ForEach(Array(show.seasons.sorted {$0.key < $1.key}), id: \.key) {(key: Int, season: Season) in
                 @State var se = show.seasons[key]!
                 SingleSeasonView(season: $se, key: key, progress: $show.progress)
             }

@@ -36,7 +36,6 @@ struct DetailsView: View {
                     }
                     .padding(.vertical)
                 }
-                .padding(.horizontal)
                 .frame(height: 200)
                 HStack {
                     Text(show.firstAired)
@@ -44,21 +43,18 @@ struct DetailsView: View {
                     Text("Episode length: \(show.runningTimeInMinutes)m")
                 }
                 .padding(.top)
-                .padding(.horizontal)
                 HStack {
-                    Text("Episode count: ")
+                    Text("Overall progress: ")
                         .bold()
                     Spacer()
-                    Text(String(show.episodes))
+                    Text(String(show.progress.map {$0.value}.reduce(0, +)) + "/" + String(show.episodes))
                 }
-                .padding(.horizontal)
                 .padding(.bottom)
-                
                 Text(show.desc)
-                    .padding(.horizontal)
                 Spacer()
-                SeasonsView(show: show)
+                SeasonsView(show: $show)
             }
+            .padding(.horizontal)
             .blur(radius: ratingOverlayPresented ? 3 : 0)
             .navigationTitle(show.name)
             if (ratingOverlayPresented) {
@@ -93,9 +89,7 @@ struct DetailsView: View {
                 .background(Color.offWhite)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .shadow(radius: 10)
-                
             }
-                
         }
         .onAppear {
             rating = Double(show.score)
