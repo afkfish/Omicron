@@ -26,17 +26,7 @@ struct ListsView: View {
                         NavigationLink {
                             DetailsView(show: Binding.constant(show))
                         } label: {
-                            VStack {
-                                HStack {
-                                    Text(show.name)
-                                    Spacer()
-                                    Text(show.score == 0 ? "-" : String(show.score))
-                                }
-                                HStack {
-                                    ProgressView(value: Float(show.progress.map {$0.value}.reduce(0, +)), total: Float(show.episodes))
-                                        .tint(.green)
-                                }
-                            }
+                            ListViewItemLabel(show: show)
                         }
                     }
                     .onDelete(perform: vm.deleteItems)

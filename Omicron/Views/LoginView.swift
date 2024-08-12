@@ -18,32 +18,30 @@ struct LoginView: View {
                 Color.offWhite
                     .ignoresSafeArea(.all)
                 VStack {
-                    VStack {
-                        Spacer()
-                        TextField("", text: $vm.email, prompt: Text("email"))
-                            .padding()
-                            .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
-                        SecureField("", text: $vm.password, prompt: Text("password"))
-                            .padding()
-                            .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
-                        Spacer()
-                        Button {
-                            if (!vm.email.isEmpty || !vm.password.isEmpty) {
-                                Task {
-                                    await vm.authenticate(email: vm.email, password: vm.password)
-                                }
-                            } else {
-                                vm.alertText = "Missing credentials!"
-                                vm.alertToggle.toggle()
+                    Spacer()
+                    TextField("", text: $vm.email, prompt: Text("email"))
+                        .padding()
+                        .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
+                    SecureField("", text: $vm.password, prompt: Text("password"))
+                        .padding()
+                        .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
+                    Spacer()
+                    Button {
+                        if (!vm.email.isEmpty || !vm.password.isEmpty) {
+                            Task {
+                                await vm.authenticate(email: vm.email, password: vm.password)
                             }
-                        } label: {
-                            Image(systemName: "arrow.right")
+                        } else {
+                            vm.alertText = "Missing credentials!"
+                            vm.alertToggle.toggle()
                         }
-                        .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
-                        Spacer()
+                    } label: {
+                        Image(systemName: "arrow.right")
                     }
-                    .padding(.horizontal, 80)
+                    .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
+                    Spacer()
                 }
+                .padding(.horizontal, 80)
                 .alert(vm.alertText, isPresented: $vm.alertToggle) {}
                 .navigationTitle("Login")
                 .toolbarBackground(Color.offWhite, for: .navigationBar)

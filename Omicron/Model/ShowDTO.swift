@@ -33,6 +33,7 @@ struct ShowDTO: Codable {
         }
         
         struct Episode: Codable {
+            let id: Int
             let seriesId: Int
             let name: String
             let aired: String?

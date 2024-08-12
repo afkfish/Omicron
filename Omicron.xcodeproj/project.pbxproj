@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52422D552C695B3400C53EB1 /* ListViewItemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D542C695B3400C53EB1 /* ListViewItemLabel.swift */; };
+		52422D582C695BB300C53EB1 /* DetailsViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D572C695BB300C53EB1 /* DetailsViewHeaderView.swift */; };
+		52422D5A2C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D592C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift */; };
+		52422D5D2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */; };
+		52422D602C6ABF4500C53EB1 /* SingleSeasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D5F2C6ABF4500C53EB1 /* SingleSeasonView.swift */; };
 		525408472B874BA000521C6C /* OmicronApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408462B874BA000521C6C /* OmicronApp.swift */; };
 		525408492B874BA000521C6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408482B874BA000521C6C /* ContentView.swift */; };
 		5254084D2B874BA200521C6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5254084C2B874BA200521C6C /* Assets.xcassets */; };
@@ -41,13 +46,17 @@
 		52C9E76F2BB5BD59007017E3 /* SearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9E76E2BB5BD59007017E3 /* SearchDTO.swift */; };
 		52C9E7732BB831BE007017E3 /* SearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9E7722BB831BE007017E3 /* SearchRowView.swift */; };
 		52C9E7772BB86300007017E3 /* SearchDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9E7762BB86300007017E3 /* SearchDetailsView.swift */; };
-		52E687AA2BFF2EDB00C50ADE /* SeasonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E687A92BFF2EDB00C50ADE /* SeasonsView.swift */; };
-		52E687AC2BFF3DE600C50ADE /* SingleSeasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E687AB2BFF3DE600C50ADE /* SingleSeasonView.swift */; };
+		52E687AA2BFF2EDB00C50ADE /* SeasonsListedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E687A92BFF2EDB00C50ADE /* SeasonsListedView.swift */; };
 		52EAB5612BCDAA5E00604623 /* APIControllerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */; };
 		52EAB5632BCDAB1200604623 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EAB5622BCDAB1200604623 /* APIController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52422D542C695B3400C53EB1 /* ListViewItemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewItemLabel.swift; sourceTree = "<group>"; };
+		52422D572C695BB300C53EB1 /* DetailsViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewHeaderView.swift; sourceTree = "<group>"; };
+		52422D592C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewRatingOverlayView.swift; sourceTree = "<group>"; };
+		52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsHeaderView.swift; sourceTree = "<group>"; };
+		52422D5F2C6ABF4500C53EB1 /* SingleSeasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSeasonView.swift; sourceTree = "<group>"; };
 		525408432B874BA000521C6C /* Omicron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Omicron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		525408462B874BA000521C6C /* OmicronApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmicronApp.swift; sourceTree = "<group>"; };
 		525408482B874BA000521C6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,8 +89,7 @@
 		52C9E76E2BB5BD59007017E3 /* SearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDTO.swift; sourceTree = "<group>"; };
 		52C9E7722BB831BE007017E3 /* SearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRowView.swift; sourceTree = "<group>"; };
 		52C9E7762BB86300007017E3 /* SearchDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsView.swift; sourceTree = "<group>"; };
-		52E687A92BFF2EDB00C50ADE /* SeasonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsView.swift; sourceTree = "<group>"; };
-		52E687AB2BFF3DE600C50ADE /* SingleSeasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSeasonView.swift; sourceTree = "<group>"; };
+		52E687A92BFF2EDB00C50ADE /* SeasonsListedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsListedView.swift; sourceTree = "<group>"; };
 		52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIControllerKey.swift; sourceTree = "<group>"; };
 		52EAB5622BCDAB1200604623 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +108,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52422D532C695B1300C53EB1 /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				525408582B8A22FA00521C6C /* ListsView.swift */,
+				52422D542C695B3400C53EB1 /* ListViewItemLabel.swift */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		52422D562C695B9D00C53EB1 /* DetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				525408602B8B748000521C6C /* DetailsView.swift */,
+				52422D572C695BB300C53EB1 /* DetailsViewHeaderView.swift */,
+				52422D592C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift */,
+			);
+			path = DetailsView;
+			sourceTree = "<group>";
+		};
+		52422D5B2C6ABCA900C53EB1 /* SearchDetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				52C9E7762BB86300007017E3 /* SearchDetailsView.swift */,
+				52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */,
+			);
+			path = SearchDetailsView;
+			sourceTree = "<group>";
+		};
+		52422D5E2C6ABF1C00C53EB1 /* SeasonsListedView */ = {
+			isa = PBXGroup;
+			children = (
+				52E687A92BFF2EDB00C50ADE /* SeasonsListedView.swift */,
+				52422D5F2C6ABF4500C53EB1 /* SingleSeasonView.swift */,
+			);
+			path = SeasonsListedView;
+			sourceTree = "<group>";
+		};
 		5254083A2B874B9F00521C6C = {
 			isa = PBXGroup;
 			children = (
@@ -120,9 +165,9 @@
 			isa = PBXGroup;
 			children = (
 				525408462B874BA000521C6C /* OmicronApp.swift */,
-				527811912BDA4F6000B9F3D1 /* ViewModels */,
-				5254085E2B8B73BD00521C6C /* Views */,
 				5254085F2B8B73D700521C6C /* Model */,
+				5254085E2B8B73BD00521C6C /* Views */,
+				527811912BDA4F6000B9F3D1 /* ViewModels */,
 				527811822BD9187200B9F3D1 /* Database */,
 				528778FE2B9A5F2800729FB3 /* Controller */,
 				5254084E2B874BA200521C6C /* Preview Content */,
@@ -146,17 +191,16 @@
 			isa = PBXGroup;
 			children = (
 				52BABFD52BD167910087C412 /* Components */,
+				52422D532C695B1300C53EB1 /* ListView */,
+				52422D562C695B9D00C53EB1 /* DetailsView */,
+				52422D5B2C6ABCA900C53EB1 /* SearchDetailsView */,
+				52422D5E2C6ABF1C00C53EB1 /* SeasonsListedView */,
 				525408482B874BA000521C6C /* ContentView.swift */,
-				525408582B8A22FA00521C6C /* ListsView.swift */,
-				525408602B8B748000521C6C /* DetailsView.swift */,
 				52901DE52BA4B121003D44F8 /* BrowseView.swift */,
 				52C9E7722BB831BE007017E3 /* SearchRowView.swift */,
-				52C9E7762BB86300007017E3 /* SearchDetailsView.swift */,
 				527811852BD91F9800B9F3D1 /* ProfileView.swift */,
 				5278118D2BDA350200B9F3D1 /* LoginView.swift */,
 				526C0E812BF66EF300D6A2F6 /* LandingView.swift */,
-				52E687A92BFF2EDB00C50ADE /* SeasonsView.swift */,
-				52E687AB2BFF3DE600C50ADE /* SingleSeasonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,7 +341,7 @@
 				525408492B874BA000521C6C /* ContentView.swift in Sources */,
 				526C0E862BF6883700D6A2F6 /* ListsViewModel.swift in Sources */,
 				525408592B8A22FA00521C6C /* ListsView.swift in Sources */,
-				52E687AA2BFF2EDB00C50ADE /* SeasonsView.swift in Sources */,
+				52E687AA2BFF2EDB00C50ADE /* SeasonsListedView.swift in Sources */,
 				527811842BD9188400B9F3D1 /* Firebase.swift in Sources */,
 				527811952BDFBB0F00B9F3D1 /* BrowseViewModel.swift in Sources */,
 				5278118E2BDA350200B9F3D1 /* LoginView.swift in Sources */,
@@ -309,15 +353,19 @@
 				526C0E842BF67B2400D6A2F6 /* ShowImageCard.swift in Sources */,
 				52901DDE2BA489E5003D44F8 /* Season.swift in Sources */,
 				52EAB5612BCDAA5E00604623 /* APIControllerKey.swift in Sources */,
+				52422D5D2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift in Sources */,
 				52C9E7692BB5AFD9007017E3 /* ShowDTO.swift in Sources */,
 				52EAB5632BCDAB1200604623 /* APIController.swift in Sources */,
 				527811882BD9265700B9F3D1 /* User.swift in Sources */,
 				526C0E822BF66EF300D6A2F6 /* LandingView.swift in Sources */,
 				527811902BDA4E0F00B9F3D1 /* LoginResponse.swift in Sources */,
 				527811862BD91F9800B9F3D1 /* ProfileView.swift in Sources */,
+				52422D602C6ABF4500C53EB1 /* SingleSeasonView.swift in Sources */,
 				52C9E76F2BB5BD59007017E3 /* SearchDTO.swift in Sources */,
-				52E687AC2BFF3DE600C50ADE /* SingleSeasonView.swift in Sources */,
+				52422D5A2C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift in Sources */,
 				52901DE02BA48A4C003D44F8 /* Episode.swift in Sources */,
+				52422D582C695BB300C53EB1 /* DetailsViewHeaderView.swift in Sources */,
+				52422D552C695B3400C53EB1 /* ListViewItemLabel.swift in Sources */,
 				525408572B8A075E00521C6C /* Show.swift in Sources */,
 				525408472B874BA000521C6C /* OmicronApp.swift in Sources */,
 				5278118C2BD94E9600B9F3D1 /* Errors.swift in Sources */,

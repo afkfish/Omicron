@@ -7,20 +7,19 @@
 
 import SwiftUI
 
-struct SeasonsView: View {
-    @State var show: Show
+struct SeasonsListedView: View {
+    @Binding var show: Show
     
     var body: some View {
         ScrollView {
             ForEach(Array(show.seasons.sorted {$0.key < $1.key}), id: \.key) {(key: Int, season: Season) in
-                @State var se = show.seasons[key]!
-                SingleSeasonView(season: $se, key: key, progress: $show.progress)
+                SingleSeasonView(show: show, key: key)
             }
-            .padding()
+            .padding(.vertical)
         }
     }
 }
 
 #Preview {
-    SeasonsView(show: Show.exaple)
+    SeasonsListedView(show: Binding.constant(Show.exaple))
 }

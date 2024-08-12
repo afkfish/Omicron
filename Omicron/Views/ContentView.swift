@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            if (auth.data.authenticated || auth.data.cancelledLogin) {
+//            if (auth.data.authenticated || auth.data.cancelledLogin) {
                 ListsView()
                     .tabItem { Label("Lists", systemImage: "list.star") }.tag(1)
                     .toolbarBackground(Color.offWhite, for: .tabBar)
@@ -24,9 +24,9 @@ struct ContentView: View {
                     .tabItem { Label("Browse", systemImage: "globe") }.tag(2)
                     .toolbarBackground(Color.offWhite, for: .tabBar)
                 
-            } else {
-                LandingView()
-            }
+//            } else {
+//                LandingView()
+//            }
 //                .tabItem { Label("Profile", systemImage: "person") }.tag(3)
 //                .toolbarBackground(Color.offWhite, for: .tabBar)
         }

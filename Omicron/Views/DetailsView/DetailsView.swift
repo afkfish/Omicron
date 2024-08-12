@@ -8,35 +8,15 @@
 import SwiftUI
 
 struct DetailsView: View {
-    @Environment(\.modelContext) private var modelContext
     @Binding var show: Show
     @State private var ratingOverlayPresented = false
-    @State private var rating = 0.0
     
     var body: some View {
         ZStack {
             Color.offWhite
                 .ignoresSafeArea(.all)
             VStack {
-                HStack {
-                    AsyncImage(url: URL(string: show.image)!) {image in
-                        image.resizable()
-                    } placeholder: {
-                        Text("Loading...")
-                    }
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Spacer()
-                        Button(show.score == 0 ? "-" : String(show.score), systemImage: "star.fill") {
-                            ratingOverlayPresented = true
-                        }
-                        Text("Seasons: \(show.seasonCount)")
-                    }
-                    .padding(.vertical)
-                }
-                .frame(height: 200)
+                DetailsViewHeader(show: show, ratingOverlayPresented: $ratingOverlayPresented)
                 HStack {
                     Text(show.firstAired)
                     Spacer()
@@ -52,56 +32,14 @@ struct DetailsView: View {
                 .padding(.bottom)
                 Text(show.desc)
                 Spacer()
-                SeasonsView(show: $show)
+                SeasonsListedView(show: $show)
             }
             .padding(.horizontal)
             .blur(radius: ratingOverlayPresented ? 3 : 0)
             .navigationTitle(show.name)
             if (ratingOverlayPresented) {
-                VStack{
-                    Slider(value: $rating, in: 0...10, step: 1) {
-                        Text("Rate the show")
-                    } minimumValueLabel: {
-                        Text("0")
-                    } maximumValueLabel: {
-                        Text("10")
-                    }
-                    Spacer()
-                    Text(String(Int(rating)))
-                    Spacer()
-                    HStack {
-                        Button("Cancel") {
-                            withAnimation {
-                                ratingOverlayPresented = false
-                            }
-                        }
-                        .buttonStyle(BorderedButtonStyle())
-                        Spacer()
-                        Button("Rate") {
-                            saveRating()
-                            ratingOverlayPresented = false
-                        }
-                        .buttonStyle(BorderedButtonStyle())
-                    }
-                }
-                .padding(15)
-                .frame(maxWidth: 300, maxHeight: 150)
-                .background(Color.offWhite)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .shadow(radius: 10)
+                DetailsViewRatingOverlay(show: show, ratingOverlayPresented: $ratingOverlayPresented)
             }
-        }
-        .onAppear {
-            rating = Double(show.score)
-        }
-    }
-    
-    private func saveRating() {
-        do {
-            show.score = Int(rating)
-            try modelContext.save()
-        } catch {
-            print("Oops")
         }
     }
 }

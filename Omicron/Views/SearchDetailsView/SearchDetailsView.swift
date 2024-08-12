@@ -21,25 +21,7 @@ struct SearchDetailsView: View {
             Color.offWhite
                 .ignoresSafeArea(.all)
             VStack {
-                HStack {
-                    AsyncImage(url: URL(string: show.imageURL)!) {image in
-                        image.resizable()
-                    } placeholder: {
-                        Text("Loading...")
-                    }
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                    .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Spacer()
-                        Text("Status: \(show.status)")
-                    }
-                    .padding(.vertical)
-                }
-                .padding(.horizontal)
-                .frame(height: 200)
+                SearchDetailsHeaderView(show: show)
                 HStack {
                     Text(String(show.year))
                     Spacer()

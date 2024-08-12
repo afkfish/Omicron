@@ -37,7 +37,7 @@ extension Episode {
     
     init(from data: ShowDTO.DataClass.Episode) {
         self.init()
-        self.id = data.seriesId
+        self.id = data.id
         self.name = data.name
         self.aired = data.aired ?? ""
         self.runtime = data.runtime ?? 0
