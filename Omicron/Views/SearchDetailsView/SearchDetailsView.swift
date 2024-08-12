@@ -21,7 +21,7 @@ struct SearchDetailsView: View {
             Color.offWhite
                 .ignoresSafeArea(.all)
             VStack {
-                SearchDetailsHeaderView(show: show)
+                SearchDetailsHeaderView(show: $show)
                 HStack {
                     Text(String(show.year))
                     Spacer()

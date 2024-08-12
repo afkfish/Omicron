@@ -9,8 +9,9 @@ import SwiftUI
 
 struct SingleSeasonView: View {
     @State private var collapsed = true
-    @State var show: Show
-    @State var key: Int
+    @Binding var show: Show
+    var key: Int
+    
     private var season: Season { show.seasons[key]! }
     private var seasonProgress: Int { show.progress[key] ?? 0 }
     
@@ -93,6 +94,6 @@ struct SingleSeasonView: View {
     }
 }
 
-//#Preview {
-//    SingleSeasonView()
-//}
+#Preview {
+    SingleSeasonView(show: Binding.constant(Show.exaple), key: 1)
+}

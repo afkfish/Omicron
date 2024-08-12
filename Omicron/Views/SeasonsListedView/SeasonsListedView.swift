@@ -12,8 +12,8 @@ struct SeasonsListedView: View {
     
     var body: some View {
         ScrollView {
-            ForEach(Array(show.seasons.sorted {$0.key < $1.key}), id: \.key) {(key: Int, season: Season) in
-                SingleSeasonView(show: show, key: key)
+            ForEach(Array(show.seasons.sorted {$0.key < $1.key}), id: \.key) {(key: Int, _) in
+                SingleSeasonView(show: $show, key: key)
             }
             .padding(.vertical)
         }

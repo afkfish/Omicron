@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchDetailsHeaderView: View {
-    @State var show: ShowInfo
+    @Binding var show: ShowInfo
     
     var body: some View {
         HStack {
@@ -34,5 +34,5 @@ struct SearchDetailsHeaderView: View {
 }
 
 #Preview {
-    SearchDetailsHeaderView(show: ShowInfo.dummy)
+    SearchDetailsHeaderView(show: Binding.constant(ShowInfo.dummy))
 }

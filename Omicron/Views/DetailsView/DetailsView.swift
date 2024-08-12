@@ -16,7 +16,7 @@ struct DetailsView: View {
             Color.offWhite
                 .ignoresSafeArea(.all)
             VStack {
-                DetailsViewHeader(show: show, ratingOverlayPresented: $ratingOverlayPresented)
+                DetailsViewHeader(show: $show, ratingOverlayPresented: $ratingOverlayPresented)
                 HStack {
                     Text(show.firstAired)
                     Spacer()
@@ -38,7 +38,7 @@ struct DetailsView: View {
             .blur(radius: ratingOverlayPresented ? 3 : 0)
             .navigationTitle(show.name)
             if (ratingOverlayPresented) {
-                DetailsViewRatingOverlay(show: show, ratingOverlayPresented: $ratingOverlayPresented)
+                DetailsViewRatingOverlay(show: $show, ratingOverlayPresented: $ratingOverlayPresented)
             }
         }
     }

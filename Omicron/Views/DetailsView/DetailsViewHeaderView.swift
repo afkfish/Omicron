@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailsViewHeader: View {
-    @State var show: Show
+    @Binding var show: Show
     @Binding var ratingOverlayPresented: Bool
     
     var body: some View {
@@ -37,5 +37,5 @@ struct DetailsViewHeader: View {
 }
 
 #Preview {
-    DetailsViewHeader(show: Show.exaple, ratingOverlayPresented: Binding.constant(false))
+    DetailsViewHeader(show: Binding.constant(Show.exaple), ratingOverlayPresented: Binding.constant(false))
 }

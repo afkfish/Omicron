@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListViewItemLabel: View {
-    @State var show: Show
+    @Binding var show: Show
     
     var body: some View {
         VStack {
@@ -26,5 +26,5 @@ struct ListViewItemLabel: View {
 }
 
 #Preview {
-    ListViewItemLabel(show: Show.exaple)
+    ListViewItemLabel(show: Binding.constant(Show.exaple))
 }

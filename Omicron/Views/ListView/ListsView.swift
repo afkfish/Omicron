@@ -23,10 +23,11 @@ struct ListsView: View {
                     .ignoresSafeArea(.all)
                 List {
                     ForEach(searchResults) {show in
+                        @State var show = show // bad practice, pls no bully /(0_0*)\
                         NavigationLink {
-                            DetailsView(show: Binding.constant(show))
+                            DetailsView(show: $show)
                         } label: {
-                            ListViewItemLabel(show: show)
+                            ListViewItemLabel(show: $show)
                         }
                     }
                     .onDelete(perform: vm.deleteItems)

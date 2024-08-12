@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailsViewRatingOverlay: View {
     @Environment(\.modelContext) private var modelContext
     @State private var rating = 0.0
-    @State var show: Show
+    @Binding var show: Show
     @Binding var ratingOverlayPresented: Bool
     
     var body: some View {
@@ -22,20 +22,27 @@ struct DetailsViewRatingOverlay: View {
             } maximumValueLabel: {
                 Text("10")
             }
+            .onChange(of: rating) {
+                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+            }
             Spacer()
             Text(String(Int(rating)))
             Spacer()
             HStack {
                 Button("Cancel") {
                     withAnimation {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         ratingOverlayPresented = false
                     }
                 }
                 .buttonStyle(BorderedButtonStyle())
                 Spacer()
                 Button("Rate") {
-                    saveRating()
-                    ratingOverlayPresented = false
+                    withAnimation {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        saveRating()
+                        ratingOverlayPresented = false
+                    }
                 }
                 .buttonStyle(BorderedButtonStyle())
             }
@@ -61,5 +68,5 @@ struct DetailsViewRatingOverlay: View {
 }
 
 #Preview {
-    DetailsViewRatingOverlay(show: Show.exaple, ratingOverlayPresented: Binding.constant(false))
+    DetailsViewRatingOverlay(show: Binding.constant(Show.exaple), ratingOverlayPresented: Binding.constant(false))
 }
