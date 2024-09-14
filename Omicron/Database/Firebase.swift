@@ -87,12 +87,12 @@ class AuthProvider: ObservableObject {
     func register(username: String, email: String, password: String) async throws {
         let ref = try await auth.createUser(withEmail: email, password: password)
         try await FireStore.shared.saveUser(uid: ref.user.uid, username: username, email: email)
-        try await AuthStore().save(data: AuthStore.AuthData(email: email, password: password, authenticated: true, cancelledLogin: false))
+        try await AuthStore().save(data: AuthStore.AuthData(email: email, password: password, authenticated: true))
     }
     
     func login(email: String, password: String) async throws {
         try await auth.signIn(withEmail: email, password: password)
-        try await AuthStore().save(data: AuthStore.AuthData(email: email, password: password, authenticated: true, cancelledLogin: false))
+        try await AuthStore().save(data: AuthStore.AuthData(email: email, password: password, authenticated: true))
     }
 }
 
@@ -102,7 +102,6 @@ class AuthStore: ObservableObject {
         var email: String = ""
         var password: String = ""
         var authenticated: Bool = false
-        var cancelledLogin: Bool = false
     }
     @Published var data: AuthData = AuthData()
     

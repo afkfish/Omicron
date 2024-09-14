@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
+
+extension Image {
+    @MainActor
+    func asUIImage() -> UIImage? {
+        let renderer = ImageRenderer(content: self)
+        return renderer.uiImage
+    }
+}

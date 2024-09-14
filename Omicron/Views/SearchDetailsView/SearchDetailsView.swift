@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SearchDetailsView: View {
+    @EnvironmentObject private var theme: ThemeManager
     @Environment(\.defaultAPIController) private var apiController
     @Environment(\.modelContext) private var modelContext
     @ObservedObject private var vm = SearchDetailViewModel()
@@ -18,7 +19,7 @@ struct SearchDetailsView: View {
 
     var body: some View {
         ZStack {
-            Color.offWhite
+            theme.selected.primary
                 .ignoresSafeArea(.all)
             VStack {
                 SearchDetailsHeaderView(show: $show)
@@ -63,4 +64,5 @@ struct SearchDetailsView: View {
 #Preview {
     SearchDetailsView(show: Binding.constant(ShowInfo.dummy))
         .modelContainer(for: Show.self, inMemory: true)
+        .environmentObject(ThemeManager())
 }

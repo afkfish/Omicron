@@ -13,6 +13,14 @@ struct ListViewItemLabel: View {
     var body: some View {
         VStack {
             HStack {
+                CachedAsyncImage(url: URL(string: show.image)!) {
+                    $0.resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: 67.5, maxHeight: 100)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                } placeholder: {
+                    ProgressView()
+                }
                 Text(show.name)
                 Spacer()
                 Text(show.score == 0 ? "-" : String(show.score))

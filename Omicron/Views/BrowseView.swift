@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct BrowseView: View {
+    @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelcontext
     @Environment(\.defaultAPIController) private var apiController
     @Query(sort: \ShowInfo.name, order: .forward) private var baseDetails: [ShowInfo]
@@ -26,10 +27,7 @@ struct BrowseView: View {
         NavigationStack {
             ZStack {
                 if (filteredSearchItems.isEmpty) {
-                    VStack {
-                        Text("Search to see more!")
-                        Spacer()
-                    }
+                    Text("Search to see more!")
                 }
                 List {
                     ForEach(filteredSearchItems) {item in
@@ -39,14 +37,14 @@ struct BrowseView: View {
                             SearchRowView(show: Binding.constant(item))
                         }
                         .padding()
-                        .background(Color.offWhite)
+                        .background(theme.selected.primary)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                         .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
                         .padding(.vertical, 12)
                     }
                     .listRowSeparator(.hidden, edges: .all)
-                    .listRowBackground(Color.offWhite)
+                    .listRowBackground(theme.selected.primary)
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
@@ -59,12 +57,12 @@ struct BrowseView: View {
                     }
                 }
                 .navigationTitle("Browse")
-                .toolbarBackground(Color.offWhite, for: .navigationBar)
+                .toolbarBackground(theme.selected.primary, for: .navigationBar)
             }
             .onAppear {
                 vm.start(modelContext: modelcontext)
             }
-            .background(Color.offWhite)
+            .background(theme.selected.primary)
         }
     }
 }
@@ -72,4 +70,5 @@ struct BrowseView: View {
 #Preview {
     BrowseView()
         .modelContainer(for: [Show.self, ShowInfo.self], inMemory: true)
+        .environmentObject(ThemeManager())
 }

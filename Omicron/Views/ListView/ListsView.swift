@@ -10,6 +10,7 @@ import SwiftData
 import Combine
 
 struct ListsView: View {
+    @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelContext
     @Query private var shows: [Show]
     @ObservedObject private var vm = ListsViewModel()
@@ -19,25 +20,26 @@ struct ListsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.offWhite
+                theme.selected.primary
                     .ignoresSafeArea(.all)
                 List {
                     ForEach(searchResults) {show in
                         @State var show = show // bad practice, pls no bully /(0_0*)\
                         NavigationLink {
                             DetailsView(show: $show)
+                                .environmentObject(theme)
                         } label: {
                             ListViewItemLabel(show: $show)
                         }
                     }
                     .onDelete(perform: vm.deleteItems)
-                    .listRowBackground(Color.offWhite)
+                    .listRowBackground(theme.selected.primary)
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Title of the show")
                 .navigationTitle("Saved")
-                .toolbarBackground(Color.offWhite, for: .navigationBar)
+                .toolbarBackground(theme.selected.primary, for: .navigationBar)
             }
             .onAppear {
                 vm.start(modelContext: modelContext)
@@ -67,4 +69,5 @@ struct ListsView: View {
 #Preview {
     ListsView()
         .modelContainer(for: Show.self, inMemory: true)
+        .environmentObject(ThemeManager())
 }

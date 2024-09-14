@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailsViewRatingOverlay: View {
+    @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelContext
     @State private var rating = 0.0
     @Binding var show: Show
@@ -49,7 +50,7 @@ struct DetailsViewRatingOverlay: View {
         }
         .padding(15)
         .frame(maxWidth: 300, maxHeight: 150)
-        .background(Color.offWhite)
+        .background(theme.selected.primary)
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .shadow(radius: 10)
         .onAppear {
@@ -69,4 +70,5 @@ struct DetailsViewRatingOverlay: View {
 
 #Preview {
     DetailsViewRatingOverlay(show: Binding.constant(Show.exaple), ratingOverlayPresented: Binding.constant(false))
+        .environmentObject(ThemeManager())
 }

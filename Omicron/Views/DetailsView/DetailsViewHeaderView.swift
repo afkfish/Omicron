@@ -13,10 +13,10 @@ struct DetailsViewHeader: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: show.image)!) {image in
+            CachedAsyncImage(url: URL(string: show.image)!) {image in
                 image.resizable()
             } placeholder: {
-                Text("Loading...")
+                ProgressView()
             }
             .scaledToFit()
             .clipShape(RoundedRectangle(cornerRadius: 15))

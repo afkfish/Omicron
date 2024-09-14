@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct DetailsView: View {
+    @EnvironmentObject private var theme: ThemeManager
     @Binding var show: Show
     @State private var ratingOverlayPresented = false
     
     var body: some View {
         ZStack {
-            Color.offWhite
+            theme.selected.primary
                 .ignoresSafeArea(.all)
             VStack {
                 DetailsViewHeader(show: $show, ratingOverlayPresented: $ratingOverlayPresented)
@@ -39,6 +40,7 @@ struct DetailsView: View {
             .navigationTitle(show.name)
             if (ratingOverlayPresented) {
                 DetailsViewRatingOverlay(show: $show, ratingOverlayPresented: $ratingOverlayPresented)
+                    .environmentObject(theme)
             }
         }
     }
@@ -46,4 +48,5 @@ struct DetailsView: View {
 
 #Preview {
     DetailsView(show: Binding.constant(Show.exaple))
+        .environmentObject(ThemeManager())
 }

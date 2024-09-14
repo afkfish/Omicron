@@ -12,7 +12,7 @@ struct SearchDetailsHeaderView: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: show.imageURL)!) {image in
+            CachedAsyncImage(url: URL(string: show.imageURL)!) {image in
                 image.resizable()
             } placeholder: {
                 Text("Loading...")

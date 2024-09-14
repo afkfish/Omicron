@@ -27,6 +27,7 @@ struct NeumorphicButton<S: Shape>: ButtonStyle {
 }
 
 struct Background<S: Shape>: View {
+    @StateObject private var theme = ThemeManager()
     var isPressed: Bool
     var shape: S
     
@@ -35,7 +36,7 @@ struct Background<S: Shape>: View {
             if isPressed {
                 withAnimation {
                     shape
-                        .fill(Color.offWhite)
+                        .fill(theme.selected.primary)
                         .overlay(
                             shape
                                 .stroke(Color.gray, lineWidth: 3)
@@ -53,7 +54,7 @@ struct Background<S: Shape>: View {
                 }
             } else {
                 shape
-                    .fill(Color.offWhite)
+                    .fill(theme.selected.primary)
                     .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                     .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
             }
