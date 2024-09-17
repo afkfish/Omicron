@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 class ListsViewModel: ObservableObject {
-    private var shows: [Show] = []
+    private var shows: [ShowModel] = []
     
     private var modelContext: ModelContext?
     
@@ -21,7 +21,7 @@ class ListsViewModel: ObservableObject {
     
     func loadData() {
         do {
-            shows = try modelContext!.fetch(FetchDescriptor<Show>())
+            shows = try modelContext!.fetch(FetchDescriptor<ShowModel>())
         } catch {
             print(error)
         }
@@ -35,12 +35,6 @@ class ListsViewModel: ObservableObject {
                     try await FireStore.shared.removeFromList(value: String(shows[index].id))
                 }
             }
-        }
-    }
-    
-    func addShow(show: Show) {
-        withAnimation {
-            modelContext!.insert(show)
         }
     }
 }

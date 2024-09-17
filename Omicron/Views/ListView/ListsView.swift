@@ -12,9 +12,10 @@ import Combine
 struct ListsView: View {
     @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelContext
-    @Query private var shows: [Show]
+    @Query private var shows: [ShowModel]
     @ObservedObject private var vm = ListsViewModel()
     
+//    @Binding var currentUser: UserModel?
     @State private var searchText = ""
         
     var body: some View {
@@ -24,12 +25,12 @@ struct ListsView: View {
                     .ignoresSafeArea(.all)
                 List {
                     ForEach(searchResults) {show in
-                        @State var show = show // bad practice, pls no bully /(0_0*)\
+//                        @State var show = show // bad practice, pls no bully /(0_0*)\
                         NavigationLink {
-                            DetailsView(show: $show)
+                            DetailsView(show: show)
                                 .environmentObject(theme)
                         } label: {
-                            ListViewItemLabel(show: $show)
+                            ListViewItemLabel(show: show)
                         }
                     }
                     .onDelete(perform: vm.deleteItems)
@@ -47,27 +48,27 @@ struct ListsView: View {
         }
     }
     
-    var userShows: [Show] {
-        if AuthStore().data.authenticated {
-            return shows.filter {show in
-                FireStore.shared.user!.lists["favourites"]!.contains(String(show.id))
-            }
-        } else {
-            return shows
-        }
-    }
+//    var userShows: [Show] {
+//        if AuthStore().data.authenticated {
+//            return shows.filter {show in
+//                FireStore.shared.user!.lists["favourites"]!.contains(String(show.id))
+//            }
+//        } else {
+//            return shows
+//        }
+//    }
     
-    var searchResults: [Show] {
+    var searchResults: [ShowModel] {
         if searchText.isEmpty {
-            return userShows
+            return shows
         } else {
-            return userShows.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            return shows.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
     }
 }
 
 #Preview {
     ListsView()
-        .modelContainer(for: Show.self, inMemory: true)
+        .modelContainer(for: ShowModel.self, inMemory: true)
         .environmentObject(ThemeManager())
 }

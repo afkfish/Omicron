@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class ShowInfo: Identifiable {
+final class ShowOverviewModel: Identifiable {
     final var id: String
     final var country: String
     var imageURL: String
@@ -37,7 +37,17 @@ final class ShowInfo: Identifiable {
     }
 }
 
-extension ShowInfo {
+// MARK: - Sample Data
+extension ShowOverviewModel {
+    static var dummy: ShowOverviewModel {
+        let data = Data("{\"objectID\": \"series-73762\",\"aliases\": [\"Grey's Anatomy - Die jungen Ärzte\",\"Dre Grey, leçons d'anatomie\"],\"country\": \"usa\",\"id\": \"series-73762\",\"image_url\": \"https://artworks.thetvdb.com/banners/posters/73762-25.jpg\",\"name\": \"Grey's Anatomy\",\"first_air_time\": \"2005-03-27\",\"overview\": \"A drama centered on the personal and professional lives of five surgical interns and their supervisors.\",\"primary_language\": \"eng\",\"primary_type\": \"series\",\"status\": \"Continuing\",\"type\": \"series\",\"tvdb_id\": \"73762\",\"year\": \"2005\",\"slug\": \"greys-anatomy\",\"network\": \"ABC (US)\",\"remote_ids\": [    {        \"id\": \"tt0413573\",        \"type\": 2,        \"sourceName\": \"IMDB\"    }],\"thumbnail\": \"https://artworks.thetvdb.com/banners/posters/73762-25_t.jpg\"}".utf8)
+        let asd = try? JSONDecoder().decode(SearchDTO.SearchShow.self, from: data)
+        return ShowOverviewModel(from: asd!)
+    }
+}
+
+// MARK: - Converter
+extension ShowOverviewModel {
     convenience init(from data: SearchDTO.SearchShow) {
         self.init(
             id: data.tvdbID,
@@ -50,14 +60,5 @@ extension ShowInfo {
             status: data.status,
             year: Int(NSString(string: data.year ?? "0").intValue)
         )
-        primaryLang.replace(/m/, with: "")
-    }
-}
-
-extension ShowInfo {
-    static var dummy: ShowInfo {
-        let data = Data("{\"objectID\": \"series-73762\",\"aliases\": [\"Grey's Anatomy - Die jungen Ärzte\",\"Dre Grey, leçons d'anatomie\"],\"country\": \"usa\",\"id\": \"series-73762\",\"image_url\": \"https://artworks.thetvdb.com/banners/posters/73762-25.jpg\",\"name\": \"Grey's Anatomy\",\"first_air_time\": \"2005-03-27\",\"overview\": \"A drama centered on the personal and professional lives of five surgical interns and their supervisors.\",\"primary_language\": \"eng\",\"primary_type\": \"series\",\"status\": \"Continuing\",\"type\": \"series\",\"tvdb_id\": \"73762\",\"year\": \"2005\",\"slug\": \"greys-anatomy\",\"network\": \"ABC (US)\",\"remote_ids\": [    {        \"id\": \"tt0413573\",        \"type\": 2,        \"sourceName\": \"IMDB\"    }],\"thumbnail\": \"https://artworks.thetvdb.com/banners/posters/73762-25_t.jpg\"}".utf8)
-        let asd = try? JSONDecoder().decode(SearchDTO.SearchShow.self, from: data)
-        return ShowInfo(from: asd!)
     }
 }

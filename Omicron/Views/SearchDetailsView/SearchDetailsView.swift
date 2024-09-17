@@ -7,16 +7,23 @@
 
 import SwiftUI
 import SwiftData
+import Combine
 
 struct SearchDetailsView: View {
+    @StateObject private var vm = SearchDetailViewModel()
     @EnvironmentObject private var theme: ThemeManager
     @Environment(\.defaultAPIController) private var apiController
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject private var vm = SearchDetailViewModel()
-
-    @Binding var show: ShowInfo
+    
+    @Binding var show: ShowOverviewModel
     @State private var addedSuccesfuly = false
-
+    
+    private var added: Bool {
+        let id = "\(show.id)"
+        let descriptor = FetchDescriptor<ShowModel>(predicate: #Predicate {$0.id == id})
+        return !((try? modelContext.fetch(descriptor)) ?? []).isEmpty
+    }
+    
     var body: some View {
         ZStack {
             theme.selected.primary
@@ -26,7 +33,7 @@ struct SearchDetailsView: View {
                 HStack {
                     Text(String(show.year))
                     Spacer()
-                    Text("Language: \(show.primaryLang)m")
+                    Text("Language: \(show.primaryLang)")
                 }
                 .padding(.top)
                 .padding(.horizontal)
@@ -39,30 +46,35 @@ struct SearchDetailsView: View {
                 Button("Add show to list") {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     Task {
-                        await vm.addShow(id: Int(show.id)!, apiController)
+                        guard !added else { return }
+                        await vm.getShow(id: show.id)
                     }
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
                 .padding()
             }
-            .onChange(of: vm.show) {
-                if vm.show != nil {
-                    saveShow()
-                    addedSuccesfuly = true
-                }
+            .onChange(of: vm.finished) {
+                addedSuccesfuly = true
+                saveShow()
             }
             .navigationTitle(show.name)
-            .alert("Show added to list", isPresented: $addedSuccesfuly) {}
+            .alert("Show added to list \(vm.show?.title ?? "")", isPresented: $addedSuccesfuly) {}
+        }
+        .onAppear {
+            vm.setup(apiController: apiController)
         }
     }
     
     func saveShow() {
         modelContext.insert(vm.show!)
+
+//        let test = try? modelContext.fetch(FetchDescriptor<EpisodeModel>())
+//        print(test?.count ?? 0)
     }
 }
 
 #Preview {
-    SearchDetailsView(show: Binding.constant(ShowInfo.dummy))
-        .modelContainer(for: Show.self, inMemory: true)
+    SearchDetailsView(show: Binding.constant(ShowOverviewModel.dummy))
+        .modelContainer(for: [ShowModel.self], inMemory: true)
         .environmentObject(ThemeManager())
 }

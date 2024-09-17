@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LandingView: View {
     @EnvironmentObject private var themeManager: ThemeManager
-    @AppStorage("loginCancel") private var cancelledLogin = false
+    @AppStorage("loginCancelled") private var cancelledLogin = false
     @ObservedObject private var auth = AuthStore()
     
     private let pictures = [
@@ -92,6 +92,6 @@ struct LandingView: View {
 
 #Preview {
     LandingView()
-        .modelContainer(for: Show.self, inMemory: true)
+        .modelContainer(for: ShowModel.self, inMemory: true)
         .environmentObject(ThemeManager())
 }

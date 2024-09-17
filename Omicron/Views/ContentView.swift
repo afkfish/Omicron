@@ -10,7 +10,8 @@ import SwiftData
 
 struct ContentView: View {
     @StateObject private var theme = ThemeManager()
-    @AppStorage("loginCancell") private var loginCancelled = false
+    @StateObject private var accountManager = AccountManager()
+    @AppStorage("loginCancelled") private var loginCancelled = false
     @Environment(\.modelContext) private var modelContext
     
     @ObservedObject private var auth = AuthStore()
@@ -37,19 +38,11 @@ struct ContentView: View {
                 LandingView()
                     .environmentObject(theme)
             }
-//                .tabItem { Label("Profile", systemImage: "person") }.tag(3)
-//                .toolbarBackground(Color.offWhite, for: .tabBar)
         }
-//        .tint(.white)
-//        .foregroundStyle(theme.selected.text)
-    }
-    
-    func addDebug() {
-        modelContext.insert(Show.exaple)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: [Show.self, ShowInfo.self], inMemory: true)
+        .modelContainer(for: [ShowOverviewModel.self, ShowModel.self], inMemory: true)
 }

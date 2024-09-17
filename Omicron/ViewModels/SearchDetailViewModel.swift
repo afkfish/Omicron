@@ -10,73 +10,30 @@ import Combine
 
 
 class SearchDetailViewModel: ObservableObject {
-    private var shows: [Int] = []
+    private var apiController: APIController?
     
-    @Published var show: Show?
+    @Published var finished: Bool = false
+    @Published var show: ShowModel?
     
-    func addShow(id: Int, _ apiController: APIController) async {
-        // Check if the show with the given ID is already present
-        guard !shows.contains(id) else {
-            return // Show already exists, no need to fetch again
-        }
-        shows.append(id)
-        addToList(name: "favourites", value: String(id))
-        
-        await apiController.getSeries(id: id, page: 0)
-            .map { dto in
-                return Show(from: dto)
-            }
-            .assign(to: &$show)
-        
-//        // Define a function to fetch series data recursively
-//        func fetchSeriesRecursively(show: Show, pageNum: Int = 0) async {
-//            
-//            
-//            
-//            /*{ data, leftover in
-//             let fetchedShow = Show(from: data)
-//             var baseShow = show
-//             if pageNum == 0 {
-//             baseShow = fetchedShow
-//             }
-//             print(leftover)
-//             
-//             // Aggregate episodes from the fetched show to the existing show object
-//             fetchedShow.seasons.forEach { (key, value) in
-//             print(key)
-//             if let existingSeason = baseShow.seasons[key] {
-//             var combinedEpisodes = existingSeason.episodes
-//             combinedEpisodes.append(contentsOf: value.episodes)
-//             baseShow.seasons[key] = Season(id: existingSeason.id, episodes: combinedEpisodes)
-//             } else {
-//             baseShow.seasons[key] = value
-//             }
-//             }
-//             
-//             // If there are leftover items, fetch the next page recursively
-//             if leftover > 0 {
-//             fetchSeriesRecursively(show: baseShow, pageNum: pageNum + 1)
-//             } else {
-//             // No leftover items, all data fetched, insert the aggregated show into the model context
-//             withAnimation {
-//             modelContext.insert(baseShow)
-//             addedSuccesfuly = true
-//             }
-//             }*/
-//        }
-//        
-//        // Start fetching series data recursively with an empty show object
-//        var emptyShow = Show(id: id) // Assuming you have an initializer for Show with just ID
-//        await fetchSeriesRecursively(show: emptyShow)
+    func setup(apiController: APIController) {
+        self.apiController = apiController
     }
     
-    func addToList(name: String, value: String) {
-        Task {
-        do {
-            try await FireStore.shared.addToList(name: name, value: value)
-        } catch {
-            print(error)
-        }
-        }
+    func getShow(id: String) async {
+        await apiController!.getSeries(id: Int(id)!, page: 0)
+            .map { dto in
+                guard let show = dto.data else { return false }
+                self.show = ShowModel(from: show)
+                let seasons = Set(show.episodes.map({($0.seasonNumber)}))
+                let episodes = EpisodeModel.toEpisodeList(from: show.episodes)
+                for seasonNumber in seasons {
+                    let season = SeasonModel.createEmptySeason(for: self.show!, withId: "\(self.show!.id)\(seasonNumber)", number: seasonNumber)
+                    self.show!.seasons.append(season)
+                    season.episodes.append(contentsOf: episodes.filter  {$0.seasonNumber == seasonNumber})
+                    season.episodeCount = season.episodes.count
+                }
+                return true
+            }
+            .assign(to: &$finished)
     }
 }

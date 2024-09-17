@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SingleSeasonView: View {
     @State private var collapsed = true
-    @Binding var show: Show
+    var show: ShowModel
     var key: Int
     
-    private var season: Season { show.seasons[key]! }
-    private var seasonProgress: Int { show.progress[key] ?? 0 }
+    private var season: SeasonModel? { show.seasons.first(where: {$0.seasonNumber == key}) }
+    private var seasonProgress: Int { /*show.progress[key] ??*/ 0 }
     
     
     var body: some View {
@@ -27,30 +27,30 @@ struct SingleSeasonView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
-                ProgressView(value: Float(seasonProgress), total: Float(season.episodeCount))
+                ProgressView(value: Float(seasonProgress), total: Float(season?.episodeCount ?? 0))
                     .tint(.green)
                 Spacer()
                 HStack {
                     Button {
                         withAnimation(.bouncy) {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            show.progress[key] = (seasonProgress) - (seasonProgress > 0 ? 1: 0)
+//                            show.progress[key] = (seasonProgress) - (seasonProgress > 0 ? 1: 0)
                         }
                     } label: {
                         Image(systemName: "minus.circle.fill")
                     }
                     .disabled(seasonProgress <= 0)
                     .buttonStyle(PlainButtonStyle())
-                    Text("\(seasonProgress)/\(season.episodeCount)")
+                    Text("\(seasonProgress)/\(season?.episodeCount ?? 0)")
                     Button {
                         withAnimation(.bouncy) {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            show.progress[key] = (seasonProgress) + (season.episodeCount > seasonProgress ? 1 : 0)
+//                            show.progress[key] = (seasonProgress) + (season.episodeCount > seasonProgress ? 1 : 0)
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
                     }
-                    .disabled(seasonProgress >= season.episodeCount)
+                    .disabled(seasonProgress >= season?.episodeCount ?? 0)
                     .buttonStyle(PlainButtonStyle())
                 }
 //                .frame(minWidth: 70, maxWidth: 100)
@@ -60,28 +60,28 @@ struct SingleSeasonView: View {
             .contextMenu(ContextMenu(menuItems: {
                 Button {
                     withAnimation(.bouncy) {
-                        show.progress[key] = season.episodeCount
+//                        show.progress[key] = season.episodeCount
                     }
                 } label: {
                     Label("Mark as watched", systemImage: "checkmark.circle.fill")
                 }
                 Button {
                     withAnimation(.bouncy) {
-                        show.progress[key] = 0
+//                        show.progress[key] = 0
                     }
                 } label: {
                     Label("Mark as unwatched", systemImage: "x.circle.fill")
                 }
             }))
             VStack {
-                ForEach(season.episodes) {episode in
+                ForEach(season?.episodes ?? []) {(episode: EpisodeModel) in
                     HStack {
                         Text("E\(String(format: "%02d", episode.episodeNumber))")
-                        Text("\(episode.name)").bold()
+                        Text("\(episode.title)").bold()
                         Spacer()
                     }
                     .padding(.horizontal)
-                    if episode.id != season.episodes.last?.id { // Don't add Divider after last item
+                    if episode.id != season?.episodes.last?.id { // Don't add Divider after last item
                         Divider()
                     }
                 }
@@ -95,5 +95,5 @@ struct SingleSeasonView: View {
 }
 
 #Preview {
-    SingleSeasonView(show: Binding.constant(Show.exaple), key: 1)
+    SingleSeasonView(show: ShowModel.sample, key: 1)
 }

@@ -54,6 +54,6 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-        .modelContainer(for: Show.self, inMemory: true)
+        .modelContainer(for: ShowModel.self, inMemory: true)
         .environmentObject(ThemeManager())
 }

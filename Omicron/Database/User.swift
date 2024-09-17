@@ -1,12 +1,12 @@
 //
-//  UserDTO.swift
+//  User.swift
 //  Omicron
 //
-//  Created by Beni Kis on 24/04/2024.
+//  Created by Beni Kis on 14/09/2024.
+//
 //
 
 import Foundation
-
 
 struct User: Codable {
     var uid: String? = ""

@@ -14,7 +14,7 @@ class LoginViewModel: ObservableObject {
     var modelContext: ModelContext?
     var apiController: APIController?
     
-    @ObservedObject var sdvm = SearchDetailViewModel()
+    @StateObject var sdvm = SearchDetailViewModel()
     
     @Published var email = ""
     @Published var password = ""
@@ -24,12 +24,13 @@ class LoginViewModel: ObservableObject {
     func start(modelContext: ModelContext, apiController: APIController) {
         self.modelContext = modelContext
         self.apiController = apiController
+        sdvm.setup(apiController: apiController)
         loadData()
     }
     
     func loadData() {
         do {
-            shows = try modelContext!.fetch(FetchDescriptor<Show>()).map{String($0.id)}
+            shows = try modelContext!.fetch(FetchDescriptor<ShowModel>()).map{String($0.id)}
         } catch {
             print(error)
         }
@@ -43,7 +44,7 @@ class LoginViewModel: ObservableObject {
             user.lists["favourites"]?.forEach {id in
                 if !shows.contains(id) {
                     Task {
-                        await sdvm.addShow(id: Int(id)!, apiController!)
+                        await sdvm.getShow(id: id)
                     }
                 }
             }

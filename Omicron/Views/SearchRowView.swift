@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchRowView: View {
-    @Binding var show: ShowInfo
+    @Binding var show: ShowOverviewModel
     
     var body: some View {
         HStack {
@@ -19,12 +19,9 @@ struct SearchRowView: View {
                     .frame(maxWidth: 100, maxHeight: 120)
             } placeholder: {
                 ProgressView().progressViewStyle(.circular)
-                    .frame(maxWidth: 100, maxHeight: 120)
+                    .frame(width: 100, height: 120)
                     .padding()
-                
             }
-            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
             Spacer()
             VStack(alignment: .trailing) {
                 Text(show.name)
@@ -36,5 +33,5 @@ struct SearchRowView: View {
 }
 
 #Preview {
-    SearchRowView(show: Binding.constant(ShowInfo.dummy))
+    SearchRowView(show: Binding.constant(ShowOverviewModel.dummy))
 }

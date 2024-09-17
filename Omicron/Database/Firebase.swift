@@ -8,6 +8,113 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import CoreData
+
+
+// MARK: - Account Manager
+class AccountManager: ObservableObject {
+    @Published var currentAccount: UserModel?
+    @Published var accounts: [UserModel] = []
+    
+    private let userDefaults = UserDefaults.standard
+    private let firestore = Firestore.firestore()
+    
+    init() {
+        loadAccounts()
+    }
+    
+    func loadAccounts() {
+        if let data = userDefaults.data(forKey: "userAccounts"),
+           let accounts = try? JSONDecoder().decode([UserModel].self, from: data) {
+            self.accounts = accounts
+        }
+        if let data = userDefaults.data(forKey: "currentAccount"),
+           let currentAccount = try? JSONDecoder().decode(UserModel.self, from: data) {
+            self.currentAccount = currentAccount
+        }
+    }
+    
+    func saveAccounts() {
+        if let encoded = try? JSONEncoder().encode(accounts) {
+            userDefaults.set(encoded, forKey: "userAccounts")
+        }
+        if let encoded = try? JSONEncoder().encode(currentAccount) {
+            userDefaults.set(encoded, forKey: "currentAccount")
+        }
+    }
+    
+    func addAccount(_ account: UserModel) {
+        accounts.append(account)
+        saveAccounts()
+    }
+    
+    func switchToAccount(_ account: UserModel) {
+        currentAccount = account
+        saveAccounts()
+        // Implement logic to switch CoreData store and sync with Firestore if online
+    }
+    
+    func createOfflineAccount(username: String) {
+        let offlineAccount = UserModel(id: UUID().uuidString, username: username, email: "", isOffline: true)
+        addAccount(offlineAccount)
+        switchToAccount(offlineAccount)
+    }
+    
+    func loginWithFirebase(email: String, password: String) async throws {
+        let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
+        let user = authResult.user
+        let account = UserModel(id: user.uid, username: user.displayName ?? "", email: user.email ?? "", isOffline: false)
+        addAccount(account)
+        switchToAccount(account)
+    }
+}
+
+// MARK: - Core Data Manager
+class CoreDataManager {
+    static let shared = CoreDataManager()
+    
+    private init() {}
+    
+    func createContainer(for accountId: String) -> NSPersistentContainer {
+        let container = NSPersistentContainer(name: "UserDataModel")
+        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            .first!.appendingPathComponent("\(accountId).sqlite")
+        
+        let storeDescription = NSPersistentStoreDescription(url: storeURL)
+        container.persistentStoreDescriptions = [storeDescription]
+        
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        
+        return container
+    }
+}
+
+// MARK: - Data Sync Manager
+class DataSyncManager {
+    private let firestore = Firestore.firestore()
+    private let accountManager: AccountManager
+    private let coreDataManager: CoreDataManager
+    
+    init(accountManager: AccountManager, coreDataManager: CoreDataManager) {
+        self.accountManager = accountManager
+        self.coreDataManager = coreDataManager
+    }
+    
+    func syncData() {
+        guard let account = accountManager.currentAccount, !account.isOffline else { return }
+        
+        // Implement sync logic here:
+        // 1. Fetch changes from Firestore
+        // 2. Update CoreData
+        // 3. Push local changes to Firestore
+    }
+}
+
+
 
 class FireStore {
     static let shared = FireStore()

@@ -11,7 +11,7 @@ struct DetailsViewRatingOverlay: View {
     @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelContext
     @State private var rating = 0.0
-    @Binding var show: Show
+    var show: ShowModel
     @Binding var ratingOverlayPresented: Bool
     
     var body: some View {
@@ -54,21 +54,21 @@ struct DetailsViewRatingOverlay: View {
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .shadow(radius: 10)
         .onAppear {
-            rating = Double(show.score)
+            rating = Double(/*show.score*/0)
         }
     }
     
     private func saveRating() {
-        do {
-            show.score = Int(rating)
-            try modelContext.save()
-        } catch {
-            print("Oops")
-        }
+//        do {
+//            show.score = Int(rating)
+//            try modelContext.save()
+//        } catch {
+//            print("Oops")
+//        }
     }
 }
 
 #Preview {
-    DetailsViewRatingOverlay(show: Binding.constant(Show.exaple), ratingOverlayPresented: Binding.constant(false))
+    DetailsViewRatingOverlay(show: ShowModel.sample, ratingOverlayPresented: Binding.constant(false))
         .environmentObject(ThemeManager())
 }

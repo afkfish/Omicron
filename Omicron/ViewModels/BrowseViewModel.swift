@@ -26,7 +26,7 @@ class BrowseViewModel: ObservableObject {
     
     func loadData() {
         do {
-            searchList = Set(try modelContext!.fetch(FetchDescriptor<ShowInfo>()).map {$0.id})
+            searchList = Set(try modelContext!.fetch(FetchDescriptor<ShowOverviewModel>()).map {$0.id})
         } catch {
             print(error)
         }
@@ -34,10 +34,10 @@ class BrowseViewModel: ObservableObject {
     
     func search(_ apiController: APIController) async {
         await apiController.search(for: searchText.isEmpty ? "A" : searchText)
-            .map {(res) -> Set<ShowInfo> in
+            .map {(res) -> Set<ShowOverviewModel> in
                 guard res.data != nil else { return [] }
                 return Set(res.data!.map {
-                    ShowInfo(from: $0)
+                    ShowOverviewModel(from: $0)
                 })
             }
             .sink { [weak self] newItems in
@@ -46,7 +46,7 @@ class BrowseViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func appendToModel(_ newItems: Set<ShowInfo>) {
+    func appendToModel(_ newItems: Set<ShowOverviewModel>) {
         let itemsToAdd = newItems.filter { !searchList.contains($0.id) }
 
         for item in itemsToAdd {

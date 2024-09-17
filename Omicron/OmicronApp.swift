@@ -24,7 +24,7 @@ struct OmicronApp: App {
     @StateObject var store = AuthStore()
     
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([Show.self, ShowInfo.self])
+        let schema = Schema([ShowOverviewModel.self, ShowModel.self])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {

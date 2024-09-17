@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ListViewItemLabel: View {
-    @Binding var show: Show
+    var show: ShowModel
     
     var body: some View {
         VStack {
             HStack {
-                CachedAsyncImage(url: URL(string: show.image)!) {
+                CachedAsyncImage(url: URL(string: show.posterPath ?? "")!) {
                     $0.resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(maxWidth: 67.5, maxHeight: 100)
@@ -21,12 +21,12 @@ struct ListViewItemLabel: View {
                 } placeholder: {
                     ProgressView()
                 }
-                Text(show.name)
+                Text(show.title)
                 Spacer()
-                Text(show.score == 0 ? "-" : String(show.score))
+                Text(/*show.score == 0 ? "-" : String(show.score)*/"10")
             }
             HStack {
-                ProgressView(value: Float(show.progress.map {$0.value}.reduce(0, +)), total: Float(show.episodes))
+                ProgressView(value: /*Float(show.progress.map {$0.value}.reduce(0, +))*/0, total: Float(show.seasons.map {$0.episodes.count}.reduce(0, +)))
                     .tint(.green)
             }
         }
@@ -34,5 +34,5 @@ struct ListViewItemLabel: View {
 }
 
 #Preview {
-    ListViewItemLabel(show: Binding.constant(Show.exaple))
+    ListViewItemLabel(show: ShowModel.sample)
 }

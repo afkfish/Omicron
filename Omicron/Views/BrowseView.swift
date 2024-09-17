@@ -12,10 +12,10 @@ struct BrowseView: View {
     @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelcontext
     @Environment(\.defaultAPIController) private var apiController
-    @Query(sort: \ShowInfo.name, order: .forward) private var baseDetails: [ShowInfo]
+    @Query(sort: \ShowOverviewModel.name, order: .forward) private var baseDetails: [ShowOverviewModel]
     @ObservedObject private var vm = BrowseViewModel()
     
-    var filteredSearchItems: [ShowInfo] {
+    var filteredSearchItems: [ShowOverviewModel] {
         if (vm.searchText.isEmpty) {
             baseDetails
         } else {
@@ -69,6 +69,6 @@ struct BrowseView: View {
 
 #Preview {
     BrowseView()
-        .modelContainer(for: [Show.self, ShowInfo.self], inMemory: true)
+        .modelContainer(for: [ShowModel.self, ShowOverviewModel.self], inMemory: true)
         .environmentObject(ThemeManager())
 }
