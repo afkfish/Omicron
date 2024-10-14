@@ -13,7 +13,7 @@ struct BrowseView: View {
     @Environment(\.modelContext) private var modelcontext
     @Environment(\.defaultAPIController) private var apiController
     @Query(sort: \ShowOverviewModel.name, order: .forward) private var baseDetails: [ShowOverviewModel]
-    @ObservedObject private var vm = BrowseViewModel()
+    @StateObject private var vm = BrowseViewModel()
     
     var filteredSearchItems: [ShowOverviewModel] {
         if (vm.searchText.isEmpty) {
@@ -50,7 +50,7 @@ struct BrowseView: View {
                 .listStyle(.plain)
                 .searchable(text: $vm.searchText, prompt: "Search for a show")
                 .onChange(of: vm.searchText) {
-                    if (filteredSearchItems.count < 10) {
+                    if (filteredSearchItems.count < 3) {
                         Task {
                             await vm.search(apiController)
                         }
@@ -71,4 +71,5 @@ struct BrowseView: View {
     BrowseView()
         .modelContainer(for: [ShowModel.self, ShowOverviewModel.self], inMemory: true)
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LandingView: View {
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
     @AppStorage("loginCancelled") private var cancelledLogin = false
-    @ObservedObject private var auth = AuthStore()
     
     private let pictures = [
         "https://artworks.thetvdb.com/banners/posters/328724-2.jpg",
@@ -83,6 +83,7 @@ struct LandingView: View {
             
             Button("Maybe later") {
                 cancelledLogin = true
+                accountManager.currentAccount = accountManager.offlineAccount
             }
             .buttonStyle(BorderedProminentButtonStyle())
             .shadow(radius: 5)
@@ -94,4 +95,5 @@ struct LandingView: View {
     LandingView()
         .modelContainer(for: ShowModel.self, inMemory: true)
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

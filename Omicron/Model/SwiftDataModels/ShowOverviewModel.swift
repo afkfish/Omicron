@@ -11,7 +11,7 @@ import SwiftData
 @Model
 final class ShowOverviewModel: Identifiable {
     final var id: String
-    final var country: String
+    final var country: String?
     var imageURL: String
     final var name: String
     var firstAirDate: String?
@@ -22,7 +22,7 @@ final class ShowOverviewModel: Identifiable {
     var thumbnail: String?
     final var year: Int
     
-    init(id: String, country: String, imageURL: String, name: String, firstAirDate: String?, overview: String?, primaryLang: String, status: String, network: String? = nil, thumbnail: String? = nil, year: Int) {
+    init(id: String, country: String? = nil, imageURL: String, name: String, firstAirDate: String?, overview: String?, primaryLang: String, status: String, network: String? = nil, thumbnail: String? = nil, year: Int) {
         self.id = id
         self.country = country
         self.imageURL = imageURL

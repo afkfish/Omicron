@@ -11,7 +11,7 @@ import SwiftData
 @Model
 class EpisodeModel: Identifiable, Codable {
     enum CodingKeys: CodingKey {
-        case id, episodeNumber, title, overview, airDate, seasonNumber, season
+        case id, episodeNumber, title, overview, airDate, seasonNumber
     }
     
     var id: String
@@ -20,27 +20,28 @@ class EpisodeModel: Identifiable, Codable {
     var overview: String?
     var airDate: Date?
     var seasonNumber: Int?
-    @Relationship var season: SeasonModel?
     
-    init(id: String, episodeNumber: Int, title: String, overview: String? = nil, airDate: Date? = nil, seasonNumber: Int? = nil, season: SeasonModel? = nil) {
+    init(id: String, episodeNumber: Int, title: String, overview: String? = nil, airDate: Date? = nil, seasonNumber: Int? = nil) {
         self.id = id
         self.episodeNumber = episodeNumber
         self.title = title
         self.overview = overview
         self.airDate = airDate
         self.seasonNumber = seasonNumber
-        self.season = season
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Required properties
         self.id = try container.decode(String.self, forKey: .id)
         self.episodeNumber = try container.decode(Int.self, forKey: .episodeNumber)
         self.title = try container.decode(String.self, forKey: .title)
-        self.overview = try container.decode(String.self, forKey: .overview)
-        self.airDate = try container.decode(Date.self, forKey: .airDate)
-        self.seasonNumber = try container.decode(Int.self, forKey: .seasonNumber)
-        self.season = try container.decode(SeasonModel.self, forKey: .season)
+        
+        // Optional properties
+        self.overview = try container.decodeIfPresent(String.self, forKey: .overview)
+        self.airDate = try container.decodeIfPresent(Date.self, forKey: .airDate)
+        self.seasonNumber = try container.decodeIfPresent(Int.self, forKey: .seasonNumber)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -51,7 +52,6 @@ class EpisodeModel: Identifiable, Codable {
         try container.encode(self.overview, forKey: .overview)
         try container.encode(self.airDate, forKey: .airDate)
         try container.encode(self.seasonNumber, forKey: .seasonNumber)
-        try container.encode(self.season, forKey: .season)
     }
 }
 

@@ -11,7 +11,8 @@ struct SearchDTO: Codable {
     var data: [SearchShow]?
     
     struct SearchShow: Codable {
-        let country, id: String
+        let id: String
+        let country: String?
         let imageURL: String
         let overview: String?
         let firstAirTime: String?

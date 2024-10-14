@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct DetailsViewRatingOverlay: View {
+    @EnvironmentObject private var accountManager: AccountManager
     @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelContext
     @State private var rating = 0.0
-    var show: ShowModel
+    @Binding var show: ShowModel
     @Binding var ratingOverlayPresented: Bool
+    
+    private var user: UserModel {
+        accountManager.currentAccount!
+    }
+    
+    private var userRating: Int {
+        user.ratings[show.id] ?? 0
+    }
     
     var body: some View {
         VStack{
@@ -54,21 +63,17 @@ struct DetailsViewRatingOverlay: View {
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .shadow(radius: 10)
         .onAppear {
-            rating = Double(/*show.score*/0)
+            rating = Double(userRating)
         }
     }
     
     private func saveRating() {
-//        do {
-//            show.score = Int(rating)
-//            try modelContext.save()
-//        } catch {
-//            print("Oops")
-//        }
+        user.ratings[show.id] = Int(rating)
     }
 }
 
 #Preview {
-    DetailsViewRatingOverlay(show: ShowModel.sample, ratingOverlayPresented: Binding.constant(false))
+    DetailsViewRatingOverlay(show: Binding.constant(ShowModel.sample), ratingOverlayPresented: Binding.constant(false))
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

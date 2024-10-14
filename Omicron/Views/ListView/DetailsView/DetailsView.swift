@@ -8,24 +8,55 @@
 import SwiftUI
 
 struct DetailsView: View {
+    @AppStorage("countExtras") private var countExtras = true
     @EnvironmentObject private var theme: ThemeManager
-    var show: ShowModel
+    @EnvironmentObject private var accountManager: AccountManager
+    @State var show: ShowModel
     @State private var ratingOverlayPresented = false
+    
+    private var user: UserModel {
+        accountManager.currentAccount!
+    }
+    
+    private var userRating: Int {
+        user.ratings[show.id] ?? 0
+    }
+    
+    private var progress: Int {
+        if (countExtras) {
+            user.progresses[show.id]?.values.reduce(0, +) ?? 0
+        } else {
+            user.progresses[show.id]?.filter { $0.key != 0 }.values.reduce(0, +) ?? 0
+        }
+    }
+    
+    private var sumOfEpisodes: Int {
+        if (countExtras) {
+            show.seasons.reduce(0) { $0 + $1.episodeCount }
+        } else {
+            show.seasons.filter { $0.seasonNumber != 0 }.reduce(0) { $0 + $1.episodeCount }
+        }
+    }
     
     var body: some View {
         ZStack {
             theme.selected.primary
                 .ignoresSafeArea(.all)
-            VStack {
-                header
-                showInfo
-                Text(show.overview ?? "")
-                Spacer()
-                SeasonsListedView(show: show)
+            ScrollView {
+                VStack {
+                    header
+                    showInfo
+                    Text(show.overview ?? "")
+                    Spacer()
+                    ForEach(Array(show.seasons.sorted { $0.seasonNumber > $1.seasonNumber})) {
+                        SingleSeasonView(show: $show, key: $0.seasonNumber)
+                    }
+                }
             }
             .padding(.horizontal)
             .blur(radius: ratingOverlayPresented ? 3 : 0)
             .navigationTitle(show.title)
+            .toolbarBackground(theme.selected.primary, for: .navigationBar)
             ratingOverlay
         }
     }
@@ -33,8 +64,7 @@ struct DetailsView: View {
     private var ratingOverlay: some View {
         Group {
             if (ratingOverlayPresented) {
-                DetailsViewRatingOverlay(show: show, ratingOverlayPresented: $ratingOverlayPresented)
-                    .environmentObject(theme)
+                DetailsViewRatingOverlay(show: $show, ratingOverlayPresented: $ratingOverlayPresented)
             }
         }
     }
@@ -51,7 +81,7 @@ struct DetailsView: View {
                 Text("Overall progress: ")
                     .bold()
                 Spacer()
-                Text(/*String(show.progress.map {$0.value}.reduce(0, +))*/ "0" + "/" + String(show.seasons.map {$0.episodeCount}.reduce(0, +)))
+                Text(String(progress) + "/" + String(sumOfEpisodes))
             }
             .padding(.bottom)
         }
@@ -79,7 +109,7 @@ struct DetailsView: View {
     private var showStats: some View {
         VStack(alignment: .trailing) {
             Spacer()
-            Button(/*show.score == 0 ? "-" : String(show.score)*/ "10", systemImage: "star.fill") {
+            Button(userRating == 0 ? "-" : String(userRating), systemImage: "star.fill") {
                 withAnimation {
                     ratingOverlayPresented = true
                 }
@@ -93,4 +123,5 @@ struct DetailsView: View {
 #Preview {
     DetailsView(show: ShowModel.sample)
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

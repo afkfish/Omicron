@@ -11,32 +11,29 @@ import SwiftData
 @Model
 class SeasonModel: Identifiable, Codable {
     enum CodingKeys: CodingKey {
-        case id, seasonNumber, episodeCount, show, episodes, progresses
+        case id, seasonNumber, episodeCount, episodes, progresses
     }
     
     var id: String
     var seasonNumber: Int
     var episodeCount: Int
-    @Relationship var show: ShowModel?
-    @Relationship(inverse: \EpisodeModel.season) var episodes: [EpisodeModel] = []
-    @Relationship(deleteRule: .cascade, inverse: \WatchProgressModel.season) var progresses: [WatchProgressModel] = []
+    @Relationship var episodes: [EpisodeModel] = []
     
     init(id: String, seasonNumber: Int, episodeCount: Int, show: ShowModel? = nil, episodes: [EpisodeModel] = []) {
         self.id = id
         self.seasonNumber = seasonNumber
         self.episodeCount = episodeCount
-        self.show = show
         self.episodes = episodes
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Required properties
         self.id = try container.decode(String.self, forKey: .id)
         self.seasonNumber = try container.decode(Int.self, forKey: .seasonNumber)
         self.episodeCount = try container.decode(Int.self, forKey: .episodeCount)
-        self.show = try container.decode(ShowModel.self, forKey: .show)
         self.episodes = try container.decode([EpisodeModel].self, forKey: .episodes)
-        self.progresses = try container.decode([WatchProgressModel].self, forKey: .progresses)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -44,9 +41,7 @@ class SeasonModel: Identifiable, Codable {
         try container.encode(self.id, forKey: .id)
         try container.encode(self.seasonNumber, forKey: .seasonNumber)
         try container.encode(self.episodeCount, forKey: .episodeCount)
-        try container.encode(self.show, forKey: .show)
         try container.encode(self.episodes, forKey: .episodes)
-        try container.encode(self.progresses, forKey: .progresses)
     }
 }
 

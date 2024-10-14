@@ -7,15 +7,20 @@
 
 import SwiftUI
 import SwiftData
-import Combine
+
+class ListofShows: ObservableObject {
+    @Published var shows: [ShowModel]
+    
+    init(shows: [ShowModel]) {
+        self.shows = shows
+    }
+}
 
 struct ListsView: View {
     @EnvironmentObject private var theme: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
     @Environment(\.modelContext) private var modelContext
-    @Query private var shows: [ShowModel]
-    @ObservedObject private var vm = ListsViewModel()
     
-//    @Binding var currentUser: UserModel?
     @State private var searchText = ""
         
     var body: some View {
@@ -25,45 +30,48 @@ struct ListsView: View {
                     .ignoresSafeArea(.all)
                 List {
                     ForEach(searchResults) {show in
-//                        @State var show = show // bad practice, pls no bully /(0_0*)\
                         NavigationLink {
                             DetailsView(show: show)
-                                .environmentObject(theme)
                         } label: {
                             ListViewItemLabel(show: show)
                         }
                     }
-                    .onDelete(perform: vm.deleteItems)
+                    .onDelete(perform: deleteItems)
                     .listRowBackground(theme.selected.primary)
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Title of the show")
-                .navigationTitle("Saved")
+                .navigationTitle("Library")
                 .toolbarBackground(theme.selected.primary, for: .navigationBar)
-            }
-            .onAppear {
-                vm.start(modelContext: modelContext)
             }
         }
     }
     
-//    var userShows: [Show] {
-//        if AuthStore().data.authenticated {
-//            return shows.filter {show in
-//                FireStore.shared.user!.lists["favourites"]!.contains(String(show.id))
-//            }
-//        } else {
-//            return shows
-//        }
-//    }
+    var library: [ShowModel] {
+        if let library = accountManager.currentAccount?.library {
+            library
+        } else {
+            []
+        }
+    }
     
     var searchResults: [ShowModel] {
         if searchText.isEmpty {
-            return shows
+            return library
         } else {
-            return shows.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            return library.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
+    }
+    
+    private func deleteItems(offsets: IndexSet) {
+        if searchText.isEmpty {
+            accountManager.currentAccount?.library.remove(atOffsets: offsets)
+        } else {
+            let itemsToDelete = searchResults.enumerated().filter{ offsets.contains($0.offset) }.map {$0.element.id}
+            accountManager.currentAccount?.library.removeAll(where: { itemsToDelete.contains($0.id) })
+        }
+        
     }
 }
 
@@ -71,4 +79,5 @@ struct ListsView: View {
     ListsView()
         .modelContainer(for: ShowModel.self, inMemory: true)
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

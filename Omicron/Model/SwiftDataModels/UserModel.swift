@@ -9,35 +9,42 @@ import Foundation
 import SwiftData
 
 @Model
-class UserModel: Identifiable, Codable {
+class UserModel: Identifiable, Codable, ObservableObject {
     enum CodingKeys: CodingKey {
-        case id, username, email, isOffline, library, ratings, progresses
+        case id, username, email, isOffline, library, ratings, progresses, version
    }
     
     var id: String
     var username: String
     var email: String
     var isOffline: Bool
-    @Relationship(deleteRule: .cascade, inverse: \ShowModel.inLibraryOf) var library: [ShowModel] = []
-    @Relationship(deleteRule: .cascade, inverse: \RatingModel.user) var ratings: [RatingModel] = []
-    @Relationship(deleteRule: .cascade, inverse: \WatchProgressModel.user) var progresses: [WatchProgressModel] = []
+    @Relationship(deleteRule: .cascade) var library: [ShowModel] = []
+    var ratings: [String: Int] = [:]
+    var progresses: [String: [Int: Int]] = [:]
+    var version: Int = 0
 
-    init(id: String, username: String, email: String, isOffline: Bool, libaray: [ShowModel] = [], ratings: [RatingModel] = [], progresses: [WatchProgressModel] = []) {
+    init(id: String, username: String, email: String, isOffline: Bool, library: [ShowModel] = [], ratings: [String: Int] = [:], progresses: [String: [Int: Int]] = [:]) {
         self.id = id
         self.username = username
         self.email = email
         self.isOffline = isOffline
+        self.library = library
+        self.ratings = ratings
+        self.progresses = progresses
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Required properties
         self.id = try container.decode(String.self, forKey: .id)
         self.username = try container.decode(String.self, forKey: .username)
         self.email = try container.decode(String.self, forKey: .email)
         self.isOffline = try container.decode(Bool.self, forKey: .isOffline)
         self.library = try container.decode([ShowModel].self, forKey: .library)
-        self.ratings = try container.decode([RatingModel].self, forKey: .ratings)
-        self.progresses = try container.decode([WatchProgressModel].self, forKey: .progresses)
+        self.ratings = try container.decode([String: Int].self, forKey: .ratings)
+        self.progresses = try container.decode([String: [Int: Int]].self, forKey: .progresses)
+        self.version = try container.decode(Int.self, forKey: .version)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -49,48 +56,28 @@ class UserModel: Identifiable, Codable {
         try container.encode(self.library, forKey: .library)
         try container.encode(self.ratings, forKey: .ratings)
         try container.encode(self.progresses, forKey: .progresses)
+        try container.encode(self.version, forKey: .version)
     }
 }
 
 // MARK: - Convenience Methods
 extension UserModel {
-    static func fetchOrCreate(withId id: String, in context: ModelContext) -> UserModel {
-        let descriptor = FetchDescriptor<UserModel>(predicate: #Predicate { $0.id == id })
-        let results = (try? context.fetch(descriptor)) ?? []
-        if let existingUser = results.first {
-            return existingUser
+    func fetchOrCreateProgress(withId id: String, forSeason season: Int) -> Int {
+        if let showProgress = self.progresses[id] {
+            if let progress = showProgress[season] {
+                return progress
+            } else {
+                self.progresses[id]![season] = 0
+            }
+        } else {
+            self.progresses[id] = [:]
+            self.progresses[id]![season] = 0
         }
-        let newUser = UserModel(id: id, username: "", email: "", isOffline: false)
-        context.insert(newUser)
-        return newUser
+        return 0
     }
     
-    func fetchOrCreateProgress(withId showId: String, forSeason season: Int) -> WatchProgressModel? {
-        if let progress = self.progresses.first(where: {$0.show?.id == showId && $0.season?.seasonNumber == season}) {
-            return progress
-        } else {
-            let show = self.getShow(withId: showId)
-            let season = show?.seasons.first(where: {$0.seasonNumber == season})
-            
-            guard show != nil && season != nil else { return nil }
-            
-            let progress = WatchProgressModel(user: self, show: show!, season: season!)
-            self.progresses.append(progress)
-            return progress
-        }
-    }
-    
-    func rateShow(show id: String, value: Int) {
-        if let rating = self.ratings.first(where: { $0.show?.id == id }) {
-                rating.value = value
-        } else {
-            let show = self.getShow(withId: id)
-            
-            guard show != nil else { return }
-            
-            let rating = RatingModel(value: value, user: self, show: show!)
-            self.ratings.append(rating)
-        }
+    func getShowProgress(show id: String, seasonNumber: Int) -> Int {
+        self.progresses[id]?[seasonNumber] ?? 0
     }
     
     private func getShow(withId id: String) -> ShowModel? {

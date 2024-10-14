@@ -41,11 +41,10 @@ class TVDbAPIController: APIController {
     func search(for q: String) async -> AnyPublisher<SearchDTO, Never> {
         let query = URLQueryItem(name: "q", value: q)
         let type = URLQueryItem(name: "type", value: "series")
-        let limit = URLQueryItem(name: "limit", value: "10")
+        let limit = URLQueryItem(name: "limit", value: "5")
         let url = URL(string: baseURL + "/search")!.appending(queryItems: [query, type, limit])
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = authenticatedHeader
-        
         
         return doRequest(request: request, SearchDTO.self)
     }

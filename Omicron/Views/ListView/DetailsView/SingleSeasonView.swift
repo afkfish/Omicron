@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct SingleSeasonView: View {
+    @EnvironmentObject private var theme: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
     @State private var collapsed = true
-    var show: ShowModel
+    @Binding var show: ShowModel
     var key: Int
     
+    private var user: UserModel { accountManager.currentAccount! }
     private var season: SeasonModel? { show.seasons.first(where: {$0.seasonNumber == key}) }
-    private var seasonProgress: Int { /*show.progress[key] ??*/ 0 }
-    
+    private var seasonProgress: Int { user.fetchOrCreateProgress(withId: show.id, forSeason: key) }
     
     var body: some View {
         VStack {
@@ -23,18 +25,18 @@ struct SingleSeasonView: View {
                     UIImpactFeedbackGenerator(style: .soft).impactOccurred()
                     collapsed.toggle()
                 } label: {
-                    Label("S\(String(format: "%02d", key))", systemImage: collapsed ? "chevron.down" : "chevron.up")
+                    Label(key == 0 ? "Extras" : "S\(String(format: "%02d", key))", systemImage: collapsed ? "chevron.down" : "chevron.up")
                 }
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
                 ProgressView(value: Float(seasonProgress), total: Float(season?.episodeCount ?? 0))
-                    .tint(.green)
+                    .tint(theme.selected.contrast)
                 Spacer()
                 HStack {
                     Button {
                         withAnimation(.bouncy) {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//                            show.progress[key] = (seasonProgress) - (seasonProgress > 0 ? 1: 0)
+                            user.progresses[show.id]?[key] = (seasonProgress) - (seasonProgress > 0 ? 1: 0)
                         }
                     } label: {
                         Image(systemName: "minus.circle.fill")
@@ -45,7 +47,7 @@ struct SingleSeasonView: View {
                     Button {
                         withAnimation(.bouncy) {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//                            show.progress[key] = (seasonProgress) + (season.episodeCount > seasonProgress ? 1 : 0)
+                            increaseProgress()
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
@@ -53,21 +55,20 @@ struct SingleSeasonView: View {
                     .disabled(seasonProgress >= season?.episodeCount ?? 0)
                     .buttonStyle(PlainButtonStyle())
                 }
-//                .frame(minWidth: 70, maxWidth: 100)
             }
             .padding(.vertical)
             .contentShape(Rectangle())
             .contextMenu(ContextMenu(menuItems: {
                 Button {
                     withAnimation(.bouncy) {
-//                        show.progress[key] = season.episodeCount
+                        user.progresses[show.id]?[key] = season?.episodeCount ?? 0
                     }
                 } label: {
                     Label("Mark as watched", systemImage: "checkmark.circle.fill")
                 }
                 Button {
                     withAnimation(.bouncy) {
-//                        show.progress[key] = 0
+                        user.progresses[show.id]?[key] = 0
                     }
                 } label: {
                     Label("Mark as unwatched", systemImage: "x.circle.fill")
@@ -92,8 +93,14 @@ struct SingleSeasonView: View {
             .transition(.slide)
         }
     }
+    
+    private func increaseProgress() {
+        user.progresses[show.id]?[key] = (seasonProgress) + (season?.episodeCount ?? 0 > seasonProgress ? 1 : 0)
+    }
 }
 
 #Preview {
-    SingleSeasonView(show: ShowModel.sample, key: 1)
+    SingleSeasonView(show: Binding.constant(ShowModel.sample), key: 1)
+        .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

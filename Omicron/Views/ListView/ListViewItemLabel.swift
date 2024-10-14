@@ -8,7 +8,34 @@
 import SwiftUI
 
 struct ListViewItemLabel: View {
-    var show: ShowModel
+    @AppStorage("countExtras") private var countExtras = true
+    @EnvironmentObject private var theme: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
+    @State var show: ShowModel
+    
+    private var user: UserModel? {
+        accountManager.currentAccount
+    }
+        
+    private var userRating: Int {
+        user?.ratings[show.id] ?? 0
+    }
+    
+    private var progress: Float {
+        var filtered = user?.progresses[show.id]
+        if (!countExtras) {
+            filtered = filtered?.filter { $0.key != 0 }
+        }
+        return Float(filtered?.values.reduce(0, +) ?? 0)
+    }
+    
+    private var sumOfEpisodes: Float {
+        if (countExtras) {
+            Float(show.seasons.reduce(0) { $0 + $1.episodeCount })
+        } else {
+            Float(show.seasons.filter { $0.seasonNumber != 0 }.reduce(0) { $0 + $1.episodeCount })
+        }
+    }
     
     var body: some View {
         VStack {
@@ -23,11 +50,11 @@ struct ListViewItemLabel: View {
                 }
                 Text(show.title)
                 Spacer()
-                Text(/*show.score == 0 ? "-" : String(show.score)*/"10")
+                Text(userRating == 0 ? "-" : String(userRating))
             }
             HStack {
-                ProgressView(value: /*Float(show.progress.map {$0.value}.reduce(0, +))*/0, total: Float(show.seasons.map {$0.episodes.count}.reduce(0, +)))
-                    .tint(.green)
+                ProgressView(value: progress, total: sumOfEpisodes)
+                    .tint(theme.selected.contrast)
             }
         }
     }
@@ -35,4 +62,6 @@ struct ListViewItemLabel: View {
 
 #Preview {
     ListViewItemLabel(show: ShowModel.sample)
+        .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

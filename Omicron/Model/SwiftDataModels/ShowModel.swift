@@ -11,7 +11,7 @@ import SwiftData
 @Model
 class ShowModel: Identifiable, Codable {
     enum CodingKeys: CodingKey {
-        case id, title, overview, posterPath, firstAirDate, lastAirDate, status, episodeLength, lang, year, link, seasons, inLibraryOf, progress, ratings
+        case id, title, overview, posterPath, firstAirDate, lastAirDate, status, episodeLength, lang, year, link, seasons
     }
     
     var id: String
@@ -25,12 +25,9 @@ class ShowModel: Identifiable, Codable {
     var lang: String?
     var year: String?
     var link: String?
-    @Relationship var inLibraryOf: [UserModel] = []
-    @Relationship(inverse: \SeasonModel.show) var seasons: [SeasonModel] = []
-    @Relationship(inverse: \WatchProgressModel.show) var progresses: [WatchProgressModel] = []
-    @Relationship(deleteRule: .cascade, inverse: \RatingModel.show) var ratings: [RatingModel] = []
+    @Relationship var seasons: [SeasonModel] = []
 
-    init(id: String, title: String, overview: String? = nil, posterPath: String? = nil, firstAirDate: String? = nil, lastAirDate: String? = nil, status: String? = nil, episodeLength: Int = 0, lang: String = "engm", year: String = "2000", link: String? = nil, seasons: [SeasonModel] = [], progresses: [WatchProgressModel] = [], ratings: [RatingModel] = []) {
+    init(id: String, title: String, overview: String? = nil, posterPath: String? = nil, firstAirDate: String? = nil, lastAirDate: String? = nil, status: String? = nil, episodeLength: Int? = 0, lang: String? = "engm", year: String? = "2000", link: String? = nil, seasons: [SeasonModel] = []) {
         self.id = id
         self.title = title
         self.overview = overview
@@ -43,27 +40,26 @@ class ShowModel: Identifiable, Codable {
         self.year = year
         self.link = link
         self.seasons = seasons
-        self.progresses = progresses
-        self.ratings = ratings
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Required properties
         self.id = try container.decode(String.self, forKey: .id)
         self.title = try container.decode(String.self, forKey: .title)
-        self.overview = try container.decode(String.self, forKey: .overview)
-        self.posterPath = try container.decode(String.self, forKey: .posterPath)
-        self.firstAirDate = try container.decode(String.self, forKey: .firstAirDate)
-        self.lastAirDate = try container.decode(String.self, forKey: .lastAirDate)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.episodeLength = try container.decode(Int.self, forKey: .episodeLength)
-        self.lang = try container.decode(String.self, forKey: .lang)
-        self.year = try container.decode(String.self, forKey: .year)
-        self.link = try container.decode(String.self, forKey: .link)
+        
+        // Optional properties
+        self.overview = try container.decodeIfPresent(String.self, forKey: .overview)
+        self.posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
+        self.firstAirDate = try container.decodeIfPresent(String.self, forKey: .firstAirDate)
+        self.lastAirDate = try container.decodeIfPresent(String.self, forKey: .lastAirDate)
+        self.status = try container.decodeIfPresent(String.self, forKey: .status)
+        self.episodeLength = try container.decodeIfPresent(Int.self, forKey: .episodeLength)
+        self.lang = try container.decodeIfPresent(String.self, forKey: .lang)
+        self.year = try container.decodeIfPresent(String.self, forKey: .year)
+        self.link = try container.decodeIfPresent(String.self, forKey: .link)
         self.seasons = try container.decode([SeasonModel].self, forKey: .seasons)
-        self.inLibraryOf = try container.decode([UserModel].self, forKey: .inLibraryOf)
-        self.progresses = try container.decode([WatchProgressModel].self, forKey: .progress)
-        self.ratings = try container.decode([RatingModel].self, forKey: .ratings)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -80,9 +76,6 @@ class ShowModel: Identifiable, Codable {
         try container.encode(self.year, forKey: .year)
         try container.encode(self.link, forKey: .link)
         try container.encode(self.seasons, forKey: .seasons)
-        try container.encode(self.inLibraryOf, forKey: .inLibraryOf)
-        try container.encode(self.progresses, forKey: .progress)
-        try container.encode(self.ratings, forKey: .ratings)
     }
 }
 

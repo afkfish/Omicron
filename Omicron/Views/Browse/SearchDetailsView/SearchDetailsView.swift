@@ -7,21 +7,22 @@
 
 import SwiftUI
 import SwiftData
-import Combine
 
 struct SearchDetailsView: View {
     @StateObject private var vm = SearchDetailViewModel()
     @EnvironmentObject private var theme: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
     @Environment(\.defaultAPIController) private var apiController
     @Environment(\.modelContext) private var modelContext
     
     @Binding var show: ShowOverviewModel
     @State private var addedSuccesfuly = false
     
-    private var added: Bool {
+    private var added: (Bool, ShowModel?) {
         let id = "\(show.id)"
         let descriptor = FetchDescriptor<ShowModel>(predicate: #Predicate {$0.id == id})
-        return !((try? modelContext.fetch(descriptor)) ?? []).isEmpty
+        let fetchResult = try? modelContext.fetch(descriptor)
+        return (!(fetchResult ?? []).isEmpty, fetchResult?.first)
     }
     
     var body: some View {
@@ -46,7 +47,11 @@ struct SearchDetailsView: View {
                 Button("Add show to list") {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     Task {
-                        guard !added else { return }
+                        guard !added.0 else {
+                            addToUserLibrary(added.1!)
+                            addedSuccesfuly.toggle()
+                            return
+                        }
                         await vm.getShow(id: show.id)
                     }
                 }
@@ -58,18 +63,24 @@ struct SearchDetailsView: View {
                 saveShow()
             }
             .navigationTitle(show.name)
-            .alert("Show added to list \(vm.show?.title ?? "")", isPresented: $addedSuccesfuly) {}
+            .alert("Show added to library", isPresented: $addedSuccesfuly) {}
         }
         .onAppear {
             vm.setup(apiController: apiController)
         }
     }
     
-    func saveShow() {
+    private func saveShow() {
         modelContext.insert(vm.show!)
-
-//        let test = try? modelContext.fetch(FetchDescriptor<EpisodeModel>())
-//        print(test?.count ?? 0)
+        addToUserLibrary(vm.show!)
+    }
+    
+    private func addToUserLibrary(_ show: ShowModel) {
+        if let account = accountManager.currentAccount {
+            if !account.library.contains(show) {
+                account.library.append(show)
+            }
+        }
     }
 }
 
@@ -77,4 +88,5 @@ struct SearchDetailsView: View {
     SearchDetailsView(show: Binding.constant(ShowOverviewModel.dummy))
         .modelContainer(for: [ShowModel.self], inMemory: true)
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

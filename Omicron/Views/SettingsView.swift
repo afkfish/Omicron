@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @AppStorage("loginCancelled") private var loginCancelled = false
+    @AppStorage("countExtras") private var countExtras = true
     @EnvironmentObject private var theme: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
     @State private var alert = false
     @State private var cacheCleared = false
-    @State private var selectedThemeType: ThemeType = .elephant
+    @State private var countExtrasState = true
+    @State private var selectedThemeType: ThemeType = .gallery
     
     var body: some View {
         NavigationStack {
@@ -40,6 +44,21 @@ struct SettingsView: View {
                             Text("Clear cache")
                         }
                         .listRowBackground(theme.selected.secondary)
+                        Button {
+                            loginCancelled = false
+                            accountManager.currentAccount = nil
+                        } label: {
+                            Text("Logout")
+                        }
+                        .listRowBackground(theme.selected.secondary)
+                        Toggle(isOn: $countExtrasState) {
+                            Text("Count extras")
+                        }
+                        .onChange(of: countExtrasState) {
+                            countExtras.toggle()
+                        }
+                        .tint(theme.selected.contrast)
+                        .listRowBackground(theme.selected.secondary)
                     } header: {
                         Text("System")
                     }
@@ -61,4 +80,5 @@ struct SettingsView: View {
 #Preview {
     SettingsView()
         .environmentObject(ThemeManager())
+        .environmentObject(AccountManager())
 }

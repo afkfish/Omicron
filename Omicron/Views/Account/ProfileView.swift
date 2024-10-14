@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject private var accountManager: AccountManager
     @State private var email: String = "test2@test.com"
     @State private var password: String = "testpass"
     
@@ -24,7 +25,7 @@ struct ProfileView: View {
             Button("Submit") {
                 Task {
                     do {
-                        try await AuthProvider.shared.login(email: email, password: password)
+                        try await accountManager.loginWithFirebase(email: email, password: password)
                     } catch {
                         errorText = error.localizedDescription
                         errorToggle = true
@@ -39,4 +40,5 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
+        .environmentObject(AccountManager())
 }

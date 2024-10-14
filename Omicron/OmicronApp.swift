@@ -18,13 +18,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct OmicronApp: App {
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject var store = AuthStore()
+    @StateObject private var accountManager: AccountManager = .init()
+    @StateObject private var theme: ThemeManager = .init()
     
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([ShowOverviewModel.self, ShowModel.self])
+        let schema = Schema([ShowOverviewModel.self, ShowModel.self, UserModel.self])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -37,14 +37,9 @@ struct OmicronApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .task {
-                    do {
-                        try await store.load()
-                    } catch {
-                        fatalError(error.localizedDescription)
-                    }
-                }
         }
         .modelContainer(sharedModelContainer)
+        .environmentObject(accountManager)
+        .environmentObject(theme)
     }
 }
