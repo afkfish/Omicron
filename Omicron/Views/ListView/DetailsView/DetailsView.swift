@@ -14,19 +14,19 @@ struct DetailsView: View {
     @State var show: ShowModel
     @State private var ratingOverlayPresented = false
     
-    private var user: UserModel {
-        accountManager.currentAccount!
+    private var user: UserModel? {
+        accountManager.currentAccount
     }
     
     private var userRating: Int {
-        user.ratings[show.id] ?? 0
+        user?.ratings[show.id] ?? 0
     }
     
     private var progress: Int {
         if (countExtras) {
-            user.progresses[show.id]?.values.reduce(0, +) ?? 0
+            user?.progresses[show.id]?.values.reduce(0, +) ?? 0
         } else {
-            user.progresses[show.id]?.filter { $0.key != 0 }.values.reduce(0, +) ?? 0
+            user?.progresses[show.id]?.filter { $0.key != 0 }.values.reduce(0, +) ?? 0
         }
     }
     
@@ -48,7 +48,7 @@ struct DetailsView: View {
                     showInfo
                     Text(show.overview ?? "")
                     Spacer()
-                    ForEach(Array(show.seasons.sorted { $0.seasonNumber > $1.seasonNumber})) {
+                    ForEach(Array(show.seasons.sorted(by: >))) {
                         SingleSeasonView(show: $show, key: $0.seasonNumber)
                     }
                 }

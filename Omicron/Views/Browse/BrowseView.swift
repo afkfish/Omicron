@@ -12,14 +12,16 @@ struct BrowseView: View {
     @EnvironmentObject private var theme: ThemeManager
     @Environment(\.modelContext) private var modelcontext
     @Environment(\.defaultAPIController) private var apiController
-    @Query(sort: \ShowOverviewModel.name, order: .forward) private var baseDetails: [ShowOverviewModel]
+    @Query(sort: \ShowOverviewModel.name, order: .forward) private var overviewList: [ShowOverviewModel]
     @StateObject private var vm = BrowseViewModel()
     
+    @State private var searchPhrase: String = ""
+    
     var filteredSearchItems: [ShowOverviewModel] {
-        if (vm.searchText.isEmpty) {
-            baseDetails
+        if (searchPhrase.isEmpty) {
+            overviewList
         } else {
-            baseDetails.filter { $0.name.lowercased().contains(vm.searchText.lowercased()) }
+            overviewList.filter { $0.name.lowercased().contains(searchPhrase.lowercased()) }
         }
     }
     
@@ -32,9 +34,9 @@ struct BrowseView: View {
                 List {
                     ForEach(filteredSearchItems) {item in
                         NavigationLink {
-                            SearchDetailsView(show: Binding.constant(item))
+                            SearchDetailsView(show: item)
                         } label: {
-                            SearchRowView(show: Binding.constant(item))
+                            SearchRowView(show: item)
                         }
                         .padding()
                         .background(theme.selected.primary)
@@ -48,21 +50,34 @@ struct BrowseView: View {
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
-                .searchable(text: $vm.searchText, prompt: "Search for a show")
-                .onChange(of: vm.searchText) {
+                .searchable(text: $searchPhrase, prompt: "Search for a show")
+                .onChange(of: searchPhrase) {
                     if (filteredSearchItems.count < 3) {
-                        Task {
-                            await vm.search(apiController)
-                        }
+                        Task { await search() }
+                    }
+                }
+                .onChange(of: vm.isFinished) {
+                    if (vm.isFinished) {
+                        appendResults(results: vm.searchResults)
+                        vm.isFinished = false
                     }
                 }
                 .navigationTitle("Browse")
                 .toolbarBackground(theme.selected.primary, for: .navigationBar)
             }
-            .onAppear {
-                vm.start(modelContext: modelcontext)
-            }
             .background(theme.selected.primary)
+        }
+    }
+    
+    private func search() async {
+        await vm.search(apiController, query: searchPhrase)
+    }
+    
+    private func appendResults(results: Set<ShowOverviewModel>) {
+        results.forEach { result in
+            if (!overviewList.contains { $0.id == result.id }) {
+                modelcontext.insert(result)
+            }
         }
     }
 }

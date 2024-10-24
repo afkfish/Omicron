@@ -12,49 +12,40 @@ protocol Theme {
     var name: String { get }
     var primary: Color { get }
     var secondary: Color { get }
-    var contrast: Color { get }
-}
-
-struct Trout: Theme {
-    var name: String = "Trout"
-    var primary: Color = Color("TroutLightShade")
-    var secondary: Color = Color("Trout")
-    var contrast: Color = Color("LightText")
-}
-
-struct ChichagoDark: Theme {
-    var name: String = "ChichagoDark"
-    var primary: Color = Color("ChichagoDarkPrimary")
-    var secondary: Color = Color("ChichagoDarkSecondary")
-    var contrast: Color = Color("LightText")
-}
-
-struct Fern: Theme {
-    var name: String = "Fern"
-    var primary: Color = Color("FernPrimary")
-    var secondary: Color = Color("FernSecondary")
-    var contrast: Color = Color("DarkText")
+    var accent: Color { get }
 }
 
 struct Gallery: Theme {
     var name: String = "Gallery"
     var primary: Color = Color("GalleryPrimary")
     var secondary: Color = Color("GallerySecondary")
-    var contrast: Color = Color("GalleryText")
+    var accent: Color = Color("GalleryAccent")
+}
+
+struct Fern: Theme {
+    var name: String = "Fern"
+    var primary: Color = Color("FernPrimary")
+    var secondary: Color = Color("FernSecondary")
+    var accent: Color = Color("FernAccent")
+}
+
+struct Pewter: Theme {
+    var name: String = "Pewter"
+    var primary: Color = Color("PewterPrimary")
+    var secondary: Color = Color("PewterSecondary")
+    var accent: Color = Color("PewterAccent")
 }
 
 enum ThemeType: String, CaseIterable {
-    case trout
-    case chichagoDark
-    case fern
     case gallery
+    case fern
+    case pewter
     
     var theme: Theme {
         switch self {
-        case .trout: return Trout()
-        case .chichagoDark: return ChichagoDark()
-        case .fern: return Fern()
         case .gallery: return Gallery()
+        case .fern: return Fern()
+        case .pewter: return Pewter()
         }
     }
 }

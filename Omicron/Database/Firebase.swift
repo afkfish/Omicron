@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
-import CoreData
-
+import SwiftData
+import SwiftUI
 
 // MARK: - Account Manager
 class AccountManager: ObservableObject {
@@ -19,14 +19,16 @@ class AccountManager: ObservableObject {
     private let userDefaults = UserDefaults.standard
     private let firestore = Firestore.firestore()
     
+    private var libraryManager: LibraryManager!
+    
     init() {
         loadAccounts()
         if offlineAccount == nil {
             createOfflineAccount(username: "Offline")
         }
-        if currentAccount == nil {
-            currentAccount = offlineAccount
-        }
+//        if currentAccount == nil {
+//            currentAccount = offlineAccount
+//        }
     }
     
     func loadAccounts() {
@@ -64,30 +66,88 @@ class AccountManager: ObservableObject {
     }
     
     func switchToAccount(_ account: UserModel) {
-        currentAccount = account
-        saveAccounts()
+        if Thread.isMainThread {
+            currentAccount = account
+            saveAccounts()
+        } else {
+            DispatchQueue.main.async {
+                self.currentAccount = account
+                self.saveAccounts()
+            }
+        }
     }
     
-    func createOfflineAccount(username: String) {
+    private func createOfflineAccount(username: String) {
         guard self.offlineAccount == nil else { return }
         let offlineAccount = UserModel(id: UUID().uuidString, username: username, email: "", isOffline: true)
         self.offlineAccount = offlineAccount
-        switchToAccount(offlineAccount)
     }
     
     func loginWithFirebase(email: String, password: String) async throws -> (UserModel, [String]) {
         let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
         let user = authResult.user
-        return try await syncDown(for: user)
+        return try await syncDown(for: user.uid)
     }
     
-    func syncDown(for user: User) async throws -> (UserModel, [String]) {
-        let userModelDTO = try await firestore.collection("users").document(user.uid).getDocument(as: UserModelDTO.self)
+    func registerWithFirebase(username: String, email: String, password: String) async throws -> (UserModel, [String]) {
+        let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+        let user = authResult.user
+        let userModel = UserModelDTO(id: user.uid, username: username, email: email, library: [], ratings: [:], progresses: [:], version: 0)
+        try firestore.collection("users").document(user.uid).setData(from: userModel)
+        return (userModel.toUserModel(), [])
+    }
+    
+    func syncDown(for userId: String) async throws -> (UserModel, [String]) {
+        let userModelDTO = try await firestore.collection("users").document(userId).getDocument(as: UserModelDTO.self)
         return (userModelDTO.toUserModel(), userModelDTO.library)
     }
     
     func syncUp() async throws {
         guard let account = currentAccount, !account.isOffline else { return }
         try firestore.collection("users").document(account.id).setData(from: UserModelDTO(from: account))
+    }
+    
+    func refreshLibrary(_ apiController: APIController, _ modelContainer: ModelContainer) async throws {
+        guard let user = currentAccount, !user.isOffline else { return }
+        
+        let (_, library) = try await syncDown(for: user.id)
+        user.library = []
+        
+        try await resolveLibrary(apiController, modelContainer, library, user)
+    }
+    
+    func resolveLibrary(_ apiController: APIController, _ modelContainer: ModelContainer, _ library: [String], _ user: UserModel) async throws {
+        self.libraryManager = LibraryManager(modelContainer: modelContainer)
+        
+        let offlineResults = try await libraryManager.fetchOfflineShows(ids: library)
+        let onlineResultsIds = library.filter { id in !offlineResults.contains { $0.id == id } }
+        user.library.append(contentsOf: offlineResults)
+        await apiController.getShows(ids: onlineResultsIds, addToLibrary)
+    }
+    
+    private func addToLibrary(_ result: ShowModel?) {
+        if let result = result {
+            Task { [weak self] in
+                guard let self else { return }
+                await self.libraryManager.addToModelContext(result)
+                self.currentAccount!.library.append(result)
+            }
+        }
+    }
+}
+
+actor LibraryManager {
+    private let modelContext: ModelContext
+    
+    init(modelContainer: ModelContainer) {
+        self.modelContext = ModelContext(modelContainer)
+    }
+    
+    func fetchOfflineShows(ids: [String]) throws -> [ShowModel] {
+        try modelContext.fetch(FetchDescriptor<ShowModel>(predicate: #Predicate { ids.contains($0.id) }))
+    }
+
+    func addToModelContext(_ show: ShowModel) {
+        modelContext.insert(show)
     }
 }

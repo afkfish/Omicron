@@ -10,7 +10,6 @@ import SwiftUI
 struct LandingView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var accountManager: AccountManager
-    @AppStorage("loginCancelled") private var cancelledLogin = false
     
     private let pictures = [
         "https://artworks.thetvdb.com/banners/posters/328724-2.jpg",
@@ -66,13 +65,13 @@ struct LandingView: View {
         VStack {
             HStack(spacing: 30) {
                 NavigationLink {
-                    
+                    LoginRegisterView(isSignup: true)
                 } label: {
                     Text("Register")
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15), width: 90))
                 NavigationLink {
-                    LoginView()
+                    LoginRegisterView(isSignup: false)
                         .environmentObject(themeManager)
                 } label: {
                     Text("Login")
@@ -82,7 +81,6 @@ struct LandingView: View {
             .padding(.vertical)
             
             Button("Maybe later") {
-                cancelledLogin = true
                 accountManager.currentAccount = accountManager.offlineAccount
             }
             .buttonStyle(BorderedProminentButtonStyle())

@@ -14,9 +14,9 @@ struct SingleSeasonView: View {
     @Binding var show: ShowModel
     var key: Int
     
-    private var user: UserModel { accountManager.currentAccount! }
+    private var user: UserModel? { accountManager.currentAccount }
     private var season: SeasonModel? { show.seasons.first(where: {$0.seasonNumber == key}) }
-    private var seasonProgress: Int { user.fetchOrCreateProgress(withId: show.id, forSeason: key) }
+    private var seasonProgress: Int { user?.fetchOrCreateProgress(withId: show.id, forSeason: key) ?? 0 }
     
     var body: some View {
         VStack {
@@ -30,13 +30,13 @@ struct SingleSeasonView: View {
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
                 ProgressView(value: Float(seasonProgress), total: Float(season?.episodeCount ?? 0))
-                    .tint(theme.selected.contrast)
+                    .tint(theme.selected.accent)
                 Spacer()
                 HStack {
                     Button {
                         withAnimation(.bouncy) {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            user.progresses[show.id]?[key] = (seasonProgress) - (seasonProgress > 0 ? 1: 0)
+                            user?.progresses[show.id]?[key] = (seasonProgress) - (seasonProgress > 0 ? 1: 0)
                         }
                     } label: {
                         Image(systemName: "minus.circle.fill")
@@ -61,21 +61,21 @@ struct SingleSeasonView: View {
             .contextMenu(ContextMenu(menuItems: {
                 Button {
                     withAnimation(.bouncy) {
-                        user.progresses[show.id]?[key] = season?.episodeCount ?? 0
+                        user?.progresses[show.id]?[key] = season?.episodeCount ?? 0
                     }
                 } label: {
                     Label("Mark as watched", systemImage: "checkmark.circle.fill")
                 }
                 Button {
                     withAnimation(.bouncy) {
-                        user.progresses[show.id]?[key] = 0
+                        user?.progresses[show.id]?[key] = 0
                     }
                 } label: {
                     Label("Mark as unwatched", systemImage: "x.circle.fill")
                 }
             }))
             VStack {
-                ForEach(season?.episodes ?? []) {(episode: EpisodeModel) in
+                ForEach(season?.episodes.sorted() ?? []) {(episode: EpisodeModel) in
                     HStack {
                         Text("E\(String(format: "%02d", episode.episodeNumber))")
                         Text("\(episode.title)").bold()
@@ -95,7 +95,7 @@ struct SingleSeasonView: View {
     }
     
     private func increaseProgress() {
-        user.progresses[show.id]?[key] = (seasonProgress) + (season?.episodeCount ?? 0 > seasonProgress ? 1 : 0)
+        user?.progresses[show.id]?[key] = (seasonProgress) + (season?.episodeCount ?? 0 > seasonProgress ? 1 : 0)
     }
 }
 

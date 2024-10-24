@@ -77,3 +77,10 @@ extension EpisodeModel {
         )
     }
 }
+
+// MARK: - Comparation
+extension EpisodeModel: Comparable {
+    static func < (lhs: EpisodeModel, rhs: EpisodeModel) -> Bool {
+        lhs.episodeNumber < rhs.episodeNumber
+    }
+}

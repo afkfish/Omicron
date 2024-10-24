@@ -54,7 +54,7 @@ struct ListViewItemLabel: View {
             }
             HStack {
                 ProgressView(value: progress, total: sumOfEpisodes)
-                    .tint(theme.selected.contrast)
+                    .tint(theme.selected.accent)
             }
         }
     }

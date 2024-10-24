@@ -7,20 +7,23 @@
 
 import Foundation
 import Combine
+import SwiftData
 
 
 class SearchDetailViewModel: ObservableObject {
-    private var apiController: APIController?
+    private var apiController: APIController!
+    private var accountManager: AccountManager!
     
     @Published var finished: Bool = false
     @Published var show: ShowModel?
     
-    func setup(apiController: APIController) {
+    func setup(apiController: APIController, accountManager: AccountManager) {
         self.apiController = apiController
+        self.accountManager = accountManager
     }
     
     func getShow(id: String) async {
-        await apiController!.getSeries(id: Int(id)!, page: 0)
+        await apiController.getShow(id: Int(id)!, page: 0)
             .map { dto in
                 guard let show = dto.data else { return false }
                 self.show = ShowModel(from: show)
@@ -35,5 +38,20 @@ class SearchDetailViewModel: ObservableObject {
                 return true
             }
             .assign(to: &$finished)
+    }
+    
+    func saveShow(modelContainer: ModelContainer) async {
+        guard let show else { return }
+        let libraryManager = LibraryManager(modelContainer: modelContainer)
+        await libraryManager.addToModelContext(show)
+        addToUserLibrary(show: show)
+    }
+    
+    func addToUserLibrary(show: ShowModel) {
+        if let account = accountManager.currentAccount {
+            if (!account.library.contains { $0.id == show.id }) {
+                account.library.append(show)
+            }
+        }
     }
 }

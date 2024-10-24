@@ -131,3 +131,14 @@ extension ShowModel {
         )
     }
 }
+
+// MARK: - Comparation
+extension ShowModel: Comparable {
+    static func < (lhs: ShowModel, rhs: ShowModel) -> Bool {
+        if lhs.title != rhs.title {
+            lhs.title < rhs.title
+        } else {
+            lhs.id < rhs.id
+        }
+    }
+}

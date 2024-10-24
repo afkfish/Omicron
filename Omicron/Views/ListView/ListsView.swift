@@ -8,42 +8,47 @@
 import SwiftUI
 import SwiftData
 
-class ListofShows: ObservableObject {
-    @Published var shows: [ShowModel]
-    
-    init(shows: [ShowModel]) {
-        self.shows = shows
-    }
-}
-
 struct ListsView: View {
     @EnvironmentObject private var theme: ThemeManager
     @EnvironmentObject private var accountManager: AccountManager
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.defaultAPIController) private var apiController
     
-    @State private var searchText = ""
-        
+    @ObservedObject private var vm = ListViewModel()
+    
+    @State private var searchPhrase: String = ""
+            
     var body: some View {
         NavigationStack {
             ZStack {
                 theme.selected.primary
                     .ignoresSafeArea(.all)
                 List {
-                    ForEach(searchResults) {show in
+                    ForEach(searchResults.sorted(by: <)) {show in
                         NavigationLink {
                             DetailsView(show: show)
                         } label: {
                             ListViewItemLabel(show: show)
                         }
                     }
-                    .onDelete(perform: deleteItems)
+                    .onDelete(perform: delete)
                     .listRowBackground(theme.selected.primary)
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
-                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Title of the show")
+                .searchable(text: $searchPhrase, prompt: "Title of the show")
+                .refreshable(action: {
+                    do {
+                        try await accountManager.refreshLibrary(apiController, modelContext.container)
+                    } catch {
+                        print(error)
+                    }
+                })
                 .navigationTitle("Library")
                 .toolbarBackground(theme.selected.primary, for: .navigationBar)
+            }
+            .onAppear {
+                vm.setUp(accountManager: accountManager)
             }
         }
     }
@@ -57,21 +62,15 @@ struct ListsView: View {
     }
     
     var searchResults: [ShowModel] {
-        if searchText.isEmpty {
+        if searchPhrase.isEmpty {
             return library
         } else {
-            return library.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            return library.filter { $0.title.lowercased().contains(searchPhrase.lowercased()) }
         }
     }
     
-    private func deleteItems(offsets: IndexSet) {
-        if searchText.isEmpty {
-            accountManager.currentAccount?.library.remove(atOffsets: offsets)
-        } else {
-            let itemsToDelete = searchResults.enumerated().filter{ offsets.contains($0.offset) }.map {$0.element.id}
-            accountManager.currentAccount?.library.removeAll(where: { itemsToDelete.contains($0.id) })
-        }
-        
+    private func delete(offsets: IndexSet) {
+        vm.deleteItems(offsets: offsets, searchResults: searchResults)
     }
 }
 

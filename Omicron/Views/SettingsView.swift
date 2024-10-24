@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("loginCancelled") private var loginCancelled = false
     @AppStorage("countExtras") private var countExtras = true
     @EnvironmentObject private var theme: ThemeManager
     @EnvironmentObject private var accountManager: AccountManager
@@ -37,6 +36,19 @@ struct SettingsView: View {
                     }
                     
                     Section {
+                        Toggle(isOn: $countExtrasState) {
+                            Text("Count extras")
+                        }
+                        .onChange(of: countExtrasState) {
+                            countExtras.toggle()
+                        }
+                        .tint(theme.selected.accent)
+                        .listRowBackground(theme.selected.secondary)
+                    } header: {
+                        Text("Statistics")
+                    }
+                    
+                    Section {
                         Button {
                             cacheCleared = ImageCache.shared.clearCache()
                             alert = true
@@ -44,21 +56,7 @@ struct SettingsView: View {
                             Text("Clear cache")
                         }
                         .listRowBackground(theme.selected.secondary)
-                        Button {
-                            loginCancelled = false
-                            accountManager.currentAccount = nil
-                        } label: {
-                            Text("Logout")
-                        }
-                        .listRowBackground(theme.selected.secondary)
-                        Toggle(isOn: $countExtrasState) {
-                            Text("Count extras")
-                        }
-                        .onChange(of: countExtrasState) {
-                            countExtras.toggle()
-                        }
-                        .tint(theme.selected.contrast)
-                        .listRowBackground(theme.selected.secondary)
+                        
                     } header: {
                         Text("System")
                     }

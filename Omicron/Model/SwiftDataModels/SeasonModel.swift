@@ -51,3 +51,10 @@ extension SeasonModel {
         SeasonModel(id: id, seasonNumber: number, episodeCount: 0, show: show)
     }
 }
+
+// MARK: - Comparation
+extension SeasonModel: Comparable {
+    public static func < (lhs: SeasonModel, rhs: SeasonModel) -> Bool {
+        lhs.seasonNumber < rhs.seasonNumber
+    }
+}

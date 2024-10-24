@@ -19,6 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct OmicronApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @Environment(\.defaultAPIController) private var apiController
     
     @StateObject private var accountManager: AccountManager = .init()
     @StateObject private var theme: ThemeManager = .init()

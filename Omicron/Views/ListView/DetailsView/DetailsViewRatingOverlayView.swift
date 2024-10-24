@@ -15,12 +15,12 @@ struct DetailsViewRatingOverlay: View {
     @Binding var show: ShowModel
     @Binding var ratingOverlayPresented: Bool
     
-    private var user: UserModel {
+    private var user: UserModel? {
         accountManager.currentAccount!
     }
     
     private var userRating: Int {
-        user.ratings[show.id] ?? 0
+        user?.ratings[show.id] ?? 0
     }
     
     var body: some View {
@@ -68,7 +68,7 @@ struct DetailsViewRatingOverlay: View {
     }
     
     private func saveRating() {
-        user.ratings[show.id] = Int(rating)
+        user?.ratings[show.id] = Int(rating)
     }
 }
 

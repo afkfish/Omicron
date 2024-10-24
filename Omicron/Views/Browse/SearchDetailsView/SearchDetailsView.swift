@@ -15,7 +15,7 @@ struct SearchDetailsView: View {
     @Environment(\.defaultAPIController) private var apiController
     @Environment(\.modelContext) private var modelContext
     
-    @Binding var show: ShowOverviewModel
+    @State var show: ShowOverviewModel
     @State private var addedSuccesfuly = false
     
     private var added: (Bool, ShowModel?) {
@@ -48,7 +48,7 @@ struct SearchDetailsView: View {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     Task {
                         guard !added.0 else {
-                            addToUserLibrary(added.1!)
+                            vm.addToUserLibrary(show: added.1!)
                             addedSuccesfuly.toggle()
                             return
                         }
@@ -60,32 +60,21 @@ struct SearchDetailsView: View {
             }
             .onChange(of: vm.finished) {
                 addedSuccesfuly = true
-                saveShow()
+                Task {
+                    await vm.saveShow(modelContainer: modelContext.container)
+                }
             }
             .navigationTitle(show.name)
             .alert("Show added to library", isPresented: $addedSuccesfuly) {}
         }
         .onAppear {
-            vm.setup(apiController: apiController)
-        }
-    }
-    
-    private func saveShow() {
-        modelContext.insert(vm.show!)
-        addToUserLibrary(vm.show!)
-    }
-    
-    private func addToUserLibrary(_ show: ShowModel) {
-        if let account = accountManager.currentAccount {
-            if !account.library.contains(show) {
-                account.library.append(show)
-            }
+            vm.setup(apiController: apiController, accountManager: accountManager)
         }
     }
 }
 
 #Preview {
-    SearchDetailsView(show: Binding.constant(ShowOverviewModel.dummy))
+    SearchDetailsView(show: ShowOverviewModel.dummy)
         .modelContainer(for: [ShowModel.self], inMemory: true)
         .environmentObject(ThemeManager())
         .environmentObject(AccountManager())

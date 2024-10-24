@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchRowView: View {
-    @Binding var show: ShowOverviewModel
+    @State var show: ShowOverviewModel
     
     var body: some View {
         HStack {
@@ -33,5 +33,5 @@ struct SearchRowView: View {
 }
 
 #Preview {
-    SearchRowView(show: Binding.constant(ShowOverviewModel.dummy))
+    SearchRowView(show: ShowOverviewModel.dummy)
 }
