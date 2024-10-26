@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "23E56267-B623-4422-8C59-B8228D0BAD7F",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Omicron.xcodeproj",
+        "identifier" : "521438C92CCC1738006BD57E",
+        "name" : "OmicronUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Omicron.xcodeproj",
+        "identifier" : "521438BC2CCABCF0006BD57E",
+        "name" : "OmicronUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

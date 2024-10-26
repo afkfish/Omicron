@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		521438B22CC956E3006BD57E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521438B12CC956E3006BD57E /* ListViewModel.swift */; };
+		521EF03D2CCD188E00005C5F /* OmicronTestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 521EF03C2CCD188E00005C5F /* OmicronTestPlan.xctestplan */; };
 		52422D552C695B3400C53EB1 /* ListViewItemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D542C695B3400C53EB1 /* ListViewItemLabel.swift */; };
 		52422D5A2C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D592C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift */; };
 		52422D5D2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */; };
@@ -28,7 +29,6 @@
 		527811812BD9147200B9F3D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 527811802BD9147200B9F3D1 /* FirebaseFirestore */; };
 		527811842BD9188400B9F3D1 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811832BD9188400B9F3D1 /* Firebase.swift */; };
 		527811862BD91F9800B9F3D1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811852BD91F9800B9F3D1 /* ProfileView.swift */; };
-		5278118C2BD94E9600B9F3D1 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278118B2BD94E9600B9F3D1 /* Errors.swift */; };
 		5278118E2BDA350200B9F3D1 /* LoginRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278118D2BDA350200B9F3D1 /* LoginRegisterView.swift */; };
 		527811902BDA4E0F00B9F3D1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278118F2BDA4E0F00B9F3D1 /* LoginResponse.swift */; };
 		527811932BDA4F7000B9F3D1 /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527811922BDA4F7000B9F3D1 /* SearchDetailViewModel.swift */; };
@@ -55,8 +55,28 @@
 		52EAB5632BCDAB1200604623 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EAB5622BCDAB1200604623 /* APIController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		521438C12CCABCF0006BD57E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5254083B2B874B9F00521C6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 525408422B874BA000521C6C;
+			remoteInfo = Omicron;
+		};
+		521438D02CCC1738006BD57E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5254083B2B874B9F00521C6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 525408422B874BA000521C6C;
+			remoteInfo = Omicron;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		521438B12CC956E3006BD57E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		521438BD2CCABCF0006BD57E /* OmicronUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OmicronUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		521438CA2CCC1738006BD57E /* OmicronUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OmicronUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		521EF03C2CCD188E00005C5F /* OmicronTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = OmicronTestPlan.xctestplan; sourceTree = "<group>"; };
 		52422D542C695B3400C53EB1 /* ListViewItemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewItemLabel.swift; sourceTree = "<group>"; };
 		52422D592C695CAA00C53EB1 /* DetailsViewRatingOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewRatingOverlayView.swift; sourceTree = "<group>"; };
 		52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsHeaderView.swift; sourceTree = "<group>"; };
@@ -75,7 +95,6 @@
 		527811792BD9117600B9F3D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		527811832BD9188400B9F3D1 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		527811852BD91F9800B9F3D1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		5278118B2BD94E9600B9F3D1 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		5278118D2BDA350200B9F3D1 /* LoginRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterView.swift; sourceTree = "<group>"; };
 		5278118F2BDA4E0F00B9F3D1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		527811922BDA4F7000B9F3D1 /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
@@ -102,7 +121,34 @@
 		52EAB5622BCDAB1200604623 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		521438BE2CCABCF0006BD57E /* OmicronUnitTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OmicronUnitTests;
+			sourceTree = "<group>";
+		};
+		521438CB2CCC1738006BD57E /* OmicronUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OmicronUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		521438BA2CCABCF0006BD57E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		521438C72CCC1738006BD57E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		525408402B874BA000521C6C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +169,20 @@
 				529129692C904EC600872F4D /* MD5StringExtension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		521438B32CCAB8B4006BD57E /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				525408462B874BA000521C6C /* OmicronApp.swift */,
+				5254085F2B8B73D700521C6C /* Model */,
+				5254085E2B8B73BD00521C6C /* Views */,
+				527811912BDA4F6000B9F3D1 /* ViewModels */,
+				527811822BD9187200B9F3D1 /* Database */,
+				528778FE2B9A5F2800729FB3 /* Controller */,
+				521438B02CC9533C006BD57E /* Utils */,
+			);
+			path = Code;
 			sourceTree = "<group>";
 		};
 		52422D532C695B1300C53EB1 /* ListView */ = {
@@ -157,7 +217,10 @@
 		5254083A2B874B9F00521C6C = {
 			isa = PBXGroup;
 			children = (
+				521EF03C2CCD188E00005C5F /* OmicronTestPlan.xctestplan */,
 				525408452B874BA000521C6C /* Omicron */,
+				521438BE2CCABCF0006BD57E /* OmicronUnitTests */,
+				521438CB2CCC1738006BD57E /* OmicronUITests */,
 				525408442B874BA000521C6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -166,6 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				525408432B874BA000521C6C /* Omicron.app */,
+				521438BD2CCABCF0006BD57E /* OmicronUnitTests.xctest */,
+				521438CA2CCC1738006BD57E /* OmicronUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,16 +238,8 @@
 		525408452B874BA000521C6C /* Omicron */ = {
 			isa = PBXGroup;
 			children = (
-				525408462B874BA000521C6C /* OmicronApp.swift */,
-				5254085F2B8B73D700521C6C /* Model */,
-				5254085E2B8B73BD00521C6C /* Views */,
-				527811912BDA4F6000B9F3D1 /* ViewModels */,
-				527811822BD9187200B9F3D1 /* Database */,
-				528778FE2B9A5F2800729FB3 /* Controller */,
-				521438B02CC9533C006BD57E /* Utils */,
+				521438B32CCAB8B4006BD57E /* Code */,
 				5254084E2B874BA200521C6C /* Preview Content */,
-				5278118B2BD94E9600B9F3D1 /* Errors.swift */,
-				52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */,
 				527811792BD9117600B9F3D1 /* GoogleService-Info.plist */,
 				5254084C2B874BA200521C6C /* Assets.xcassets */,
 			);
@@ -266,6 +323,7 @@
 			children = (
 				52C9E76B2BB5B63D007017E3 /* TVDbAPIController.swift */,
 				52EAB5622BCDAB1200604623 /* APIController.swift */,
+				52EAB5602BCDAA5E00604623 /* APIControllerKey.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -297,6 +355,52 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		521438BC2CCABCF0006BD57E /* OmicronUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 521438C32CCABCF0006BD57E /* Build configuration list for PBXNativeTarget "OmicronUnitTests" */;
+			buildPhases = (
+				521438B92CCABCF0006BD57E /* Sources */,
+				521438BA2CCABCF0006BD57E /* Frameworks */,
+				521438BB2CCABCF0006BD57E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				521438C22CCABCF0006BD57E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				521438BE2CCABCF0006BD57E /* OmicronUnitTests */,
+			);
+			name = OmicronUnitTests;
+			packageProductDependencies = (
+			);
+			productName = OmicronTests;
+			productReference = 521438BD2CCABCF0006BD57E /* OmicronUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		521438C92CCC1738006BD57E /* OmicronUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 521438D22CCC1738006BD57E /* Build configuration list for PBXNativeTarget "OmicronUITests" */;
+			buildPhases = (
+				521438C62CCC1738006BD57E /* Sources */,
+				521438C72CCC1738006BD57E /* Frameworks */,
+				521438C82CCC1738006BD57E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				521438D12CCC1738006BD57E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				521438CB2CCC1738006BD57E /* OmicronUITests */,
+			);
+			name = OmicronUITests;
+			packageProductDependencies = (
+			);
+			productName = OmicronUITests;
+			productReference = 521438CA2CCC1738006BD57E /* OmicronUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		525408422B874BA000521C6C /* Omicron */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 525408532B874BA200521C6C /* Build configuration list for PBXNativeTarget "Omicron" */;
@@ -326,16 +430,23 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					521438BC2CCABCF0006BD57E = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 525408422B874BA000521C6C;
+					};
+					521438C92CCC1738006BD57E = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 525408422B874BA000521C6C;
+					};
 					525408422B874BA000521C6C = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
 			buildConfigurationList = 5254083E2B874BA000521C6C /* Build configuration list for PBXProject "Omicron" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -346,16 +457,34 @@
 			packageReferences = (
 				5278117B2BD9147200B9F3D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 525408442B874BA000521C6C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				525408422B874BA000521C6C /* Omicron */,
+				521438BC2CCABCF0006BD57E /* OmicronUnitTests */,
+				521438C92CCC1738006BD57E /* OmicronUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		521438BB2CCABCF0006BD57E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				521EF03D2CCD188E00005C5F /* OmicronTestPlan.xctestplan in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		521438C82CCC1738006BD57E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		525408412B874BA000521C6C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -369,6 +498,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		521438B92CCABCF0006BD57E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		521438C62CCC1738006BD57E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5254083F2B874BA000521C6C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,7 +549,6 @@
 				521438B22CC956E3006BD57E /* ListViewModel.swift in Sources */,
 				52422D552C695B3400C53EB1 /* ListViewItemLabel.swift in Sources */,
 				525408472B874BA000521C6C /* OmicronApp.swift in Sources */,
-				5278118C2BD94E9600B9F3D1 /* Errors.swift in Sources */,
 				5291296E2C90572000872F4D /* SettingsView.swift in Sources */,
 				52C9E7732BB831BE007017E3 /* SearchRowView.swift in Sources */,
 				527811932BDA4F7000B9F3D1 /* SearchDetailViewModel.swift in Sources */,
@@ -418,7 +560,126 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		521438C22CCABCF0006BD57E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 525408422B874BA000521C6C /* Omicron */;
+			targetProxy = 521438C12CCABCF0006BD57E /* PBXContainerItemProxy */;
+		};
+		521438D12CCC1738006BD57E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 525408422B874BA000521C6C /* Omicron */;
+			targetProxy = 521438D02CCC1738006BD57E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		521438C42CCABCF0006BD57E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3PKRW86A3H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.benedekkis.OmicronTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Benedek Kis - Student - 2024 - Profile #2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Omicron.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Omicron";
+			};
+			name = Debug;
+		};
+		521438C52CCABCF0006BD57E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3PKRW86A3H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.benedekkis.OmicronTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Benedek Kis - Student - 2024 - Profile #2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Omicron.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Omicron";
+			};
+			name = Release;
+		};
+		521438D32CCC1738006BD57E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3PKRW86A3H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.benedekkis.OmicronUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Benedek Kis - Student - 2024 - Profile #2";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = Omicron;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		521438D42CCC1738006BD57E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3PKRW86A3H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hu.bme.aut.benedekkis.OmicronUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Benedek Kis - Student - 2024 - Profile #2";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = Omicron;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		525408512B874BA200521C6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -560,7 +821,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -601,7 +862,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -624,6 +885,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		521438C32CCABCF0006BD57E /* Build configuration list for PBXNativeTarget "OmicronUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				521438C42CCABCF0006BD57E /* Debug */,
+				521438C52CCABCF0006BD57E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		521438D22CCC1738006BD57E /* Build configuration list for PBXNativeTarget "OmicronUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				521438D32CCC1738006BD57E /* Debug */,
+				521438D42CCC1738006BD57E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5254083E2B874BA000521C6C /* Build configuration list for PBXProject "Omicron" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -39,10 +39,7 @@ struct BrowseView: View {
                             SearchRowView(show: item)
                         }
                         .padding()
-                        .background(theme.selected.primary)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                        .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 20)))
                         .padding(.vertical, 12)
                     }
                     .listRowSeparator(.hidden, edges: .all)

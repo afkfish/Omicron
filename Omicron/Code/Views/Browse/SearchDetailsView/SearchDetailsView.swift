@@ -44,7 +44,7 @@ struct SearchDetailsView: View {
                         .padding(.horizontal)
                 }
                 Spacer()
-                Button("Add show to list") {
+                Button("Add show to library") {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     Task {
                         guard !added.0 else {
@@ -57,6 +57,7 @@ struct SearchDetailsView: View {
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
                 .padding()
+                .accessibilityIdentifier("AddToLibraryButton")
             }
             .onChange(of: vm.finished) {
                 addedSuccesfuly = true

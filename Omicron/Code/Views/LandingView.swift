@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LandingView: View {
-    @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var theme: ThemeManager
     @EnvironmentObject private var accountManager: AccountManager
     
     private let pictures = [
@@ -21,14 +21,14 @@ struct LandingView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                themeManager.selected.primary.ignoresSafeArea()
+                theme.selected.primary.ignoresSafeArea()
                 
                 VStack {
                     WelcomeHeader
                     ImageCarousel
                     ActionButtons
                 }
-                .toolbarBackground(themeManager.selected.primary, for: .navigationBar)
+                .toolbarBackground(theme.selected.primary, for: .navigationBar)
             }
         }
     }
@@ -70,21 +70,22 @@ struct LandingView: View {
                     Text("Register")
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15), width: 90))
+                .accessibilityIdentifier("Register")
                 NavigationLink {
                     LoginRegisterView(isSignup: false)
-                        .environmentObject(themeManager)
                 } label: {
                     Text("Login")
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15), width: 90))
+                .accessibilityIdentifier("Login")
             }
             .padding(.vertical)
             
             Button("Maybe later") {
                 accountManager.currentAccount = accountManager.offlineAccount
             }
-            .buttonStyle(BorderedProminentButtonStyle())
-            .shadow(radius: 5)
+            .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15), width: 90, color: theme.selected.secondary))
+            .accessibilityIdentifier("DismissLogin")
         }
     }
 }

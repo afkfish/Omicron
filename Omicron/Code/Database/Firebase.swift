@@ -17,18 +17,19 @@ class AccountManager: ObservableObject {
     @Published var currentAccount: UserModel?
     
     private let userDefaults = UserDefaults.standard
-    private let firestore = Firestore.firestore()
+    private var db = Firestore.firestore().collection("users")
+    private let auth = Auth.auth()
     
     private var libraryManager: LibraryManager!
     
-    init() {
+    init(_ testing: Bool = false) {
         loadAccounts()
         if offlineAccount == nil {
             createOfflineAccount(username: "Offline")
         }
-//        if currentAccount == nil {
-//            currentAccount = offlineAccount
-//        }
+        if testing {
+            db = Firestore.firestore().collection("testing")
+        }
     }
     
     func loadAccounts() {
@@ -59,7 +60,7 @@ class AccountManager: ObservableObject {
         }
         
         if let isOffline = currentAccount?.isOffline, isOffline {
-            if let encoded = try? JSONEncoder().encode(offlineAccount) {
+            if let encoded = try? JSONEncoder().encode(currentAccount) {
                 userDefaults.set(encoded, forKey: "offlineAccount")
             }
         }
@@ -84,27 +85,27 @@ class AccountManager: ObservableObject {
     }
     
     func loginWithFirebase(email: String, password: String) async throws -> (UserModel, [String]) {
-        let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
+        let authResult = try await auth.signIn(withEmail: email, password: password)
         let user = authResult.user
         return try await syncDown(for: user.uid)
     }
     
     func registerWithFirebase(username: String, email: String, password: String) async throws -> (UserModel, [String]) {
-        let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+        let authResult = try await auth.createUser(withEmail: email, password: password)
         let user = authResult.user
         let userModel = UserModelDTO(id: user.uid, username: username, email: email, library: [], ratings: [:], progresses: [:], version: 0)
-        try firestore.collection("users").document(user.uid).setData(from: userModel)
+        try db.document(user.uid).setData(from: userModel)
         return (userModel.toUserModel(), [])
     }
     
     func syncDown(for userId: String) async throws -> (UserModel, [String]) {
-        let userModelDTO = try await firestore.collection("users").document(userId).getDocument(as: UserModelDTO.self)
+        let userModelDTO = try await db.document(userId).getDocument(as: UserModelDTO.self)
         return (userModelDTO.toUserModel(), userModelDTO.library)
     }
     
     func syncUp() async throws {
         guard let account = currentAccount, !account.isOffline else { return }
-        try firestore.collection("users").document(account.id).setData(from: UserModelDTO(from: account))
+        try db.document(account.id).setData(from: UserModelDTO(from: account))
     }
     
     func refreshLibrary(_ apiController: APIController, _ modelContainer: ModelContainer) async throws {

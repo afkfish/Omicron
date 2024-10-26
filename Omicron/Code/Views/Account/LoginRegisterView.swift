@@ -35,17 +35,20 @@ struct LoginRegisterView: View {
                         .textInputAutocapitalization(.never)
                         .padding()
                         .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
+                        .accessibilityIdentifier("usernameField")
                 }
                 TextField("", text: $email, prompt: Text("email"))
                     .textContentType(.emailAddress)
                     .textInputAutocapitalization(.never)
                     .padding()
                     .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
+                    .accessibilityIdentifier("emailField")
                 SecureField("", text: $password, prompt: Text("password"))
                     .textContentType(.password)
                     .textInputAutocapitalization(.never)
                     .padding()
                     .background(Background(isPressed: false, shape: RoundedRectangle(cornerRadius: 15)))
+                    .accessibilityIdentifier("passwordField")
                 Spacer()
                 Button {
                     if (!email.isEmpty || !password.isEmpty) {
@@ -69,6 +72,7 @@ struct LoginRegisterView: View {
                     Image(systemName: "arrow.right")
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
+                .accessibilityIdentifier("submitButton")
                 Spacer()
             }
             .padding(.horizontal, 80)
