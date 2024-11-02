@@ -55,9 +55,9 @@ struct LoginRegisterView: View {
                         Task {
                             do {
                                 if isSignup {
-                                    try await vm.register(username: username, email: email, password: password)
+                                    try vm.register(username: username, email: email, password: password)
                                 } else {
-                                    try await vm.login(email: email, password: password)
+                                    try vm.login(email: email, password: password)
                                 }
                             } catch {
                                 alertText = error.localizedDescription

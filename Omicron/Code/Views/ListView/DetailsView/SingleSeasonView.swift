@@ -47,8 +47,7 @@ struct SingleSeasonView: View {
                     Button {
                         withAnimation(.bouncy) {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            increaseProgress()
-                        }
+                            user?.progresses[show.id]?[key] = (seasonProgress) + (season?.episodeCount ?? 0 > seasonProgress ? 1 : 0)                        }
                     } label: {
                         Image(systemName: "plus.circle.fill")
                     }
@@ -92,10 +91,6 @@ struct SingleSeasonView: View {
             .animation(.easeIn, value: 1)
             .transition(.slide)
         }
-    }
-    
-    private func increaseProgress() {
-        user?.progresses[show.id]?[key] = (seasonProgress) + (season?.episodeCount ?? 0 > seasonProgress ? 1 : 0)
     }
 }
 

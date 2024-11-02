@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// This struct is used to decode `UserModel` from the cloud database
 public struct UserModelDTO: Codable {
     var id: String
     var username: String
@@ -19,6 +20,7 @@ public struct UserModelDTO: Codable {
 
 // MARK: - Converter
 extension UserModelDTO {
+    /// This initializer is to convert a `UserModel` to a `UserModelDTO` for the cloud
     init(from userModel: UserModel) {
         id = userModel.id
         username = userModel.username
@@ -29,6 +31,7 @@ extension UserModelDTO {
         version = userModel.version
     }
     
+    /// Converts a `UserModelDTO` to a `UserModel`
     func toUserModel() -> UserModel {
         .init(id: id, username: username, email: email, isOffline: false, library: [], ratings: ratings, progresses: progresses)
     }

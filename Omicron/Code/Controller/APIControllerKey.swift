@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// `@Environment` value for the APIController
 private struct APIControllerKey: EnvironmentKey {
     static let defaultValue: APIController = TVDbAPIController()
 }

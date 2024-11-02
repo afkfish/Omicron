@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+/// SwiftData model for a show
 @Model
 class ShowModel: Identifiable, Codable {
     enum CodingKeys: CodingKey {
@@ -25,6 +26,7 @@ class ShowModel: Identifiable, Codable {
     var lang: String?
     var year: String?
     var link: String?
+    /// One to many relationship, one directional
     @Relationship var seasons: [SeasonModel] = []
 
     init(id: String, title: String, overview: String? = nil, posterPath: String? = nil, firstAirDate: String? = nil, lastAirDate: String? = nil, status: String? = nil, episodeLength: Int? = 0, lang: String? = "engm", year: String? = "2000", link: String? = nil, seasons: [SeasonModel] = []) {
@@ -42,6 +44,7 @@ class ShowModel: Identifiable, Codable {
         self.seasons = seasons
     }
     
+    // MARK: - Functions for Codable protocol
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -116,6 +119,7 @@ extension ShowModel {
 
 // MARK: - Converter
 extension ShowModel {
+    /// Convert from a ShowDTO
     convenience init(from data: ShowDTO.DataClass) {
         self.init(
             id: String(data.series.id),

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// The API controller implementation for TVDB.
 class TVDbAPIController: APIController {
     private let baseURL = "https://api4.thetvdb.com/v4"
     private let key = "4007f509-091c-4c14-8856-4e6d6ccd34bd"
@@ -27,6 +28,11 @@ class TVDbAPIController: APIController {
         }
     }
     
+    /// Logs in to the API and get's the token.
+    ///
+    /// - Parameter key: The API key.
+    ///
+    /// - Returns Combine `AnyPublisher` with the `LoginResponse`.q
     func login(with key: String) async -> AnyPublisher<LoginResponse, Never> {
         let loginURL = URL(string: "https://api4.thetvdb.com/v4/login")!
         let body = try? JSONSerialization.data(withJSONObject: ["apikey": key], options: [])
@@ -38,6 +44,11 @@ class TVDbAPIController: APIController {
         return doRequest(request: request, LoginResponse.self)
     }
     
+    /// Search for a show by a query string.
+    ///
+    /// - Parameter q: The search text.
+    ///
+    /// - Returns Combine `AnyPublisher` with the `SearchDTO`.
     func search(for q: String) async -> AnyPublisher<SearchDTO, Never> {
         let query = URLQueryItem(name: "q", value: q)
         let type = URLQueryItem(name: "type", value: "series")
@@ -49,6 +60,13 @@ class TVDbAPIController: APIController {
         return doRequest(request: request, SearchDTO.self)
     }
     
+    /// Get a single show by it's id from the API.
+    /// The function only returns 500 episodes per page.
+    ///
+    /// - Parameter id: The show's id.
+    /// - Parameter page: The API pagination number.
+    ///
+    /// - Returns Combine `AnyPublisher` with the `ShowDTO`.
     func getShow(id: Int, page: Int = 0) async -> AnyPublisher<ShowDTO, Never> {
         let pageQuery = URLQueryItem(name: "page", value: String(page))
         let url = URL(string: baseURL + "/series/\(id)/episodes/default")!.appending(queryItems: [pageQuery])
@@ -58,6 +76,10 @@ class TVDbAPIController: APIController {
         return doRequest(request: request, ShowDTO.self)
     }
     
+    /// Get multiple shows, then pass the results to a callback function one by one.
+    ///
+    /// - Parameter ids: A list of string ids.
+    /// - Parameter callback: The escaping callback function that takes an optional `ShowModel`.
     func getShows(ids: [String], _ callback: @escaping (ShowModel?) -> Void) async {
         for id in ids {
             await getShow(id: Int(id)!, page: 0)
@@ -81,6 +103,13 @@ class TVDbAPIController: APIController {
         }
     }
     
+    /// Generic function for all requests whose responses needed to be decoded by a `JSONDecoder`.
+    ///
+    ///
+    /// - Parameter request: The base request that will be called.
+    /// - Parameter type: The type to decode the response to.
+    ///
+    /// - Returns Combine `AnyPublisher` with the `T` type data.
     func doRequest<T: Codable>(request: URLRequest, _: T.Type) -> AnyPublisher<T, Never> {
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { $0.data }

@@ -50,7 +50,7 @@ struct DetailsViewRatingOverlay: View {
                 Button("Rate") {
                     withAnimation {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        saveRating()
+                        user?.ratings[show.id] = Int(rating)
                         ratingOverlayPresented = false
                     }
                 }
@@ -65,10 +65,6 @@ struct DetailsViewRatingOverlay: View {
         .onAppear {
             rating = Double(userRating)
         }
-    }
-    
-    private func saveRating() {
-        user?.ratings[show.id] = Int(rating)
     }
 }
 

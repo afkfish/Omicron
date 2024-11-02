@@ -16,6 +16,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
+    /// Resets the persistent data of the application.
+    ///
+    /// Only use this method when testing!
     private func resetState() {
         if ProcessInfo.processInfo.arguments.contains("--reset-state") {
             UserDefaults.standard.removeObject(forKey: "currentAccount")
@@ -29,9 +32,11 @@ struct OmicronApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Environment(\.defaultAPIController) private var apiController
     
+    /// Initialize the account management, if "--testing" is present in process arguments then it uses the testing db
     @StateObject private var accountManager: AccountManager = { ProcessInfo.processInfo.arguments.contains("--testing") ? .init(true) : .init() }()
     @StateObject private var theme: ThemeManager = .init()
     
+    /// SwiftData model container creation
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([ShowOverviewModel.self, ShowModel.self, UserModel.self])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

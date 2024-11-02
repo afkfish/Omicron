@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// ViewModel for the `ListView`, this can delete shows from a user's library by the given offsets.
 class ListViewModel: ObservableObject {
     @Published var searchPhrase: String = ""
     @Published var userLibrary: [ShowModel] = []

@@ -50,12 +50,12 @@ struct BrowseView: View {
                 .searchable(text: $searchPhrase, prompt: "Search for a show")
                 .onChange(of: searchPhrase) {
                     if (filteredSearchItems.count < 3) {
-                        Task { await search() }
+                        vm.search(apiController, query: searchPhrase)
                     }
                 }
                 .onChange(of: vm.isFinished) {
                     if (vm.isFinished) {
-                        appendResults(results: vm.searchResults)
+                        vm.appendResults(overviewList: overviewList, modelContainer: modelcontext.container)
                         vm.isFinished = false
                     }
                 }
@@ -63,18 +63,6 @@ struct BrowseView: View {
                 .toolbarBackground(theme.selected.primary, for: .navigationBar)
             }
             .background(theme.selected.primary)
-        }
-    }
-    
-    private func search() async {
-        await vm.search(apiController, query: searchPhrase)
-    }
-    
-    private func appendResults(results: Set<ShowOverviewModel>) {
-        results.forEach { result in
-            if (!overviewList.contains { $0.id == result.id }) {
-                modelcontext.insert(result)
-            }
         }
     }
 }

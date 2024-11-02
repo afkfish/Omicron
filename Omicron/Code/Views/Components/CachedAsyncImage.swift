@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/// An async image that can cache urls that have been loaded.
+/// After the firs download it stores them in the persistent storage of the app.
+/// If the image is already in the storage, then it just uses the cached version.
 struct CachedAsyncImage<Content: View, Placeholder: View>: View {
     private let url: URL
     private let scale: CGFloat

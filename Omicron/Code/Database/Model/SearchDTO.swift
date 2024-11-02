@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// This struct is used to decode search results of shows from the API
 struct SearchDTO: Codable {
     var data: [SearchShow]?
     

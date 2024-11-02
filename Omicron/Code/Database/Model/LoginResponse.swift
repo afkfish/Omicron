@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// This struct is used for decoding login responses
 struct LoginResponse: Codable {
     var data: DataClass?
     

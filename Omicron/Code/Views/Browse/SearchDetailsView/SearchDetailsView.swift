@@ -46,13 +46,11 @@ struct SearchDetailsView: View {
                 Spacer()
                 Button("Add show to library") {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    Task {
-                        guard !added.0 else {
-                            vm.addToUserLibrary(show: added.1!)
-                            addedSuccesfuly.toggle()
-                            return
-                        }
-                        await vm.getShow(id: show.id)
+                    if !added.0 {
+                        vm.getShow(id: show.id)
+                    } else {
+                        vm.addToUserLibrary(show: added.1!)
+                        addedSuccesfuly.toggle()
                     }
                 }
                 .buttonStyle(NeumorphicButton(shape: RoundedRectangle(cornerRadius: 15)))
@@ -61,9 +59,7 @@ struct SearchDetailsView: View {
             }
             .onChange(of: vm.finished) {
                 addedSuccesfuly = true
-                Task {
-                    await vm.saveShow(modelContainer: modelContext.container)
-                }
+                vm.saveShow(modelContainer: modelContext.container)
             }
             .navigationTitle(show.name)
             .alert("Show added to library", isPresented: $addedSuccesfuly) {}

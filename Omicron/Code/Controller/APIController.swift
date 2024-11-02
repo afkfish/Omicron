@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-
+/// API protocol for potential new API implementations.
 protocol APIController {
     func login(with key: String) async -> AnyPublisher<LoginResponse, Never>
     func search(for q: String) async -> AnyPublisher<SearchDTO, Never>

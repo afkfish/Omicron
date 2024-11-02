@@ -50,6 +50,8 @@ enum ThemeType: String, CaseIterable {
     }
 }
 
+/// The primary class that handles the switching of themes.
+/// It stores the current theme in the app storage.
 class ThemeManager: ObservableObject {
     @AppStorage("theme") private var theme: ThemeType = .gallery
     @Published var selected: Theme = Gallery()

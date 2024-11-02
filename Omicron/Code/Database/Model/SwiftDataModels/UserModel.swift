@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+/// SwiftData model for a user's data
 @Model
 class UserModel: Identifiable, Codable, ObservableObject {
     enum CodingKeys: CodingKey {
@@ -18,6 +19,7 @@ class UserModel: Identifiable, Codable, ObservableObject {
     var username: String
     var email: String
     var isOffline: Bool
+    /// One to many relationship, one directional, if user is destroyed the shows remain in the database
     @Relationship(deleteRule: .cascade) var library: [ShowModel] = []
     var ratings: [String: Int] = [:]
     var progresses: [String: [Int: Int]] = [:]
@@ -33,10 +35,10 @@ class UserModel: Identifiable, Codable, ObservableObject {
         self.progresses = progresses
     }
     
+    // MARK: - Functions for Codable protocol
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        // Required properties
         self.id = try container.decode(String.self, forKey: .id)
         self.username = try container.decode(String.self, forKey: .username)
         self.email = try container.decode(String.self, forKey: .email)

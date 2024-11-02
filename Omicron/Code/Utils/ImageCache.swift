@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// Singleton persistent image cache for the `CachedAsyncImage`.
 class ImageCache {
     static let shared = ImageCache()
     private let fileManager = FileManager.default
@@ -49,6 +50,7 @@ class ImageCache {
         }
     }
     
+    /// Clears the cache directory.
     func clearCache() -> Bool {
         do {
             try fileManager.removeItem(at: cacheDirectory)

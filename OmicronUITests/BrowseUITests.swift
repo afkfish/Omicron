@@ -18,10 +18,6 @@ final class BrowseUITests: XCTestCase {
         app.buttons["DismissLogin"].tap()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testExample() throws {
         app.searchFields.firstMatch.tap()
         app.searchFields.firstMatch.typeText("Adventure Time")

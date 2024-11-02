@@ -9,9 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 import SwiftData
-import SwiftUI
 
-// MARK: - Account Manager
 class AccountManager: ObservableObject {
     @Published var offlineAccount: UserModel?
     @Published var currentAccount: UserModel?
@@ -134,21 +132,5 @@ class AccountManager: ObservableObject {
                 self.currentAccount!.library.append(result)
             }
         }
-    }
-}
-
-actor LibraryManager {
-    private let modelContext: ModelContext
-    
-    init(modelContainer: ModelContainer) {
-        self.modelContext = ModelContext(modelContainer)
-    }
-    
-    func fetchOfflineShows(ids: [String]) throws -> [ShowModel] {
-        try modelContext.fetch(FetchDescriptor<ShowModel>(predicate: #Predicate { ids.contains($0.id) }))
-    }
-
-    func addToModelContext(_ show: ShowModel) {
-        modelContext.insert(show)
     }
 }

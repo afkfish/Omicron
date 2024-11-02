@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// Custom button style
 struct NeumorphicButton<S: Shape>: ButtonStyle {
     @EnvironmentObject private var theme: ThemeManager
     var shape: S
@@ -33,6 +34,7 @@ struct NeumorphicButton<S: Shape>: ButtonStyle {
     }
 }
 
+/// Neumorphic background
 struct Background<S: Shape>: View {
     @EnvironmentObject private var theme: ThemeManager
     var isPressed: Bool

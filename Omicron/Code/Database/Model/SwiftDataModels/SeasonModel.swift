@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+/// SwiftData model for a season
 @Model
 class SeasonModel: Identifiable, Codable {
     enum CodingKeys: CodingKey {
@@ -17,6 +18,7 @@ class SeasonModel: Identifiable, Codable {
     var id: String
     var seasonNumber: Int
     var episodeCount: Int
+    /// One to many relationship
     @Relationship var episodes: [EpisodeModel] = []
     
     init(id: String, seasonNumber: Int, episodeCount: Int, show: ShowModel? = nil, episodes: [EpisodeModel] = []) {
@@ -26,10 +28,10 @@ class SeasonModel: Identifiable, Codable {
         self.episodes = episodes
     }
     
+    // MARK: - Functions for Codable protocol
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        // Required properties
         self.id = try container.decode(String.self, forKey: .id)
         self.seasonNumber = try container.decode(Int.self, forKey: .seasonNumber)
         self.episodeCount = try container.decode(Int.self, forKey: .episodeCount)

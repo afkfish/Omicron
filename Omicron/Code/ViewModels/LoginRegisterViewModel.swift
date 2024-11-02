@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 import SwiftData
 
+/// ViewModel for `LoginRegisterView`, this can log into firebase and register a new account ot it.
 class LoginRegisterViewModel: ObservableObject {
     private var apiController: APIController!
     private var accountManager: AccountManager!
@@ -21,15 +22,19 @@ class LoginRegisterViewModel: ObservableObject {
         self.modelContainer = modelContainer
     }
     
-    func login(email: String, password: String) async throws {
-        let (onlineUserModel, library) = try await accountManager.loginWithFirebase(email: email, password: password)
-        accountManager.switchToAccount(onlineUserModel)
-        try await accountManager.resolveLibrary(apiController, modelContainer, library, onlineUserModel)
+    func login(email: String, password: String) throws {
+        Task {
+            let (onlineUserModel, library) = try await accountManager.loginWithFirebase(email: email, password: password)
+            accountManager.switchToAccount(onlineUserModel)
+            try await accountManager.resolveLibrary(apiController, modelContainer, library, onlineUserModel)
+        }
     }
     
-    func register(username: String, email: String, password: String) async throws {
-        let (onlineUserModel, library) = try await accountManager.registerWithFirebase(username: username, email: email, password: password)
-        accountManager.switchToAccount(onlineUserModel)
-        try await accountManager.resolveLibrary(apiController, modelContainer, library, onlineUserModel)
+    func register(username: String, email: String, password: String) throws {
+        Task {
+            let (onlineUserModel, library) = try await accountManager.registerWithFirebase(username: username, email: email, password: password)
+            accountManager.switchToAccount(onlineUserModel)
+            try await accountManager.resolveLibrary(apiController, modelContainer, library, onlineUserModel)
+        }
     }
 }

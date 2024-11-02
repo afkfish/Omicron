@@ -8,19 +8,20 @@
 import Foundation
 import SwiftData
 
+/// SwiftData model for a show's search information
 @Model
 final class ShowOverviewModel: Identifiable {
-    final var id: String
-    final var country: String?
+    var id: String
+    var country: String?
     var imageURL: String
-    final var name: String
+    var name: String
     var firstAirDate: String?
     var overview: String?
-    final var primaryLang: String
-    final var status: String
+    var primaryLang: String
+    var status: String
     var network: String?
     var thumbnail: String?
-    final var year: Int
+    var year: Int
     
     init(id: String, country: String? = nil, imageURL: String, name: String, firstAirDate: String?, overview: String?, primaryLang: String, status: String, network: String? = nil, thumbnail: String? = nil, year: Int) {
         self.id = id

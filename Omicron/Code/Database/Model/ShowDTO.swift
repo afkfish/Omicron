@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// This struct is used to decode `ShowModel`s from the API
 struct ShowDTO: Codable {
     var data: DataClass?
     var links: Links?
