@@ -1,2 +1,2 @@
 # Omicron
-BME Önálló laboratórium
+Szakdolgozat: IOS alapú szoftverfejlesztés
