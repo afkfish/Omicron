@@ -14,6 +14,7 @@
 		52422D5D2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */; };
 		52422D602C6ABF4500C53EB1 /* SingleSeasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52422D5F2C6ABF4500C53EB1 /* SingleSeasonView.swift */; };
 		5243F2762CD6701900990CBB /* LibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243F2752CD6701900990CBB /* LibraryManager.swift */; };
+		5243F2802CD97A2000990CBB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243F27F2CD97A2000990CBB /* LoadingView.swift */; };
 		525408472B874BA000521C6C /* OmicronApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408462B874BA000521C6C /* OmicronApp.swift */; };
 		525408492B874BA000521C6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525408482B874BA000521C6C /* ContentView.swift */; };
 		5254084D2B874BA200521C6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5254084C2B874BA200521C6C /* Assets.xcassets */; };
@@ -83,6 +84,7 @@
 		52422D5C2C6ABCD100C53EB1 /* SearchDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsHeaderView.swift; sourceTree = "<group>"; };
 		52422D5F2C6ABF4500C53EB1 /* SingleSeasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSeasonView.swift; sourceTree = "<group>"; };
 		5243F2752CD6701900990CBB /* LibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryManager.swift; sourceTree = "<group>"; };
+		5243F27F2CD97A2000990CBB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		525408432B874BA000521C6C /* Omicron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Omicron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		525408462B874BA000521C6C /* OmicronApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmicronApp.swift; sourceTree = "<group>"; };
 		525408482B874BA000521C6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -218,8 +220,8 @@
 		5254083A2B874B9F00521C6C = {
 			isa = PBXGroup;
 			children = (
-				521EF03C2CCD188E00005C5F /* OmicronTestPlan.xctestplan */,
 				525408452B874BA000521C6C /* Omicron */,
+				521EF03C2CCD188E00005C5F /* OmicronTestPlan.xctestplan */,
 				521438BE2CCABCF0006BD57E /* OmicronUnitTests */,
 				521438CB2CCC1738006BD57E /* OmicronUITests */,
 				525408442B874BA000521C6C /* Products */,
@@ -351,6 +353,7 @@
 				529129652C903ADA00872F4D /* CachedAsyncImage.swift */,
 				5291296B2C90554B00872F4D /* ImageUIImageExtension.swift */,
 				5291296F2C918C8D00872F4D /* ThemeProtocol.swift */,
+				5243F27F2CD97A2000990CBB /* LoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				52EAB5632BCDAB1200604623 /* APIController.swift in Sources */,
 				526C0E822BF66EF300D6A2F6 /* LandingView.swift in Sources */,
 				527811902BDA4E0F00B9F3D1 /* LoginResponse.swift in Sources */,
+				5243F2802CD97A2000990CBB /* LoadingView.swift in Sources */,
 				527811862BD91F9800B9F3D1 /* ProfileView.swift in Sources */,
 				52422D602C6ABF4500C53EB1 /* SingleSeasonView.swift in Sources */,
 				52C9E76F2BB5BD59007017E3 /* SearchDTO.swift in Sources */,

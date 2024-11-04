@@ -35,6 +35,9 @@ struct OmicronApp: App {
     /// Initialize the account management, if "--testing" is present in process arguments then it uses the testing db
     @StateObject private var accountManager: AccountManager = { ProcessInfo.processInfo.arguments.contains("--testing") ? .init(true) : .init() }()
     @StateObject private var theme: ThemeManager = .init()
+
+    @State private var isLoading = false
+    @State private var hasUser = false
     
     /// SwiftData model container creation
     var sharedModelContainer: ModelContainer = {
@@ -50,7 +53,22 @@ struct OmicronApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if isLoading {
+                    ProgressView()
+                } else if hasUser {
+                    ContentView()
+                } else {
+                    LandingView()
+                }
+            }
+            .animation(.default, value: [isLoading, hasUser])
+            .onChange(of: accountManager.isAuthenticating) { _, newValue in
+                isLoading = newValue
+            }
+            .onChange(of: accountManager.currentAccount) { _, newValue in
+                hasUser = newValue != nil
+            }
         }
         .modelContainer(sharedModelContainer)
         .environmentObject(accountManager)

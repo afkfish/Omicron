@@ -87,7 +87,7 @@ struct LoginRegisterView: View {
 }
 
 #Preview {
-    LoginRegisterView(isSignup: true)
+    LoginRegisterView(isSignup: false)
         .modelContainer(for: ShowModel.self, inMemory: true)
         .environmentObject(ThemeManager())
         .environmentObject(AccountManager())

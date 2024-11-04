@@ -13,6 +13,7 @@ import SwiftData
 class AccountManager: ObservableObject {
     @Published var offlineAccount: UserModel?
     @Published var currentAccount: UserModel?
+    @Published var isAuthenticating: Bool = false
     
     private let userDefaults = UserDefaults.standard
     private var db = Firestore.firestore().collection("users")
@@ -68,10 +69,12 @@ class AccountManager: ObservableObject {
         if Thread.isMainThread {
             currentAccount = account
             saveAccounts()
+            self.isAuthenticating = false
         } else {
             DispatchQueue.main.async {
                 self.currentAccount = account
                 self.saveAccounts()
+                self.isAuthenticating = false
             }
         }
     }
@@ -83,12 +86,18 @@ class AccountManager: ObservableObject {
     }
     
     func loginWithFirebase(email: String, password: String) async throws -> (UserModel, [String]) {
+        DispatchQueue.main.async {
+            self.isAuthenticating = true
+        }
         let authResult = try await auth.signIn(withEmail: email, password: password)
         let user = authResult.user
         return try await syncDown(for: user.uid)
     }
     
     func registerWithFirebase(username: String, email: String, password: String) async throws -> (UserModel, [String]) {
+        DispatchQueue.main.async {
+            self.isAuthenticating = true
+        }
         let authResult = try await auth.createUser(withEmail: email, password: password)
         let user = authResult.user
         let userModel = UserModelDTO(id: user.uid, username: username, email: email, library: [], ratings: [:], progresses: [:], version: 0)

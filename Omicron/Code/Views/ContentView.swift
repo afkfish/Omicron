@@ -15,26 +15,22 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            if (accountManager.currentAccount == nil) {
-                LandingView()
-            } else {
-                TabView {
-                    BrowseView()
-                        .tabItem { Label("Browse", systemImage: "globe") }.tag(1)
-                        .toolbarBackground(theme.selected.primary, for: .tabBar)
-                    
-                    ListsView()
-                        .tabItem { Label("Library", systemImage: "list.star") }.tag(2)
-                        .toolbarBackground(theme.selected.primary, for: .tabBar)
-                    
-                    ProfileView()
-                        .tabItem { Label("Profile", systemImage: "person") }.tag(3)
-                        .toolbarBackground(theme.selected.primary, for: .tabBar)
-                    
-                    SettingsView()
-                        .tabItem { Label("Settings", systemImage: "gear") }.tag(4)
-                        .toolbarBackground(theme.selected.primary, for: .tabBar)
-                }
+            TabView {
+                BrowseView()
+                    .tabItem { Label("Browse", systemImage: "globe") }.tag(1)
+                    .toolbarBackground(theme.selected.primary, for: .tabBar)
+                
+                ListsView()
+                    .tabItem { Label("Library", systemImage: "list.star") }.tag(2)
+                    .toolbarBackground(theme.selected.primary, for: .tabBar)
+                
+                ProfileView()
+                    .tabItem { Label("Profile", systemImage: "person") }.tag(3)
+                    .toolbarBackground(theme.selected.primary, for: .tabBar)
+                
+                SettingsView()
+                    .tabItem { Label("Settings", systemImage: "gear") }.tag(4)
+                    .toolbarBackground(theme.selected.primary, for: .tabBar)
             }
         }
         .tint(theme.selected.accent)
