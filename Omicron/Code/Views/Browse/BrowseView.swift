@@ -10,6 +10,7 @@ import SwiftData
 
 struct BrowseView: View {
     @EnvironmentObject private var theme: ThemeManager
+    @EnvironmentObject private var accountManager: AccountManager
     @Environment(\.modelContext) private var modelcontext
     @Environment(\.defaultAPIController) private var apiController
     @Query(sort: \ShowOverviewModel.name, order: .forward) private var overviewList: [ShowOverviewModel]
@@ -50,19 +51,30 @@ struct BrowseView: View {
                 .searchable(text: $searchPhrase, prompt: "Search for a show")
                 .onChange(of: searchPhrase) {
                     if (filteredSearchItems.count < 3) {
-                        vm.search(apiController, query: searchPhrase)
+                        vm.search(query: searchPhrase)
                     }
                 }
                 .onChange(of: vm.isFinished) {
                     if (vm.isFinished) {
-                        vm.appendResults(overviewList: overviewList, modelContainer: modelcontext.container)
+                        addResults()
                         vm.isFinished = false
                     }
                 }
                 .navigationTitle("Browse")
                 .toolbarBackground(theme.selected.primary, for: .navigationBar)
             }
+            .onAppear {
+                vm.setup(apiController: apiController, accountManager: accountManager)
+            }
             .background(theme.selected.primary)
+        }
+    }
+    
+    func addResults() {
+        vm.searchResults.forEach {result in
+            if (!overviewList.contains { $0.id == result.id }) {
+                modelcontext.insert(result)
+            }
         }
     }
 }

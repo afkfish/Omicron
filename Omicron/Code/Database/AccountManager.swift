@@ -86,19 +86,19 @@ class AccountManager: ObservableObject {
     }
     
     func loginWithFirebase(email: String, password: String) async throws -> (UserModel, [String]) {
+        let authResult = try await auth.signIn(withEmail: email, password: password)
         DispatchQueue.main.async {
             self.isAuthenticating = true
         }
-        let authResult = try await auth.signIn(withEmail: email, password: password)
         let user = authResult.user
         return try await syncDown(for: user.uid)
     }
     
     func registerWithFirebase(username: String, email: String, password: String) async throws -> (UserModel, [String]) {
+        let authResult = try await auth.createUser(withEmail: email, password: password)
         DispatchQueue.main.async {
             self.isAuthenticating = true
         }
-        let authResult = try await auth.createUser(withEmail: email, password: password)
         let user = authResult.user
         let userModel = UserModelDTO(id: user.uid, username: username, email: email, library: [], ratings: [:], progresses: [:], version: 0)
         try db.document(user.uid).setData(from: userModel)
